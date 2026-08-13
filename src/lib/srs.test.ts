@@ -11,12 +11,13 @@ describe("word data", () => {
     expect(new Set(words).size).toBe(words.length);
   });
 
-  it("covers ten units across four parts", () => {
+  it("has 1900 unique words across 19 Target-style units", () => {
     const units = new Set(WORDS.map((w) => w.unit));
     const parts = new Set(WORDS.map((w) => w.part));
-    expect(units.size).toBe(10);
-    expect(parts.size).toBe(4);
-    expect(WORDS.length).toBeGreaterThanOrEqual(400);
+    expect(units.size).toBe(19);
+    expect(parts.size).toBe(3);
+    expect(WORDS.length).toBe(1900);
+    expect(WORDS.every((w) => w.phrase && w.phraseJa)).toBe(true);
   });
 });
 

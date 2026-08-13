@@ -6,9 +6,9 @@ export type Word = {
   ipa: string;
   pos: Pos;
   meaning: string;
-  example: string;
-  exampleJa: string;
-  part: 1 | 2 | 3 | 4;
+  phrase: string;
+  phraseJa: string;
+  part: 1 | 2 | 3;
   unit: number;
 };
 
@@ -42,8 +42,7 @@ export type Route =
   | { name: "stats" };
 
 export const PARTS = [
-  { id: 1 as const, label: "基礎", subtitle: "Target 序盤帯", score: "〜600" },
-  { id: 2 as const, label: "必修", subtitle: "Target 中盤帯", score: "〜730" },
-  { id: 3 as const, label: "発展", subtitle: "Target 終盤帯", score: "〜860" },
-  { id: 4 as const, label: "ビジネス", subtitle: "TOEIC 頻出", score: "〜990" },
+  { id: 1 as const, label: "基礎", subtitle: "1–800", score: "常に出る" },
+  { id: 2 as const, label: "必修", subtitle: "801–1500", score: "重要語" },
+  { id: 3 as const, label: "発展", subtitle: "1501–1900", score: "差がつく" },
 ];

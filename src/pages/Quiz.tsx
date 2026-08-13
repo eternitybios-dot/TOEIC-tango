@@ -92,22 +92,22 @@ export function Quiz({ unit, onReview, go }: Props) {
         <button className={`chip${jaToEn ? " on" : ""}`} onClick={() => setJaToEn(true)}>
           和 → 英
         </button>
-        <button className="chip" onClick={() => speak(word.word)}>
+        <button className="chip" onClick={() => speak(word.phrase)}>
           発音
         </button>
       </div>
 
       {jaToEn ? (
         <>
-          <p className="quiz-prompt" style={{ fontFamily: "var(--font)", fontSize: 28 }}>
-            {word.meaning}
+          <p className="quiz-prompt" style={{ fontFamily: "var(--font)", fontSize: 24 }}>
+            {word.phraseJa}
           </p>
           <p className="quiz-sub">{word.pos} · 英語を選ぶ</p>
         </>
       ) : (
         <>
           <p className="quiz-prompt">{word.word}</p>
-          <p className="quiz-sub">/{word.ipa}/ · 意味を選ぶ</p>
+          <p className="quiz-sub">{word.pos} · フレーズの意味を選ぶ</p>
         </>
       )}
 
@@ -121,7 +121,7 @@ export function Quiz({ unit, onReview, go }: Props) {
             className={`choice${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
             onClick={() => choose(choice)}
           >
-            {jaToEn ? choice.word : choice.meaning}
+            {jaToEn ? choice.word : choice.phraseJa}
           </button>
         );
       })}

@@ -16,8 +16,8 @@ export function Home({ state, go }: Props) {
     <>
       <header className="topbar">
         <div className="brand">
-          TARGET TOEIC
-          <span>単語帳</span>
+          TARGET 1900
+          <span>フレーズ単語帳</span>
         </div>
         <div className="muted">全 {WORDS.length} 語</div>
       </header>
@@ -50,7 +50,7 @@ export function Home({ state, go }: Props) {
               className="part-card"
               onClick={() => go({ name: "list", unit: wordsByPart(part.id)[0]?.unit })}
             >
-              <span className="tiny">TOEIC {part.score}</span>
+              <span className="tiny">{part.score}</span>
               <strong>{part.label}</strong>
               <span className="muted">{part.subtitle}</span>
               <div className="bar" style={{ marginBottom: 0, marginTop: 10 }}>
@@ -82,7 +82,7 @@ export function Home({ state, go }: Props) {
       </div>
 
       <p className="muted" style={{ marginTop: 18, lineHeight: 1.7 }}>
-        見出し語は英単語ターゲット系の高頻度語と TOEIC ビジネス語をベースにしています。定義・例文はオリジナルです。
+        見出し語は英単語ターゲット1900に出るタイプの受験頻出語です。短いフレーズと日本語はオリジナルです。
       </p>
       <p className="muted" style={{ marginTop: 8 }}>
         全体 {all.mastered} 語習得 / 未学習 {all.new}
