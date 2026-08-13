@@ -119,15 +119,15 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
           <div className="face">
             <span className="pos">{word.pos}</span>
             <div className="word">{word.word}</div>
-            <div className="ipa">/{word.ipa}/</div>
-            <p className="hint">タップして意味を表示</p>
+            {word.ipa ? <div className="ipa">/{word.ipa}/</div> : null}
+            <p className="hint">タップしてフレーズを表示</p>
           </div>
           <div className="face back">
             <span className="pos">{word.pos}</span>
             <div className="meaning">{word.meaning}</div>
-            <p className="example">
-              {word.example}
-              <em>{word.exampleJa}</em>
+            <p className="phrase">
+              {word.phrase}
+              <span className="phrase-ja">{word.phraseJa}</span>
             </p>
           </div>
         </div>

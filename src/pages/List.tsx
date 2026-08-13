@@ -29,7 +29,11 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
     const q = query.trim().toLowerCase();
     if (!q) return source;
     return source.filter(
-      (w) => w.word.toLowerCase().includes(q) || w.meaning.includes(q),
+      (w) =>
+        w.word.toLowerCase().includes(q) ||
+        w.meaning.includes(q) ||
+        w.phrase.toLowerCase().includes(q) ||
+        w.phraseJa.includes(q),
     );
   }, [unit, query]);
 
@@ -76,7 +80,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
             <div>
               <b>{word.word}</b>
               <div className="muted">
-                {word.pos} · {word.meaning}
+                {word.pos} · {word.phraseJa}
               </div>
             </div>
             <span className="badge">{LABELS[mastery]}</span>
@@ -97,12 +101,10 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
           <div className="word" style={{ fontSize: 32, margin: "10px 0 4px" }}>
             {open.word}
           </div>
-          <div className="muted">/{open.ipa}/</div>
-          <p style={{ margin: "12px 0", fontSize: 20 }}>{open.meaning}</p>
-          <p className="muted" style={{ lineHeight: 1.7 }}>
-            {open.example}
-            <br />
-            {open.exampleJa}
+          <p style={{ margin: "12px 0", fontSize: 18 }}>{open.meaning}</p>
+          <p className="phrase" style={{ marginTop: 0 }}>
+            {open.phrase}
+            <span className="phrase-ja">{open.phraseJa}</span>
           </p>
           <button
             className="cta"

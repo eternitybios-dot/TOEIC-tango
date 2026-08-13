@@ -311,23 +311,35 @@ button {
 }
 
 .meaning {
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 700;
-  margin: 18px 0 16px;
+  margin: 8px 0 14px;
   line-height: 1.35;
+  color: #6a5f4e;
 }
 
-.example {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #4a4338;
+.phrase {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.35;
+  margin: 12px 0 8px;
 }
 
-.example em {
+.phrase-ja {
   display: block;
   margin-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
   font-style: normal;
-  color: #6d6456;
+  color: #1b1611;
+}
+
+.hero .phrase {
+  color: var(--gold);
+}
+
+.hero .phrase-ja {
+  color: var(--paper);
 }
 
 .hint {

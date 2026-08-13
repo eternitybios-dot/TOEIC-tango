@@ -1,7 +1,7 @@
 import type { AppState, WordProgress } from "../types";
 import { emptyProgress } from "./srs";
 
-const KEY = "toeic-tango-v1";
+const KEY = "toeic-tango-v2";
 
 export function todayKey(date = new Date()): string {
   const y = date.getFullYear();
