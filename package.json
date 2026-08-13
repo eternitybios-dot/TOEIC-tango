@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && rm -rf docs && vite build && node scripts/postbuild.mjs",
     "preview": "vite preview",
     "test": "vitest run"
   },
@@ -19,6 +19,7 @@
     "@vitejs/plugin-react": "^5.0.2",
     "typescript": "~5.9.2",
     "vite": "^7.1.5",
+    "vite-plugin-singlefile": "^2.3.3",
     "vitest": "^3.2.4"
   }
 }

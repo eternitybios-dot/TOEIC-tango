@@ -33,3 +33,7 @@ npm run build
 ```
 
 学習記録はブラウザ内に保存されます。サーバーやアカウントは使いません。
+
+## Web で開く
+
+https://eternitybios-dot.github.io/TOEIC-tango/
