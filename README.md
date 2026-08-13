@@ -36,6 +36,6 @@ npm run build
 
 ## Web で開く
 
-GitHub Pages: https://eternitybios-dot.github.io/TOEIC-tango/
-
-初回だけ、リポジトリの **Settings → Pages → Build and deployment → Source** を **GitHub Actions** にしてください。設定後、このブランチ（または `main`）への push で公開されます。
+1. リポジトリの [Pages 設定](https://github.com/eternitybios-dot/TOEIC-tango/settings/pages) を開く
+2. **Build and deployment → Source** を **GitHub Actions** にする
+3. 公開 URL: https://eternitybios-dot.github.io/TOEIC-tango/

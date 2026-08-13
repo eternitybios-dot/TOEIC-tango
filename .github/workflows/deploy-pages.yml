@@ -28,11 +28,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
+      - id: pages
+        continue-on-error: true
+        uses: actions/configure-pages@v5
+      - if: steps.pages.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: docs
-      - id: deployment
+      - if: steps.pages.outcome == 'success'
+        id: deployment
         uses: actions/deploy-pages@v4
+      - if: steps.pages.outcome != 'success'
+        run: |
+          echo "GitHub Pages is not enabled yet."
+          echo "Open Settings → Pages and set Source to GitHub Actions, then re-run this workflow."
+          echo "https://github.com/${{ github.repository }}/settings/pages"
