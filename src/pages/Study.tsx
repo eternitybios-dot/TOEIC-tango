@@ -57,14 +57,12 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   function answer(result: "again" | "good") {
     if (!word || finished) return;
     onReview(word, result);
-    const nextScore = { ...score, [result]: score[result] + 1 };
-    setScore(nextScore);
-    const nextIndex = index + 1;
-    if (nextIndex >= queue.length) {
+    setScore((prev) => ({ ...prev, [result]: prev[result] + 1 }));
+    if (index + 1 >= queue.length) {
       setFinished(true);
       return;
     }
-    setIndex(nextIndex);
+    setIndex((current) => current + 1);
     setRevealed(false);
   }
 
@@ -135,14 +133,36 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
         </div>
       </div>
 
-      <div className="row">
-        <button className="btn speak" onClick={() => speak(word.word)} aria-label="発音">
+      <div className="row actions">
+        <button
+          type="button"
+          className="btn speak"
+          onClick={(event) => {
+            event.stopPropagation();
+            speak(word.word);
+          }}
+          aria-label="発音"
+        >
           ♪
         </button>
-        <button className="btn again" disabled={!revealed} onClick={() => answer("again")}>
+        <button
+          type="button"
+          className="btn again"
+          onClick={(event) => {
+            event.stopPropagation();
+            answer("again");
+          }}
+        >
           もう一度
         </button>
-        <button className="btn good" disabled={!revealed} onClick={() => answer("good")}>
+        <button
+          type="button"
+          className="btn good"
+          onClick={(event) => {
+            event.stopPropagation();
+            answer("good");
+          }}
+        >
           覚えた
         </button>
       </div>
