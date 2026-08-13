@@ -29,10 +29,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
     const q = query.trim().toLowerCase();
     if (!q) return source;
     return source.filter(
-      (w) =>
-        w.word.toLowerCase().includes(q) ||
-        w.meaning.includes(q) ||
-        w.example.toLowerCase().includes(q),
+      (w) => w.word.toLowerCase().includes(q) || w.meaning.includes(q),
     );
   }, [unit, query]);
 
