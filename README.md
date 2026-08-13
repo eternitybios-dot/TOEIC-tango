@@ -33,3 +33,9 @@ npm run build
 ```
 
 学習記録はブラウザ内に保存されます。サーバーやアカウントは使いません。
+
+## Web で開く
+
+GitHub Pages: https://eternitybios-dot.github.io/TOEIC-tango/
+
+初回だけ、リポジトリの **Settings → Pages → Build and deployment → Source** を **GitHub Actions** にしてください。設定後、このブランチ（または `main`）への push で公開されます。
