@@ -49,7 +49,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
     <div className="page">
       <header className="topbar">
         <div className="brand">
-          WORD LIST
+          単語
           <span>単語一覧</span>
         </div>
         <div className="muted">{words.length} 語</div>

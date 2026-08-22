@@ -5,7 +5,7 @@
   --paper: #f6efe2;
   --paper-2: #e8dcc6;
   --ink: #1a1410;
-  --muted: #8a8174;
+  --muted: #b4aa9c;
   --gold: #e8b84a;
   --gold-2: #f3d17a;
   --gold-dim: #b88928;
@@ -824,12 +824,30 @@ button:disabled {
   color: var(--paper);
 }
 
+.explain-compare {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #f0e6d4;
+  margin-bottom: 12px;
+}
+
 .explain-body {
   font-size: 16px;
   line-height: 1.75;
   letter-spacing: 0.04em;
   color: #f0e6d4;
   margin-bottom: 8px;
+}
+
+.heat-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-align: center;
 }
 
 .slide-up {

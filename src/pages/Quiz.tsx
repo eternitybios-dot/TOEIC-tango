@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
-import { pickChoices, pickSession } from "../lib/quiz";
+import { clozePhrase, pickChoices, pickSession } from "../lib/quiz";
+import { dealSession, SESSION_SIZE } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
 import { Burst } from "../components/Burst";
@@ -13,26 +14,37 @@ import { ProgressBar } from "../components/ProgressBar";
 type Props = {
   state: AppState;
   unit?: number;
-  onReview: (word: Word, result: "again" | "good") => void;
+  onQuiz: (word: Word, ok: boolean) => void;
   go: (route: Route) => void;
 };
 
-const SESSION = 10;
+type Mode = "en-ja" | "ja-en" | "cloze";
 
-export function Quiz({ state, unit, onReview, go }: Props) {
-  const pool = unit ? wordsByUnit(unit) : WORDS;
-  const [queue] = useState(() => pickSession(pool, SESSION));
+export function Quiz({ state, unit, onQuiz, go }: Props) {
+  const source = unit ? wordsByUnit(unit) : WORDS;
+  const [queue, setQueue] = useState(() => dealSession(state, source));
   const [index, setIndex] = useState(0);
-  const [jaToEn, setJaToEn] = useState(false);
+  const [mode, setMode] = useState<Mode>("en-ja");
   const [picked, setPicked] = useState<number | null>(null);
   const [score, setScore] = useState(0);
+  const [missed, setMissed] = useState<Word[]>([]);
   const [finished, setFinished] = useState(false);
   const [shake, setShake] = useState(false);
 
   const word = queue[index];
-  const choices = useMemo(() => (word ? pickChoices(word, pool, 4) : []), [word, pool]);
+  const choices = useMemo(() => (word ? pickChoices(word, source, 4) : []), [word, source]);
+  const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
   const meaning = word && picked !== null ? explainMeaning(word) : null;
+
+  function start(nextQueue: Word[]) {
+    setQueue(nextQueue);
+    setIndex(0);
+    setPicked(null);
+    setScore(0);
+    setMissed([]);
+    setFinished(false);
+  }
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -42,10 +54,11 @@ export function Quiz({ state, unit, onReview, go }: Props) {
     haptic(ok ? [8, 20, 12] : [30, 20, 30], state.settings.haptics);
     if (ok) setScore((n) => n + 1);
     else {
+      setMissed((list) => (list.some((item) => item.id === word.id) ? list : [...list, word]));
       setShake(true);
       window.setTimeout(() => setShake(false), 420);
     }
-    onReview(word, ok ? "good" : "again");
+    onQuiz(word, ok);
   }
 
   function next() {
@@ -59,23 +72,33 @@ export function Quiz({ state, unit, onReview, go }: Props) {
     setPicked(null);
   }
 
+  function label(choice: Word) {
+    if (mode === "cloze") return choice.word;
+    return mode === "ja-en" ? choice.phrase : choice.phraseJa;
+  }
+
   if (finished) {
     return (
       <div className="page result">
         <Burst />
-        <p className="tiny gold">QUIZ</p>
+        <p className="tiny gold">クイズ結果</p>
         <h2>
           <CountUp value={score} />
           <small>/{queue.length}</small>
         </h2>
         <p className="muted" style={{ margin: "8px 0 22px" }}>
-          {score >= 8 ? "この調子で次の UNIT へ。" : "間違えた語は単語帳で復習を。"}
+          {missed.length === 0 ? "このセットは満点です。" : `まちがい ${missed.length} 語`}
         </p>
-        <div className="row">
+        {missed.length > 0 ? (
+          <button className="cta" onClick={() => start(missed)}>
+            間違えた語だけ再テスト
+          </button>
+        ) : null}
+        <div className="row" style={{ marginTop: missed.length > 0 ? 10 : 0 }}>
           <button className="cta ghost" onClick={() => go({ name: "study", unit, mode: unit ? "unit" : "due" })}>
             カードへ
           </button>
-          <button className="cta" onClick={() => go({ name: "home" })}>
+          <button className="cta ghost" onClick={() => go({ name: "home" })}>
             ホーム
           </button>
         </div>
@@ -84,7 +107,14 @@ export function Quiz({ state, unit, onReview, go }: Props) {
   }
 
   if (!word) {
-    return <div className="page empty">出題できる単語がありません。</div>;
+    return (
+      <div className="page empty">
+        <p>今、期限の語はありません。</p>
+        <button className="cta" style={{ marginTop: 16 }} onClick={() => start(pickSession(source, SESSION_SIZE))}>
+          10語ランダム
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -93,7 +123,7 @@ export function Quiz({ state, unit, onReview, go }: Props) {
         <IconBack /> ホーム
       </button>
       <div className="progress-label">
-        <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : "全範囲"}</span>
+        <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : "期限＋新規"}</span>
         <span>
           {index + 1} / {queue.length}
         </span>
@@ -101,27 +131,35 @@ export function Quiz({ state, unit, onReview, go }: Props) {
       <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />
 
       <div className="row" style={{ marginBottom: 8 }}>
-        <button className={`chip${jaToEn ? "" : " on"}`} disabled={picked !== null} onClick={() => setJaToEn(false)}>
+        <button className={`chip${mode === "en-ja" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("en-ja")}>
           英 → 和
         </button>
-        <button className={`chip${jaToEn ? " on" : ""}`} disabled={picked !== null} onClick={() => setJaToEn(true)}>
+        <button className={`chip${mode === "ja-en" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("ja-en")}>
           和 → 英
+        </button>
+        <button className={`chip${mode === "cloze" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("cloze")}>
+          空所
         </button>
         <button className="chip" onClick={() => speak(word.phrase)}>
           発音
         </button>
       </div>
 
-      <div className="quiz-stage" key={word.id}>
-        {jaToEn ? (
+      <div className="quiz-stage" key={`${word.id}-${mode}`}>
+        {mode === "ja-en" ? (
           <>
             <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-            <p className="quiz-sub">{word.pos} · 英語のフレーズを選ぶ</p>
+            <p className="quiz-sub">英語のフレーズを選ぶ</p>
+          </>
+        ) : mode === "cloze" ? (
+          <>
+            <p className="quiz-prompt quiz-prompt-en">{clozePhrase(word)}</p>
+            <p className="quiz-sub">空所に入る語を選ぶ</p>
           </>
         ) : (
           <>
             <p className="quiz-prompt quiz-prompt-en">{word.phrase}</p>
-            <p className="quiz-sub">{word.pos} · 日本語のフレーズを選ぶ</p>
+            <p className="quiz-sub">日本語のフレーズを選ぶ</p>
           </>
         )}
       </div>
@@ -137,14 +175,21 @@ export function Quiz({ state, unit, onReview, go }: Props) {
             style={{ animationDelay: `${i * 50}ms` }}
             onClick={() => choose(choice)}
           >
-            {jaToEn ? choice.phrase : choice.phraseJa}
+            {label(choice)}
           </button>
         );
       })}
 
-      {picked !== null && meaning && (
-        <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`}>
+      {picked !== null && meaning && pickedWord && (
+        <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`} aria-live="polite">
           <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
+          {!isCorrect && (
+            <p className="explain-compare">
+              あなたの答え {pickedWord.word}「{pickedWord.meaning}」
+              <br />
+              正解 {word.word}「{word.meaning}」
+            </p>
+          )}
           <p className="explain-word">
             {word.word}
             <small>{word.pos}</small>

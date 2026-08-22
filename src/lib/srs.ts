@@ -63,3 +63,23 @@ export function review(
   next.nextReview = now + intervalDays * DAY;
   return next;
 }
+
+/** Quiz guesses must not advance SM-2. Wrong answers become due soon. */
+export function recordQuiz(progress: WordProgress, ok: boolean, now = Date.now()): WordProgress {
+  const next: WordProgress = {
+    ...progress,
+    lastResult: ok ? "good" : "again",
+    correct: progress.correct + (ok ? 1 : 0),
+    wrong: progress.wrong + (ok ? 0 : 1),
+  };
+
+  if (!ok) {
+    next.seen = Math.max(1, progress.seen);
+    next.repetitions = 0;
+    next.interval = 0;
+    next.ease = Math.max(1.3, progress.ease - 0.1);
+    next.nextReview = now + 10 * MINUTE;
+  }
+
+  return next;
+}

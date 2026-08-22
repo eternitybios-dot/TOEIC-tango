@@ -21,6 +21,17 @@ export function pickSession(pool: Word[], size: number): Word[] {
   return shuffle(pool).slice(0, Math.min(size, pool.length));
 }
 
+/** Keep the incoming order so due words stay first. */
+export function takeSession(pool: Word[], size: number): Word[] {
+  return pool.slice(0, Math.min(size, pool.length));
+}
+
+export function clozePhrase(word: Word): string {
+  const escaped = word.word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const blanked = word.phrase.replace(new RegExp(`\\b${escaped}\\b`, "i"), "______");
+  return blanked === word.phrase ? `______ ${word.phrase}` : blanked;
+}
+
 export function afterGood(
   queue: Word[],
   index: number,

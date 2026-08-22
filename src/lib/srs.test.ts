@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
-import { afterAgain, afterGood, pickChoices } from "./quiz";
-import { emptyProgress, masteryOf, review } from "./srs";
+import { afterAgain, afterGood, clozePhrase, pickChoices, takeSession } from "./quiz";
+import { emptyProgress, masteryOf, recordQuiz, review } from "./srs";
+import { hashToRoute, routeToHash } from "./route";
 
 describe("word data", () => {
   it("has unique ids and unique headwords", () => {
@@ -64,5 +65,44 @@ describe("quiz", () => {
     const good = afterGood([a, b, c], 0);
     expect(good.queue.map((w) => w.id)).toEqual([b.id, c.id]);
     expect(afterGood([a], 0).finished).toBe(true);
+  });
+
+  it("keeps due order when taking a session", () => {
+    const [a, b, c] = WORDS;
+    expect(takeSession([a, b, c], 2).map((w) => w.id)).toEqual([a.id, b.id]);
+  });
+
+  it("blanks the headword for cloze prompts", () => {
+    const word = WORDS.find((item) => item.word === "abandon");
+    expect(word).toBeTruthy();
+    expect(clozePhrase(word!)).toMatch(/______/);
+    expect(clozePhrase(word!).toLowerCase().includes("abandon")).toBe(false);
+  });
+});
+
+describe("quiz vs card srs", () => {
+  it("does not advance the interval on a correct quiz guess", () => {
+    const learned = review(emptyProgress(), "good");
+    const afterQuiz = recordQuiz(learned, true);
+    expect(afterQuiz.interval).toBe(learned.interval);
+    expect(afterQuiz.nextReview).toBe(learned.nextReview);
+    expect(afterQuiz.repetitions).toBe(learned.repetitions);
+    expect(afterQuiz.correct).toBe(learned.correct + 1);
+  });
+
+  it("makes a missed quiz word due again soon", () => {
+    const learned = review(emptyProgress(), "good");
+    const missed = recordQuiz(learned, false);
+    expect(missed.repetitions).toBe(0);
+    expect(missed.wrong).toBe(1);
+    expect(missed.nextReview).toBeLessThan(learned.nextReview);
+  });
+});
+
+describe("routes", () => {
+  it("round-trips study and quiz hashes", () => {
+    expect(hashToRoute("#/study/3")).toEqual({ name: "study", mode: "unit", unit: 3 });
+    expect(routeToHash({ name: "quiz" })).toBe("#/quiz");
+    expect(hashToRoute("")).toEqual({ name: "home" });
   });
 });

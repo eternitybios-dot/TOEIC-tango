@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import type { AppState, Route, Settings, Word } from "./types";
 import { defaultState, getProgress, loadState, saveState, withStudyTick } from "./lib/storage";
-import { review } from "./lib/srs";
+import { recordQuiz, review } from "./lib/srs";
 import { playSfx } from "./lib/feedback";
+import { hashToRoute, routeToHash, routesEqual } from "./lib/route";
 import { Home } from "./pages/Home";
 import { Study } from "./pages/Study";
 import { Quiz } from "./pages/Quiz";
@@ -11,19 +12,38 @@ import { Stats } from "./pages/Stats";
 import { NavBar } from "./components/NavBar";
 import { Onboarding } from "./components/Onboarding";
 
+function navRoute(name: Route["name"]): Route {
+  if (name === "study") return { name: "study", mode: "due" };
+  if (name === "quiz") return { name: "quiz" };
+  return { name };
+}
+
 export default function App() {
-  const [route, setRoute] = useState<Route>({ name: "home" });
+  const [route, setRoute] = useState<Route>(() =>
+    typeof window === "undefined" ? { name: "home" } : hashToRoute(window.location.hash),
+  );
   const [state, setState] = useState<AppState>(() => loadState());
 
   useEffect(() => {
     saveState(state);
   }, [state]);
 
+  useEffect(() => {
+    const onHash = () => {
+      const next = hashToRoute(window.location.hash);
+      setRoute((current) => (routesEqual(current, next) ? current : next));
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
   function go(next: Route) {
     playSfx("tap", state.settings.sound);
     if (next.name === "study" && next.unit) {
       setState((prev) => ({ ...prev, lastUnit: next.unit ?? prev.lastUnit }));
     }
+    const hash = routeToHash(next);
+    if (window.location.hash !== hash) window.location.hash = hash;
     setRoute(next);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -38,6 +58,21 @@ export default function App() {
         progress: {
           ...ticked.progress,
           [word.id]: review(current, result),
+        },
+      };
+    });
+  }
+
+  function onQuiz(word: Word, ok: boolean) {
+    setState((prev) => {
+      const current = getProgress(prev, word.id);
+      const ticked = withStudyTick(prev);
+      return {
+        ...ticked,
+        lastUnit: word.unit,
+        progress: {
+          ...ticked.progress,
+          [word.id]: recordQuiz(current, ok),
         },
       };
     });
@@ -78,7 +113,7 @@ export default function App() {
         {route.name === "study" && (
           <Study state={state} unit={route.unit} mode={route.mode} onReview={onReview} go={go} />
         )}
-        {route.name === "quiz" && <Quiz state={state} unit={route.unit} onReview={onReview} go={go} />}
+        {route.name === "quiz" && <Quiz state={state} unit={route.unit} onQuiz={onQuiz} go={go} />}
         {route.name === "list" && <WordList state={state} unit={route.unit} go={go} />}
         {route.name === "stats" && (
           <Stats
@@ -95,7 +130,7 @@ export default function App() {
           />
         )}
       </div>
-      <NavBar current={route.name} onGo={(name) => go({ name })} />
+      <NavBar current={route.name} onGo={(name) => go(navRoute(name))} />
     </div>
   );
 }
