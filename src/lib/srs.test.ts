@@ -47,4 +47,10 @@ describe("quiz", () => {
     expect(new Set(choices.map((c) => c.id)).size).toBe(4);
     expect(choices.some((c) => c.id === correct.id)).toBe(true);
   });
+
+  it("uses short phrases rather than a single headword", () => {
+    const sample = WORDS.slice(0, 80);
+    expect(sample.every((w) => w.phrase.trim().includes(" "))).toBe(true);
+    expect(sample.every((w) => w.phraseJa.trim().length > 1)).toBe(true);
+  });
 });
