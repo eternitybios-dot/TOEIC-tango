@@ -32,6 +32,15 @@ export function clozePhrase(word: Word): string {
   return blanked === word.phrase ? `______ ${word.phrase}` : blanked;
 }
 
+export function phraseParts(word: Word): { text: string; hit: boolean }[] {
+  const escaped = word.word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`(\\b${escaped}\\b)`, "i");
+  return word.phrase.split(re).filter(Boolean).map((text) => ({
+    text,
+    hit: text.toLowerCase() === word.word.toLowerCase(),
+  }));
+}
+
 export function afterGood(
   queue: Word[],
   index: number,

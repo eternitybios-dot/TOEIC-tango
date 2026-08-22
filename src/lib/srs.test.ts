@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
-import { afterAgain, afterGood, clozePhrase, pickChoices, takeSession } from "./quiz";
+import { afterAgain, afterGood, clozePhrase, phraseParts, pickChoices, takeSession } from "./quiz";
 import { emptyProgress, masteryOf, recordQuiz, review } from "./srs";
 import { hashToRoute, routeToHash } from "./route";
 
@@ -77,6 +77,7 @@ describe("quiz", () => {
     expect(word).toBeTruthy();
     expect(clozePhrase(word!)).toMatch(/______/);
     expect(clozePhrase(word!).toLowerCase().includes("abandon")).toBe(false);
+    expect(phraseParts(word!).some((part) => part.hit && part.text.toLowerCase() === "abandon")).toBe(true);
   });
 });
 
