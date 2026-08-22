@@ -18,6 +18,26 @@ export function defaultState(): AppState {
     todayCount: 0,
     todayDate: null,
     goal: 20,
+    settings: { sound: true, haptics: true },
+    onboarded: false,
+    lastUnit: null,
+    studyDays: [],
+  };
+}
+
+export function normalizeState(parsed: Partial<AppState> | null | undefined): AppState {
+  const base = defaultState();
+  if (!parsed || typeof parsed !== "object") return base;
+  const progress = parsed.progress ?? {};
+  return {
+    ...base,
+    ...parsed,
+    progress,
+    goal: typeof parsed.goal === "number" && parsed.goal > 0 ? parsed.goal : base.goal,
+    settings: { ...base.settings, ...(parsed.settings ?? {}) },
+    onboarded: parsed.onboarded ?? Object.keys(progress).length > 0,
+    lastUnit: parsed.lastUnit ?? null,
+    studyDays: Array.isArray(parsed.studyDays) ? parsed.studyDays : [],
   };
 }
 
@@ -25,8 +45,7 @@ export function loadState(): AppState {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return defaultState();
-    const parsed = JSON.parse(raw) as AppState;
-    return { ...defaultState(), ...parsed, progress: parsed.progress ?? {} };
+    return normalizeState(JSON.parse(raw) as Partial<AppState>);
   } catch {
     return defaultState();
   }
@@ -42,7 +61,7 @@ export function getProgress(state: AppState, id: number): WordProgress {
 
 export function withStudyTick(state: AppState, now = new Date()): AppState {
   const today = todayKey(now);
-  let { streak, lastStudyDate, todayCount, todayDate } = state;
+  let { streak, lastStudyDate, todayCount, todayDate, studyDays } = state;
 
   if (todayDate !== today) {
     todayCount = 0;
@@ -56,5 +75,9 @@ export function withStudyTick(state: AppState, now = new Date()): AppState {
     lastStudyDate = today;
   }
 
-  return { ...state, streak, lastStudyDate, todayCount: todayCount + 1, todayDate };
+  if (!studyDays.includes(today)) {
+    studyDays = [...studyDays, today].slice(-180);
+  }
+
+  return { ...state, streak, lastStudyDate, todayCount: todayCount + 1, todayDate, studyDays };
 }
