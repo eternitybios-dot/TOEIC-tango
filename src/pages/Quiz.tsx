@@ -26,6 +26,8 @@ export function Quiz({ unit, onReview, go }: Props) {
     () => (word ? pickChoices(word, pool, 4) : []),
     [word, pool],
   );
+  const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
+  const isCorrect = picked !== null && picked === word?.id;
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -86,10 +88,10 @@ export function Quiz({ unit, onReview, go }: Props) {
       </div>
 
       <div className="row" style={{ marginBottom: 8 }}>
-        <button className={`chip${jaToEn ? "" : " on"}`} onClick={() => setJaToEn(false)}>
+        <button className={`chip${jaToEn ? "" : " on"}`} disabled={picked !== null} onClick={() => setJaToEn(false)}>
           英 → 和
         </button>
-        <button className={`chip${jaToEn ? " on" : ""}`} onClick={() => setJaToEn(true)}>
+        <button className={`chip${jaToEn ? " on" : ""}`} disabled={picked !== null} onClick={() => setJaToEn(true)}>
           和 → 英
         </button>
         <button className="chip" onClick={() => speak(word.phrase)}>
@@ -124,15 +126,30 @@ export function Quiz({ unit, onReview, go }: Props) {
         );
       })}
 
-      {picked !== null && (
-        <>
-          <p className="muted" style={{ margin: "12px 0 8px", lineHeight: 1.6 }}>
-            {word.word} · {word.phrase} / {word.phraseJa}
+      {picked !== null && pickedWord && (
+        <section className={`explain${isCorrect ? " ok" : " ng"}`}>
+          <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
+          {!isCorrect && (
+            <p className="explain-line">
+              あなたの答え
+              <strong>{jaToEn ? pickedWord.phrase : pickedWord.phraseJa}</strong>
+            </p>
+          )}
+          <p className="explain-line">
+            正解のフレーズ
+            <strong>{word.phrase}</strong>
+            <span>{word.phraseJa}</span>
           </p>
-          <button className="cta" onClick={next}>
+          <p className="explain-line">
+            見出し語
+            <strong>
+              {word.word} · {word.pos} · {word.meaning}
+            </strong>
+          </p>
+          <button className="cta" style={{ marginTop: 14 }} onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
           </button>
-        </>
+        </section>
       )}
     </>
   );
