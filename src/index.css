@@ -741,6 +741,35 @@ button:disabled {
   animation: page-in 360ms var(--ease);
 }
 
+.quiz-word {
+  text-align: center;
+  margin: 8px 0 4px;
+}
+
+.quiz-word p {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  margin-top: 4px;
+}
+
+.quiz-word small {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.quiz-prompt mark {
+  background: rgba(232, 184, 74, 0.22);
+  color: var(--gold-2);
+  border-radius: 6px;
+  padding: 0 4px;
+  font-weight: 700;
+}
+
 .quiz-prompt {
   font-family: var(--font);
   font-size: 22px;

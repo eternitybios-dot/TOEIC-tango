@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
-import { clozePhrase, pickChoices, pickSession } from "../lib/quiz";
+import { clozePhrase, phraseParts, pickChoices, pickSession } from "../lib/quiz";
 import { dealSession, SESSION_SIZE } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
@@ -73,8 +73,9 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   }
 
   function label(choice: Word) {
-    if (mode === "cloze") return choice.word;
-    return mode === "ja-en" ? choice.phrase : choice.phraseJa;
+    if (mode === "cloze") return `${choice.word}  ${choice.meaning}`;
+    if (mode === "ja-en") return `${choice.word}  ${choice.phrase}`;
+    return `${choice.meaning}  ${choice.phraseJa}`;
   }
 
   if (finished) {
@@ -140,26 +141,37 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
         <button className={`chip${mode === "cloze" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("cloze")}>
           空所
         </button>
-        <button className="chip" onClick={() => speak(word.phrase)}>
+        <button className="chip" onClick={() => speak(mode === "cloze" && picked === null ? word.phrase : word.word)}>
           発音
         </button>
       </div>
 
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
+        <div className="quiz-word">
+          <span className="tiny gold">今の語</span>
+          <p>
+            {mode === "cloze" && picked === null ? "______" : word.word}
+            <small>{word.pos}</small>
+          </p>
+        </div>
         {mode === "ja-en" ? (
           <>
             <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-            <p className="quiz-sub">英語のフレーズを選ぶ</p>
+            <p className="quiz-sub">{word.word} の英語フレーズを選ぶ</p>
           </>
         ) : mode === "cloze" ? (
           <>
             <p className="quiz-prompt quiz-prompt-en">{clozePhrase(word)}</p>
-            <p className="quiz-sub">空所に入る語を選ぶ</p>
+            <p className="quiz-sub">空所に入る語と意味を選ぶ</p>
           </>
         ) : (
           <>
-            <p className="quiz-prompt quiz-prompt-en">{word.phrase}</p>
-            <p className="quiz-sub">日本語のフレーズを選ぶ</p>
+            <p className="quiz-prompt quiz-prompt-en">
+              {phraseParts(word).map((part, i) =>
+                part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+              )}
+            </p>
+            <p className="quiz-sub">{word.word} の意味を選ぶ</p>
           </>
         )}
       </div>
