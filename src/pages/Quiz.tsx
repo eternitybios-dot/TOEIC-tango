@@ -99,15 +99,13 @@ export function Quiz({ unit, onReview, go }: Props) {
 
       {jaToEn ? (
         <>
-          <p className="quiz-prompt" style={{ fontFamily: "var(--font)", fontSize: 24 }}>
-            {word.phraseJa}
-          </p>
-          <p className="quiz-sub">{word.pos} · 英語を選ぶ</p>
+          <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
+          <p className="quiz-sub">{word.pos} · 英語のフレーズを選ぶ</p>
         </>
       ) : (
         <>
-          <p className="quiz-prompt">{word.word}</p>
-          <p className="quiz-sub">{word.pos} · フレーズの意味を選ぶ</p>
+          <p className="quiz-prompt quiz-prompt-en">{word.phrase}</p>
+          <p className="quiz-sub">{word.pos} · 日本語のフレーズを選ぶ</p>
         </>
       )}
 
@@ -121,15 +119,20 @@ export function Quiz({ unit, onReview, go }: Props) {
             className={`choice${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
             onClick={() => choose(choice)}
           >
-            {jaToEn ? choice.word : choice.phraseJa}
+            {jaToEn ? choice.phrase : choice.phraseJa}
           </button>
         );
       })}
 
       {picked !== null && (
-        <button className="cta" style={{ marginTop: 10 }} onClick={next}>
-          {index + 1 >= queue.length ? "結果を見る" : "次へ"}
-        </button>
+        <>
+          <p className="muted" style={{ margin: "12px 0 8px", lineHeight: 1.6 }}>
+            {word.word} · {word.phrase} / {word.phraseJa}
+          </p>
+          <button className="cta" onClick={next}>
+            {index + 1 >= queue.length ? "結果を見る" : "次へ"}
+          </button>
+        </>
       )}
     </>
   );

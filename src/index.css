@@ -509,9 +509,16 @@ button {
 
 .quiz-prompt {
   font-family: var(--display);
-  font-size: 36px;
+  font-size: 28px;
+  line-height: 1.35;
   text-align: center;
   margin: 18px 0 8px;
+}
+
+.quiz-prompt-ja {
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .quiz-sub {
