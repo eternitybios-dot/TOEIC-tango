@@ -3,27 +3,26 @@ import { WORDS } from "../data";
 import { explainMeaning } from "./explain";
 
 describe("explainMeaning", () => {
-  it("builds a long meaning-only note for every word", () => {
+  it("gives a short meaning note for every word", () => {
     for (const word of WORDS) {
       const note = explainMeaning(word);
-      const text = note.sections.map((section) => section.body).join("");
+      const text = note.lines.join("");
       expect(note.gloss).toBe(word.meaning);
+      expect(note.lines.length).toBeGreaterThanOrEqual(2);
+      expect(note.lines.length).toBeLessThanOrEqual(3);
       expect(text.includes(word.meaning)).toBe(true);
       expect(text.includes(word.word)).toBe(true);
-      expect(text.length).toBeGreaterThan(180);
+      expect(text.length).toBeLessThan(100);
       expect(text.includes("正解のフレーズ")).toBe(false);
     }
   });
 
-  it("mentions nearby words that share a gloss", () => {
+  it("keeps the note to two clear lines when the gloss is unique", () => {
     const abandon = WORDS.find((word) => word.word === "abandon");
     expect(abandon).toBeTruthy();
-    const note = explainMeaning(abandon!);
-    expect(note.sections.map((section) => section.title)).toEqual([
-      "核の意味",
-      "詳しく",
-      "文の中での働き",
-      "試験での捉え方",
+    expect(explainMeaning(abandon!).lines).toEqual([
+      "abandon は「放棄する」を表す動き。",
+      "「計画を放棄する」のときが、この意味。",
     ]);
   });
 });

@@ -150,11 +150,10 @@ export function Quiz({ state, unit, onReview, go }: Props) {
             <small>{word.pos}</small>
           </p>
           <p className="explain-gloss">{meaning.gloss}</p>
-          {meaning.sections.map((section) => (
-            <div key={section.title} className="explain-block">
-              <p className="explain-label">{section.title}</p>
-              <p className="explain-body">{section.body}</p>
-            </div>
+          {meaning.lines.map((line) => (
+            <p key={line} className="explain-body">
+              {line}
+            </p>
           ))}
           <button className="cta" style={{ marginTop: 14 }} onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
