@@ -9,17 +9,20 @@ describe("explainMeaning", () => {
       const text = note.lines.join("");
       expect(note.gloss).toBe(word.meaning);
       expect(note.lines.length).toBeGreaterThanOrEqual(1);
-      expect(note.lines.length).toBeLessThanOrEqual(2);
+      expect(note.lines.length).toBeLessThanOrEqual(3);
       expect(text.includes(word.meaning)).toBe(true);
-      expect(text.includes(word.word)).toBe(true);
       expect(text.includes("のときが")).toBe(false);
       expect(text.includes("正解のフレーズ")).toBe(false);
+      expect(text.length).toBeLessThan(90);
     }
   });
 
-  it("keeps a unique gloss to one short line", () => {
+  it("adds a compact about-line without rambling", () => {
     const abandon = WORDS.find((word) => word.word === "abandon");
     expect(abandon).toBeTruthy();
-    expect(explainMeaning(abandon!).lines).toEqual(["abandon は「放棄する」を表す動き。"]);
+    expect(explainMeaning(abandon!).lines).toEqual([
+      "動きを表す。核は「放棄する」。",
+      "計画などを対象にする。",
+    ]);
   });
 });
