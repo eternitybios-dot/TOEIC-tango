@@ -10,6 +10,7 @@ describe("storage", () => {
     });
     expect(next.settings.sound).toBe(true);
     expect(next.settings.haptics).toBe(true);
+    expect(next.settings.autoSpeak).toBe(false);
     expect(next.onboarded).toBe(true);
     expect(next.studyDays).toEqual([]);
     expect(next.streak).toBe(3);

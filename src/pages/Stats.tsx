@@ -1,12 +1,13 @@
 import { useMemo } from "react";
 import type { AppState, Route, Settings } from "../types";
 import { PARTS } from "../types";
-import { WORDS, wordsByPart } from "../data";
-import { summarize } from "../lib/stats";
+import { WORDS } from "../data";
+import { dashboard } from "../lib/stats";
 import { todayKey } from "../lib/storage";
 import { CountUp } from "../components/CountUp";
 import { ProgressBar } from "../components/ProgressBar";
 import { Ring } from "../components/Ring";
+import { SettingsFields } from "../components/SettingsFields";
 
 type Props = {
   state: AppState;
@@ -27,8 +28,11 @@ function lastDays(count: number): string[] {
   return days;
 }
 
+const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+
 export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
-  const all = summarize(state, WORDS);
+  const dash = useMemo(() => dashboard(state, WORDS), [state]);
+  const all = dash.all;
   const days = useMemo(() => lastDays(35), []);
   const studied = new Set(state.studyDays);
   const accuracy = (() => {
@@ -46,8 +50,8 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
     <div className="page">
       <header className="topbar">
         <div className="brand">
-          PROGRESS
-          <span>学習記録</span>
+          記録
+          <span>学習の記録</span>
         </div>
         <div className="muted">連続 {state.streak} 日</div>
       </header>
@@ -65,7 +69,7 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
             <p className="muted">
               {all.mastered} / {WORDS.length} 語
             </p>
-            <p className="muted">今日 {state.todayCount} 枚 · 目標 {state.goal}</p>
+            <p className="muted">期限 {all.due} 語 · 今日 {state.todayCount}/{state.goal}</p>
           </div>
         </div>
       </section>
@@ -98,6 +102,12 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
       </div>
 
       <p className="section-title">直近 5 週間</p>
+      <div className="heat-week" aria-hidden>
+        {days.slice(0, 7).map((day) => {
+          const [year, month, date] = day.split("-").map(Number);
+          return <span key={day}>{WEEKDAYS[new Date(year, month - 1, date).getDay()]}</span>;
+        })}
+      </div>
       <div className="heat" aria-label="学習カレンダー">
         {days.map((day) => (
           <i key={day} className={studied.has(day) ? "lit" : ""} title={day} />
@@ -108,9 +118,9 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
       </p>
 
       {PARTS.map((part) => {
-        const words = wordsByPart(part.id);
-        const stats = summarize(state, words);
-        const pct = Math.round((stats.mastered / words.length) * 100);
+        const stats = dash.parts[part.id];
+        const total = part.id === 1 ? 800 : part.id === 2 ? 700 : 400;
+        const pct = Math.round((stats.mastered / total) * 100);
         return (
           <div key={part.id} className="unit-card" style={{ marginBottom: 8 }}>
             <div style={{ flex: 1 }}>
@@ -118,7 +128,7 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
                 {part.label} · {part.score}
               </span>
               <strong>
-                {stats.mastered}/{words.length}
+                {stats.mastered}/{total}
               </strong>
               <ProgressBar value={pct} />
             </div>
@@ -127,28 +137,7 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
       })}
 
       <p className="section-title">設定</p>
-      <label className="setting">
-        <span>1日の目標</span>
-        <span className="stepper">
-          <button onClick={() => onGoal(Math.max(5, state.goal - 5))}>−</button>
-          <b>{state.goal}</b>
-          <button onClick={() => onGoal(Math.min(80, state.goal + 5))}>＋</button>
-        </span>
-      </label>
-      <label className="setting">
-        <span>効果音</span>
-        <button
-          className={`switch${state.settings.sound ? " on" : ""}`}
-          onClick={() => onSettings({ sound: !state.settings.sound })}
-        />
-      </label>
-      <label className="setting">
-        <span>触覚フィードバック</span>
-        <button
-          className={`switch${state.settings.haptics ? " on" : ""}`}
-          onClick={() => onSettings({ haptics: !state.settings.haptics })}
-        />
-      </label>
+      <SettingsFields state={state} onSettings={onSettings} onGoal={onGoal} />
 
       <button className="cta" style={{ marginTop: 16 }} onClick={() => go({ name: "study", mode: "due" })}>
         復習する

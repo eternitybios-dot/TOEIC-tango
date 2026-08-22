@@ -2,12 +2,13 @@ import { useMemo, useState } from "react";
 import type { AppState, Route, Settings } from "../types";
 import { PARTS } from "../types";
 import { UNITS, UNIT_META, WORDS, wordsByPart, wordsByUnit } from "../data";
-import { summarize } from "../lib/stats";
+import { dashboard } from "../lib/stats";
 import { playSfx } from "../lib/feedback";
-import { IconClose, IconFlame, IconGear } from "../components/Icons";
+import { IconClose, IconFlame, IconGear, IconSpeak } from "../components/Icons";
 import { ProgressBar } from "../components/ProgressBar";
 import { Ring } from "../components/Ring";
 import { CountUp } from "../components/CountUp";
+import { SettingsFields } from "../components/SettingsFields";
 import { speak } from "../lib/speech";
 
 type Props = {
@@ -18,8 +19,9 @@ type Props = {
 };
 
 export function Home({ state, go, onSettings, onGoal }: Props) {
-  const all = summarize(state, WORDS);
+  const dash = useMemo(() => dashboard(state, WORDS), [state]);
   const remaining = Math.max(0, state.goal - state.todayCount);
+  const dueNow = dash.all.due;
   const [sheetUnit, setSheetUnit] = useState<number | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const daily = useMemo(() => {
@@ -28,17 +30,19 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
   }, []);
   const sheet = sheetUnit ? UNIT_META[sheetUnit] : null;
   const sheetWords = sheetUnit ? wordsByUnit(sheetUnit) : [];
-  const sheetStats = sheetUnit ? summarize(state, sheetWords) : null;
+  const sheetStats = sheetUnit ? dash.units[sheetUnit] : null;
 
-  function tap(route: Route) {
-    go(route);
-  }
+  const cta = dueNow > 0
+    ? `期限の復習（${Math.min(10, dueNow)}語）`
+    : remaining === 0
+      ? "復習を続ける"
+      : "新しい語を学ぶ";
 
   return (
     <div className="page">
       <header className="topbar">
         <div className="brand">
-          TARGET 1900
+          受験頻出 1900
           <span>フレーズ単語帳</span>
         </div>
         <button className="icon-btn" aria-label="設定" onClick={() => setSettingsOpen(true)}>
@@ -55,34 +59,45 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             <small>/{state.goal}</small>
           </Ring>
           <div className="hero-copy">
-            <h2>今日のノルマ</h2>
+            <h2>今やること</h2>
             <p className="streak">
               <IconFlame size={16} /> 連続 {state.streak} 日
             </p>
-            <p className="muted">
-              {remaining === 0 ? "今日の目標は達成済み" : `あと ${remaining} 枚で目標`}
-            </p>
+            <p className="muted">期限 {dueNow} 語 · 今日 {state.todayCount}/{state.goal}</p>
           </div>
         </div>
         <ProgressBar value={state.todayCount} max={state.goal} />
-        <button className="cta pulse-cta" onClick={() => tap({ name: "study", mode: "due" })}>
-          {remaining === 0 ? "復習を続ける" : `今日の学習（残り ${remaining}）`}
+        <button className="cta" onClick={() => go({ name: "study", mode: "due" })}>
+          {cta}
         </button>
         {state.lastUnit ? (
           <button
             className="cta ghost"
             style={{ marginTop: 8 }}
-            onClick={() => tap({ name: "study", unit: state.lastUnit!, mode: "unit" })}
+            onClick={() => go({ name: "study", unit: state.lastUnit!, mode: "unit" })}
           >
-            UNIT {state.lastUnit} の続き
+            UNIT {state.lastUnit} の期限
           </button>
         ) : null}
       </section>
 
-      <section className="daily-card" onClick={() => speak(daily.phrase)} role="button" tabIndex={0}>
+      <section
+        className="daily-card"
+        onClick={() => speak(daily.phrase)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            speak(daily.phrase);
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      >
         <div className="progress-label">
-          <span className="tiny gold">TODAY’S PHRASE</span>
-          <span className="tiny">タップで発音</span>
+          <span className="tiny gold">今日のフレーズ</span>
+          <span className="tiny">
+            <IconSpeak size={14} /> 発音
+          </span>
         </div>
         <p className="phrase">{daily.phrase}</p>
         <p className="phrase-ja">{daily.phraseJa}</p>
@@ -95,14 +110,14 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
       <div className="grid-3">
         {PARTS.map((part, i) => {
           const words = wordsByPart(part.id);
-          const stats = summarize(state, words);
+          const stats = dash.parts[part.id];
           const pct = Math.round((stats.mastered / Math.max(1, words.length)) * 100);
           return (
             <button
               key={part.id}
               className="part-card rise"
               style={{ animationDelay: `${i * 60}ms` }}
-              onClick={() => tap({ name: "list", unit: words[0]?.unit })}
+              onClick={() => go({ name: "list", unit: words[0]?.unit })}
             >
               <span className="tiny">{part.score}</span>
               <strong>{part.label}</strong>
@@ -117,7 +132,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
       <div className="unit-list">
         {UNITS.map((unit, i) => {
           const words = wordsByUnit(unit);
-          const stats = summarize(state, words);
+          const stats = dash.units[unit] ?? { mastered: 0, due: 0, new: 0 };
           const meta = UNIT_META[unit];
           const pct = Math.round((stats.mastered / words.length) * 100);
           return (
@@ -136,7 +151,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
                 </span>
                 <strong>{meta.title}</strong>
                 <span className="muted">
-                  習得 {stats.mastered}/{words.length} · 復習 {stats.due}
+                  習得 {stats.mastered}/{words.length} · 期限 {stats.due}
                 </span>
               </div>
               <div className="unit-pct">{pct}%</div>
@@ -146,13 +161,19 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
       </div>
 
       <p className="fineprint">
-        見出し語は英単語ターゲット1900に出るタイプの受験頻出語です。短いフレーズと日本語はオリジナルです。
-        全体 {all.mastered} 語習得 / 未学習 {all.new}
+        書籍の転載ではありません。受験でよく出る語に、オリジナルの短いフレーズを付けています。
+        全体 {dash.all.mastered} 語習得 / 未学習 {dash.all.new}
       </p>
 
       {sheet && sheetStats && sheetUnit ? (
         <div className="sheet-root" onClick={() => setSheetUnit(null)}>
-          <div className="sheet" onClick={(event) => event.stopPropagation()}>
+          <div
+            className="sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="unit-sheet-title"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="sheet-handle" />
             <div className="progress-label">
               <span className="tiny">
@@ -162,20 +183,20 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
                 <IconClose size={18} />
               </button>
             </div>
-            <h3>{sheet.title}</h3>
+            <h3 id="unit-sheet-title">{sheet.title}</h3>
             <p className="muted">
-              習得 {sheetStats.mastered}/{sheetWords.length} · 復習 {sheetStats.due} · 未学習 {sheetStats.new}
+              習得 {sheetStats.mastered}/{sheetWords.length} · 期限 {sheetStats.due} · 未学習 {sheetStats.new}
             </p>
             <ProgressBar value={sheetStats.mastered} max={sheetWords.length} />
             <div className="row" style={{ marginTop: 16 }}>
-              <button className="cta" onClick={() => tap({ name: "study", unit: sheetUnit, mode: "unit" })}>
+              <button className="cta" onClick={() => go({ name: "study", unit: sheetUnit, mode: "unit" })}>
                 カード
               </button>
-              <button className="cta ghost" onClick={() => tap({ name: "quiz", unit: sheetUnit })}>
+              <button className="cta ghost" onClick={() => go({ name: "quiz", unit: sheetUnit })}>
                 クイズ
               </button>
             </div>
-            <button className="text-btn" onClick={() => tap({ name: "list", unit: sheetUnit })}>
+            <button className="text-btn" onClick={() => go({ name: "list", unit: sheetUnit })}>
               単語一覧を見る
             </button>
           </div>
@@ -184,39 +205,22 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
 
       {settingsOpen ? (
         <div className="sheet-root" onClick={() => setSettingsOpen(false)}>
-          <div className="sheet" onClick={(event) => event.stopPropagation()}>
+          <div
+            className="sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="settings-title"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="sheet-handle" />
             <div className="progress-label">
-              <span className="tiny">SETTINGS</span>
+              <span className="tiny">設定</span>
               <button className="icon-btn" aria-label="閉じる" onClick={() => setSettingsOpen(false)}>
                 <IconClose size={18} />
               </button>
             </div>
-            <h3>学習設定</h3>
-            <label className="setting">
-              <span>1日の目標</span>
-              <span className="stepper">
-                <button onClick={() => onGoal(Math.max(5, state.goal - 5))}>−</button>
-                <b>{state.goal}</b>
-                <button onClick={() => onGoal(Math.min(80, state.goal + 5))}>＋</button>
-              </span>
-            </label>
-            <label className="setting">
-              <span>効果音</span>
-              <button
-                className={`switch${state.settings.sound ? " on" : ""}`}
-                onClick={() => onSettings({ sound: !state.settings.sound })}
-                aria-pressed={state.settings.sound}
-              />
-            </label>
-            <label className="setting">
-              <span>触覚フィードバック</span>
-              <button
-                className={`switch${state.settings.haptics ? " on" : ""}`}
-                onClick={() => onSettings({ haptics: !state.settings.haptics })}
-                aria-pressed={state.settings.haptics}
-              />
-            </label>
+            <h3 id="settings-title">学習設定</h3>
+            <SettingsFields state={state} onSettings={onSettings} onGoal={onGoal} />
           </div>
         </div>
       ) : null}

@@ -28,6 +28,7 @@ export type WordProgress = {
 export type Settings = {
   sound: boolean;
   haptics: boolean;
+  autoSpeak: boolean;
 };
 
 export type AppState = {
