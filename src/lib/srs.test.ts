@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
-import { pickChoices } from "./quiz";
+import { afterAgain, afterGood, pickChoices } from "./quiz";
 import { emptyProgress, masteryOf, review } from "./srs";
 
 describe("word data", () => {
@@ -52,5 +52,17 @@ describe("quiz", () => {
     const sample = WORDS.slice(0, 80);
     expect(sample.every((w) => w.phrase.trim().includes(" "))).toBe(true);
     expect(sample.every((w) => w.phraseJa.trim().length > 1)).toBe(true);
+  });
+
+  it("keeps a missed card in the session and removes a known card", () => {
+    const [a, b, c, d] = WORDS;
+    const again = afterAgain([a, b, c, d], 0, 2);
+    expect(again.finished).toBe(false);
+    expect(again.queue.map((w) => w.id)).toEqual([b.id, c.id, a.id, d.id]);
+    expect(again.queue[again.index].id).toBe(b.id);
+
+    const good = afterGood([a, b, c], 0);
+    expect(good.queue.map((w) => w.id)).toEqual([b.id, c.id]);
+    expect(afterGood([a], 0).finished).toBe(true);
   });
 });

@@ -3,7 +3,7 @@ import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
 import { dueThenNew } from "../lib/stats";
 import { speak } from "../lib/speech";
-import { pickSession } from "../lib/quiz";
+import { afterAgain, afterGood, pickSession } from "../lib/quiz";
 
 type Props = {
   state: AppState;
@@ -38,15 +38,16 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   }
 
   const word = queue[index];
+  const remaining = queue.length;
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (!word || finished) return;
       if (event.code === "Space") {
         event.preventDefault();
-        setRevealed(true);
+        setRevealed((open) => !open);
       }
-      if (!revealed) return;
+      if (event.key === "ArrowLeft") goPrev();
       if (event.key === "1") answer("again");
       if (event.key === "2") answer("good");
     };
@@ -54,19 +55,24 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  function goPrev() {
+    if (index === 0 || finished) return;
+    setIndex((current) => current - 1);
+    setRevealed(false);
+  }
+
   function answer(result: "again" | "good") {
     if (!word || finished) return;
     onReview(word, result);
     setScore((prev) => ({ ...prev, [result]: prev[result] + 1 }));
-    if (index + 1 >= queue.length) {
-      setFinished(true);
-      return;
-    }
-    setIndex((current) => current + 1);
+    const next = result === "good" ? afterGood(queue, index) : afterAgain(queue, index);
+    setQueue(next.queue);
+    setIndex(next.index);
     setRevealed(false);
+    setFinished(next.finished);
   }
 
-  if (queue.length === 0) {
+  if (queue.length === 0 && !finished) {
     return (
       <div className="empty">
         <p>出題できる単語がありません。</p>
@@ -77,15 +83,16 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     );
   }
 
-  if (finished) {
+  if (finished || !word) {
     return (
       <div className="result">
         <p className="tiny">SESSION CLEAR</p>
         <h2>
-          {score.good}/{queue.length}
+          {score.good}
+          <small style={{ fontSize: 18, color: "var(--muted)" }}> 覚えた</small>
         </h2>
         <p className="muted" style={{ margin: "8px 0 22px" }}>
-          覚えた {score.good} · もう一度 {score.again}
+          もう一度 {score.again} 回
         </p>
         <div className="row">
           <button className="cta ghost" onClick={() => go({ name: "quiz", unit })}>
@@ -106,45 +113,76 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       </button>
       <div className="progress-label">
         <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : "復習＋新規"}</span>
-        <span>
-          {index + 1} / {queue.length}
-        </span>
+        <span>残り {remaining}</span>
       </div>
       <div className="bar">
-        <i style={{ width: `${((index + (revealed ? 0.5 : 0)) / queue.length) * 100}%` }} />
+        <i style={{ width: `${((SESSION - remaining + (revealed ? 0.3 : 0)) / SESSION) * 100}%` }} />
       </div>
 
-      <div className="card-stage" onClick={() => setRevealed(true)}>
-        <div className={`flip${revealed ? " revealed" : ""}`}>
-          <div className="face">
-            <span className="pos">{word.pos}</span>
-            <div className="word">{word.word}</div>
-            {word.ipa ? <div className="ipa">/{word.ipa}/</div> : null}
-            <p className="hint">タップしてフレーズを表示</p>
-          </div>
-          <div className="face back">
-            <span className="pos">{word.pos}</span>
-            <div className="meaning">{word.meaning}</div>
-            <p className="phrase">
-              {word.phrase}
-              <span className="phrase-ja">{word.phraseJa}</span>
-            </p>
-          </div>
+      <div
+        className="card-stage"
+        onClick={() => setRevealed((open) => !open)}
+        role="button"
+        tabIndex={0}
+      >
+        <div className="face static-face">
+          {revealed ? (
+            <>
+              <span className="pos">{word.pos}</span>
+              <div className="meaning">{word.meaning}</div>
+              <p className="phrase">
+                {word.phrase}
+                <span className="phrase-ja">{word.phraseJa}</span>
+              </p>
+              <p className="hint">タップで単語に戻る</p>
+            </>
+          ) : (
+            <>
+              <span className="pos">{word.pos}</span>
+              <div className="word">{word.word}</div>
+              {word.ipa ? <div className="ipa">/{word.ipa}/</div> : null}
+              <p className="hint">タップしてフレーズを表示</p>
+            </>
+          )}
         </div>
       </div>
 
-      <div className="row actions">
+      <div className="row actions" style={{ marginBottom: 10 }}>
+        <button
+          type="button"
+          className="btn again"
+          disabled={index === 0}
+          onClick={(event) => {
+            event.stopPropagation();
+            goPrev();
+          }}
+        >
+          前のカード
+        </button>
+        <button
+          type="button"
+          className="btn ghost-wide"
+          onClick={(event) => {
+            event.stopPropagation();
+            setRevealed((open) => !open);
+          }}
+        >
+          {revealed ? "単語に戻す" : "フレーズを見る"}
+        </button>
         <button
           type="button"
           className="btn speak"
           onClick={(event) => {
             event.stopPropagation();
-            speak(word.word);
+            speak(revealed ? word.phrase : word.word);
           }}
           aria-label="発音"
         >
           ♪
         </button>
+      </div>
+
+      <div className="row actions">
         <button
           type="button"
           className="btn again"
@@ -166,6 +204,9 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
           覚えた
         </button>
       </div>
+      <p className="muted" style={{ marginTop: 10, textAlign: "center" }}>
+        もう一度はこのセットのあとで再出題。覚えたら外します。
+      </p>
     </>
   );
 }

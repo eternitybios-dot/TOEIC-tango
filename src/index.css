@@ -249,31 +249,13 @@ button {
 }
 
 .card-stage {
-  perspective: 1000px;
-  min-height: 320px;
+  min-height: 280px;
   margin: 12px 0 16px;
-  overflow: hidden;
   position: relative;
   z-index: 0;
 }
 
-.flip {
-  position: relative;
-  width: 100%;
-  min-height: 320px;
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.flip.revealed {
-  transform: rotateY(180deg);
-  pointer-events: none;
-}
-
 .face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
   background: var(--paper);
   color: var(--ink);
   border-radius: 22px;
@@ -281,11 +263,11 @@ button {
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  min-height: 280px;
 }
 
-.face.back {
-  transform: rotateY(180deg);
+.face.static-face {
+  position: relative;
 }
 
 .pos {
@@ -383,6 +365,11 @@ button {
 .btn.good {
   background: var(--gold);
   color: var(--ink);
+}
+
+.btn.ghost-wide {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
 }
 
 .btn.speak {

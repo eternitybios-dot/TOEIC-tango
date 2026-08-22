@@ -21,4 +21,31 @@ export function pickSession(pool: Word[], size: number): Word[] {
   return shuffle(pool).slice(0, Math.min(size, pool.length));
 }
 
+export function afterGood(
+  queue: Word[],
+  index: number,
+): { queue: Word[]; index: number; finished: boolean } {
+  const next = queue.filter((_, i) => i !== index);
+  if (next.length === 0) return { queue: next, index: 0, finished: true };
+  return { queue: next, index: Math.min(index, next.length - 1), finished: false };
+}
+
+/** Put the current card a few spots later so it comes back this session. */
+export function afterAgain(
+  queue: Word[],
+  index: number,
+  delay = 2,
+): { queue: Word[]; index: number; finished: boolean } {
+  const current = queue[index];
+  const without = queue.filter((_, i) => i !== index);
+  if (!current) return { queue, index, finished: queue.length === 0 };
+  if (without.length === 0) return { queue: [current], index: 0, finished: false };
+  const pos = Math.min(index + delay, without.length);
+  return {
+    queue: [...without.slice(0, pos), current, ...without.slice(pos)],
+    index: index < without.length ? index : 0,
+    finished: false,
+  };
+}
+
 export { shuffle };
