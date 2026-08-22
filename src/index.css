@@ -795,32 +795,51 @@ button:disabled {
 .explain-result {
   font-weight: 700;
   letter-spacing: 0.12em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .explain.ok .explain-result { color: #8fd4a8; }
 .explain.ng .explain-result { color: #f0c7be; }
 
-.explain-line {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-
-.explain-line strong {
-  display: block;
-  margin-top: 4px;
-  color: var(--paper);
-  font-size: 17px;
+.explain-word {
+  font-size: 28px;
   font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
 }
 
-.explain-line span {
-  display: block;
-  margin-top: 4px;
-  color: #e8dcc4;
-  font-size: 16px;
+.explain-word small {
+  margin-left: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.explain-gloss {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 6px 0 14px;
+  color: var(--paper);
+}
+
+.explain-block + .explain-block {
+  margin-top: 12px;
+}
+
+.explain-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--gold-2);
+  margin-bottom: 6px;
+}
+
+.explain-body {
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: #f0e6d4;
 }
 
 .slide-up {

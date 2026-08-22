@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
+import { explainMeaning } from "../lib/explain";
 import { pickChoices, pickSession } from "../lib/quiz";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
@@ -30,8 +31,8 @@ export function Quiz({ state, unit, onReview, go }: Props) {
 
   const word = queue[index];
   const choices = useMemo(() => (word ? pickChoices(word, pool, 4) : []), [word, pool]);
-  const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
+  const meaning = word && picked !== null ? explainMeaning(word) : null;
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -141,26 +142,20 @@ export function Quiz({ state, unit, onReview, go }: Props) {
         );
       })}
 
-      {picked !== null && pickedWord && (
+      {picked !== null && meaning && (
         <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`}>
           <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
-          {!isCorrect && (
-            <p className="explain-line">
-              あなたの答え
-              <strong>{jaToEn ? pickedWord.phrase : pickedWord.phraseJa}</strong>
-            </p>
-          )}
-          <p className="explain-line">
-            正解のフレーズ
-            <strong>{word.phrase}</strong>
-            <span>{word.phraseJa}</span>
+          <p className="explain-word">
+            {word.word}
+            <small>{word.pos}</small>
           </p>
-          <p className="explain-line">
-            見出し語
-            <strong>
-              {word.word} · {word.pos} · {word.meaning}
-            </strong>
-          </p>
+          <p className="explain-gloss">{meaning.gloss}</p>
+          {meaning.sections.map((section) => (
+            <div key={section.title} className="explain-block">
+              <p className="explain-label">{section.title}</p>
+              <p className="explain-body">{section.body}</p>
+            </div>
+          ))}
           <button className="cta" style={{ marginTop: 14 }} onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
           </button>
