@@ -824,22 +824,12 @@ button:disabled {
   color: var(--paper);
 }
 
-.explain-block + .explain-block {
-  margin-top: 12px;
-}
-
-.explain-label {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--gold-2);
-  margin-bottom: 6px;
-}
-
 .explain-body {
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: 16px;
+  line-height: 1.75;
   letter-spacing: 0.04em;
   color: #f0e6d4;
+  margin-bottom: 8px;
 }
 
 .slide-up {
