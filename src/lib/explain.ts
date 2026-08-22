@@ -28,10 +28,7 @@ function nearWords(word: Word): Word[] {
 }
 
 export function explainMeaning(word: Word): MeaningNote {
-  const lines = [
-    `${word.word} は「${word.meaning}」を表す${ROLE[word.pos]}。`,
-    `「${word.phraseJa}」のときが、この意味。`,
-  ];
+  const lines = [`${word.word} は「${word.meaning}」を表す${ROLE[word.pos]}。`];
 
   const similar = nearWords(word);
   if (similar.length > 0) {
