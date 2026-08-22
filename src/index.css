@@ -519,3 +519,57 @@ button {
   text-align: center;
   color: var(--muted);
 }
+
+.explain {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+}
+
+.explain.ok {
+  border-color: rgba(62, 109, 80, 0.7);
+  background: #1d2a22;
+}
+
+.explain.ng {
+  border-color: rgba(196, 73, 50, 0.55);
+  background: #2c1c18;
+}
+
+.explain-result {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+}
+
+.explain.ok .explain-result {
+  color: #8fd4a8;
+}
+
+.explain.ng .explain-result {
+  color: #f0c7be;
+}
+
+.explain-line {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.explain-line strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--paper);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.explain-line span {
+  display: block;
+  margin-top: 4px;
+  color: #e8dcc4;
+  font-size: 16px;
+}
