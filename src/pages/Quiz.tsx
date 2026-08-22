@@ -1,10 +1,16 @@
 import { useMemo, useState } from "react";
-import type { Route, Word } from "../types";
+import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
 import { pickChoices, pickSession } from "../lib/quiz";
 import { speak } from "../lib/speech";
+import { haptic, playSfx } from "../lib/feedback";
+import { Burst } from "../components/Burst";
+import { CountUp } from "../components/CountUp";
+import { IconBack } from "../components/Icons";
+import { ProgressBar } from "../components/ProgressBar";
 
 type Props = {
+  state: AppState;
   unit?: number;
   onReview: (word: Word, result: "again" | "good") => void;
   go: (route: Route) => void;
@@ -12,7 +18,7 @@ type Props = {
 
 const SESSION = 10;
 
-export function Quiz({ unit, onReview, go }: Props) {
+export function Quiz({ state, unit, onReview, go }: Props) {
   const pool = unit ? wordsByUnit(unit) : WORDS;
   const [queue] = useState(() => pickSession(pool, SESSION));
   const [index, setIndex] = useState(0);
@@ -20,12 +26,10 @@ export function Quiz({ unit, onReview, go }: Props) {
   const [picked, setPicked] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
+  const [shake, setShake] = useState(false);
 
   const word = queue[index];
-  const choices = useMemo(
-    () => (word ? pickChoices(word, pool, 4) : []),
-    [word, pool],
-  );
+  const choices = useMemo(() => (word ? pickChoices(word, pool, 4) : []), [word, pool]);
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
 
@@ -33,13 +37,21 @@ export function Quiz({ unit, onReview, go }: Props) {
     if (!word || picked !== null) return;
     setPicked(choice.id);
     const ok = choice.id === word.id;
+    playSfx(ok ? "correct" : "wrong", state.settings.sound);
+    haptic(ok ? [8, 20, 12] : [30, 20, 30], state.settings.haptics);
     if (ok) setScore((n) => n + 1);
+    else {
+      setShake(true);
+      window.setTimeout(() => setShake(false), 420);
+    }
     onReview(word, ok ? "good" : "again");
   }
 
   function next() {
+    playSfx("tap", state.settings.sound);
     if (index + 1 >= queue.length) {
       setFinished(true);
+      playSfx("done", state.settings.sound);
       return;
     }
     setIndex((n) => n + 1);
@@ -48,10 +60,12 @@ export function Quiz({ unit, onReview, go }: Props) {
 
   if (finished) {
     return (
-      <div className="result">
-        <p className="tiny">QUIZ</p>
+      <div className="page result">
+        <Burst />
+        <p className="tiny gold">QUIZ</p>
         <h2>
-          {score}/{queue.length}
+          <CountUp value={score} />
+          <small>/{queue.length}</small>
         </h2>
         <p className="muted" style={{ margin: "8px 0 22px" }}>
           {score >= 8 ? "この調子で次の UNIT へ。" : "間違えた語は単語帳で復習を。"}
@@ -69,13 +83,13 @@ export function Quiz({ unit, onReview, go }: Props) {
   }
 
   if (!word) {
-    return <div className="empty">出題できる単語がありません。</div>;
+    return <div className="page empty">出題できる単語がありません。</div>;
   }
 
   return (
-    <>
+    <div className={`page${shake ? " shake" : ""}`}>
       <button className="back-link" onClick={() => go({ name: "home" })}>
-        ← ホーム
+        <IconBack /> ホーム
       </button>
       <div className="progress-label">
         <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : "全範囲"}</span>
@@ -83,9 +97,7 @@ export function Quiz({ unit, onReview, go }: Props) {
           {index + 1} / {queue.length}
         </span>
       </div>
-      <div className="bar">
-        <i style={{ width: `${(index / queue.length) * 100}%` }} />
-      </div>
+      <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />
 
       <div className="row" style={{ marginBottom: 8 }}>
         <button className={`chip${jaToEn ? "" : " on"}`} disabled={picked !== null} onClick={() => setJaToEn(false)}>
@@ -99,26 +111,29 @@ export function Quiz({ unit, onReview, go }: Props) {
         </button>
       </div>
 
-      {jaToEn ? (
-        <>
-          <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-          <p className="quiz-sub">{word.pos} · 英語のフレーズを選ぶ</p>
-        </>
-      ) : (
-        <>
-          <p className="quiz-prompt quiz-prompt-en">{word.phrase}</p>
-          <p className="quiz-sub">{word.pos} · 日本語のフレーズを選ぶ</p>
-        </>
-      )}
+      <div className="quiz-stage" key={word.id}>
+        {jaToEn ? (
+          <>
+            <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
+            <p className="quiz-sub">{word.pos} · 英語のフレーズを選ぶ</p>
+          </>
+        ) : (
+          <>
+            <p className="quiz-prompt quiz-prompt-en">{word.phrase}</p>
+            <p className="quiz-sub">{word.pos} · 日本語のフレーズを選ぶ</p>
+          </>
+        )}
+      </div>
 
-      {choices.map((choice) => {
+      {choices.map((choice, i) => {
         const selected = picked === choice.id;
         const correct = picked !== null && choice.id === word.id;
         const wrong = selected && choice.id !== word.id;
         return (
           <button
             key={choice.id}
-            className={`choice${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
+            className={`choice rise${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
+            style={{ animationDelay: `${i * 50}ms` }}
             onClick={() => choose(choice)}
           >
             {jaToEn ? choice.phrase : choice.phraseJa}
@@ -127,7 +142,7 @@ export function Quiz({ unit, onReview, go }: Props) {
       })}
 
       {picked !== null && pickedWord && (
-        <section className={`explain${isCorrect ? " ok" : " ng"}`}>
+        <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`}>
           <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
           {!isCorrect && (
             <p className="explain-line">
@@ -151,6 +166,6 @@ export function Quiz({ unit, onReview, go }: Props) {
           </button>
         </section>
       )}
-    </>
+    </div>
   );
 }

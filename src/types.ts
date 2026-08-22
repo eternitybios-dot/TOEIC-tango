@@ -25,6 +25,11 @@ export type WordProgress = {
   wrong: number;
 };
 
+export type Settings = {
+  sound: boolean;
+  haptics: boolean;
+};
+
 export type AppState = {
   progress: Record<number, WordProgress>;
   streak: number;
@@ -32,6 +37,10 @@ export type AppState = {
   todayCount: number;
   todayDate: string | null;
   goal: number;
+  settings: Settings;
+  onboarded: boolean;
+  lastUnit: number | null;
+  studyDays: string[];
 };
 
 export type Route =

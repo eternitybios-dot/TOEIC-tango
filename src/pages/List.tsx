@@ -5,6 +5,8 @@ import { UNITS, UNIT_META, WORDS, wordsByUnit } from "../data";
 import { getProgress } from "../lib/storage";
 import { masteryOf } from "../lib/srs";
 import { speak } from "../lib/speech";
+import { playSfx } from "../lib/feedback";
+import { IconClose } from "../components/Icons";
 
 type Props = {
   state: AppState;
@@ -19,10 +21,13 @@ const LABELS = {
   mastered: "習得",
 };
 
+const PAGE = 40;
+
 export function WordList({ state, unit: initialUnit, go }: Props) {
   const [unit, setUnit] = useState<number | "all">(initialUnit ?? "all");
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<number | null>(null);
+  const [limit, setLimit] = useState(PAGE);
 
   const words = useMemo(() => {
     const source = unit === "all" ? WORDS : wordsByUnit(unit);
@@ -37,10 +42,11 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
     );
   }, [unit, query]);
 
+  const shown = words.slice(0, limit);
   const open = words.find((w) => w.id === openId);
 
   return (
-    <>
+    <div className="page">
       <header className="topbar">
         <div className="brand">
           WORD LIST
@@ -52,16 +58,32 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
       <input
         className="search"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="英単語・日本語で検索"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setLimit(PAGE);
+        }}
+        placeholder="英単語・フレーズ・日本語で検索"
       />
 
       <div className="filters">
-        <button className={`chip${unit === "all" ? " on" : ""}`} onClick={() => setUnit("all")}>
+        <button
+          className={`chip${unit === "all" ? " on" : ""}`}
+          onClick={() => {
+            setUnit("all");
+            setLimit(PAGE);
+          }}
+        >
           すべて
         </button>
         {UNITS.map((u) => (
-          <button key={u} className={`chip${unit === u ? " on" : ""}`} onClick={() => setUnit(u)}>
+          <button
+            key={u}
+            className={`chip${unit === u ? " on" : ""}`}
+            onClick={() => {
+              setUnit(u);
+              setLimit(PAGE);
+            }}
+          >
             U{u}
           </button>
         ))}
@@ -73,48 +95,67 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
         </p>
       )}
 
-      {words.map((word) => {
+      {shown.map((word, i) => {
         const mastery = masteryOf(getProgress(state, word.id));
         return (
-          <button key={word.id} className="word-row" onClick={() => setOpenId(word.id)}>
+          <button
+            key={word.id}
+            className="word-row rise"
+            style={{ animationDelay: `${Math.min(i, 12) * 28}ms` }}
+            onClick={() => {
+              playSfx("tap", state.settings.sound);
+              setOpenId(word.id);
+            }}
+          >
             <div>
               <b>{word.word}</b>
               <div className="muted">
                 {word.pos} · {word.phraseJa}
               </div>
             </div>
-            <span className="badge">{LABELS[mastery]}</span>
+            <span className={`badge badge-${mastery}`}>{LABELS[mastery]}</span>
           </button>
         );
       })}
 
-      {open && (
-        <div className="hero" style={{ marginTop: 16 }}>
-          <div className="progress-label">
-            <span className="tiny">
-              UNIT {open.unit} · {open.pos}
-            </span>
-            <button className="chip on" onClick={() => speak(open.word)}>
-              発音
-            </button>
+      {shown.length < words.length ? (
+        <button className="cta ghost" style={{ marginTop: 14 }} onClick={() => setLimit((n) => n + PAGE)}>
+          さらに表示（残り {words.length - shown.length}）
+        </button>
+      ) : null}
+
+      {open ? (
+        <div className="sheet-root" onClick={() => setOpenId(null)}>
+          <div className="sheet" onClick={(event) => event.stopPropagation()}>
+            <div className="sheet-handle" />
+            <div className="progress-label">
+              <span className="tiny">
+                UNIT {open.unit} · {open.pos}
+              </span>
+              <button className="icon-btn" aria-label="閉じる" onClick={() => setOpenId(null)}>
+                <IconClose size={18} />
+              </button>
+            </div>
+            <div className="word" style={{ fontSize: 34, margin: "8px 0 4px" }}>
+              {open.word}
+            </div>
+            {open.ipa ? <p className="ipa">/{open.ipa}/</p> : null}
+            <p style={{ margin: "12px 0 4px", fontSize: 18 }}>{open.meaning}</p>
+            <p className="phrase" style={{ marginTop: 8 }}>
+              {open.phrase}
+              <span className="phrase-ja">{open.phraseJa}</span>
+            </p>
+            <div className="row" style={{ marginTop: 16 }}>
+              <button className="cta ghost" onClick={() => speak(open.phrase)}>
+                発音
+              </button>
+              <button className="cta" onClick={() => go({ name: "study", unit: open.unit, mode: "unit" })}>
+                この UNIT
+              </button>
+            </div>
           </div>
-          <div className="word" style={{ fontSize: 32, margin: "10px 0 4px" }}>
-            {open.word}
-          </div>
-          <p style={{ margin: "12px 0", fontSize: 18 }}>{open.meaning}</p>
-          <p className="phrase" style={{ marginTop: 0 }}>
-            {open.phrase}
-            <span className="phrase-ja">{open.phraseJa}</span>
-          </p>
-          <button
-            className="cta"
-            style={{ marginTop: 14 }}
-            onClick={() => go({ name: "study", unit: open.unit, mode: "unit" })}
-          >
-            この UNIT を学習
-          </button>
         </div>
-      )}
-    </>
+      ) : null}
+    </div>
   );
 }
