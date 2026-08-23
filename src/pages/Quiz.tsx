@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { PARTS, POS_LABEL, type AppState, type Route, type Word } from "../types";
-import { WORDS, wordsByPart, wordsByUnit } from "../data";
+import { UNITS, WORDS, wordsByPart, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
 import { clozeParts, phraseParts, pickChoices } from "../lib/quiz";
-import { dealQuiz, SESSION_SIZE, type QuizMix } from "../lib/session";
+import { dealQuiz, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
@@ -23,10 +23,10 @@ type Props = {
 type Mode = "en-ja" | "ja-en" | "cloze";
 type Scope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
 
-function initialScope(unit?: number, part?: 1 | 2 | 3): Scope {
+function initialScope(unit?: number, part?: 1 | 2 | 3, lastUnit?: number | null): Scope {
   if (unit) return { type: "unit", unit };
   if (part) return { type: "part", part };
-  return { type: "all" };
+  return { type: "unit", unit: lastUnit ?? 1 };
 }
 
 function poolOf(scope: Scope): Word[] {
@@ -38,12 +38,13 @@ function poolOf(scope: Scope): Word[] {
 function scopeLabel(scope: Scope, mix: QuizMix): string {
   const place =
     scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
-  return `${place} · ${mix === "random" ? "ランダム" : "期限"}`;
+  return `${place} · ${mix === "random" ? "ランダム" : "覚える"}`;
 }
 
 export function Quiz({ state, unit, part, onQuiz, go }: Props) {
-  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part));
-  const [mix, setMix] = useState<QuizMix>("random");
+  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part, state.lastUnit));
+  const [mix, setMix] = useState<QuizMix>("due");
+  const [size, setSize] = useState(SESSION_SIZE);
   const [started, setStarted] = useState(false);
   const source = poolOf(scope);
   const [queue, setQueue] = useState<Word[]>([]);
@@ -86,7 +87,7 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
 
   function begin(nextMix = mix, nextScope = scope) {
     playSfx("tap", state.settings.sound);
-    start(dealQuiz(state, poolOf(nextScope), nextMix));
+    start(dealQuiz(state, poolOf(nextScope), nextMix, Date.now(), size));
   }
 
   function choose(choice: Word) {
@@ -224,7 +225,28 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
           <IconBack /> ホーム
         </button>
         <p className="tiny gold">クイズ</p>
-        <h2 className="quiz-setup-title">出題を選ぶ</h2>
+        <h2 className="quiz-setup-title">100問ずつ覚える</h2>
+        <p className="section-title">セット</p>
+        <div className="filters">
+          <button className={`chip${size === SESSION_SIZE ? " on" : ""}`} onClick={() => setSize(SESSION_SIZE)}>
+            100問
+          </button>
+          <button className={`chip${size === SHORT_SESSION ? " on" : ""}`} onClick={() => setSize(SHORT_SESSION)}>
+            10問
+          </button>
+        </div>
+        <p className="section-title">UNIT</p>
+        <div className="filters">
+          {UNITS.map((item) => (
+            <button
+              key={item}
+              className={`chip${scope.type === "unit" && scope.unit === item ? " on" : ""}`}
+              onClick={() => setScope({ type: "unit", unit: item })}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
         <p className="section-title">レベル</p>
         <div className="filters">
           <button className={`chip${scope.type === "all" ? " on" : ""}`} onClick={() => setScope({ type: "all" })}>
@@ -239,26 +261,18 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
               {item.label}
             </button>
           ))}
-          {unit ? (
-            <button
-              className={`chip${scope.type === "unit" && scope.unit === unit ? " on" : ""}`}
-              onClick={() => setScope({ type: "unit", unit })}
-            >
-              UNIT {unit}
-            </button>
-          ) : null}
         </div>
         <p className="section-title">出題</p>
         <div className="filters">
+          <button className={`chip${mix === "due" ? " on" : ""}`} onClick={() => setMix("due")}>
+            覚える
+          </button>
           <button className={`chip${mix === "random" ? " on" : ""}`} onClick={() => setMix("random")}>
             ランダム
           </button>
-          <button className={`chip${mix === "due" ? " on" : ""}`} onClick={() => setMix("due")}>
-            期限の復習
-          </button>
         </div>
         <p className="muted" style={{ margin: "8px 0 18px" }}>
-          {source.length}語から {Math.min(SESSION_SIZE, source.length)}問 · {mix === "random" ? "毎回ちがう語" : "期限と未学習から"}
+          {source.length}語から {Math.min(size, source.length)}問 · {mix === "random" ? "毎回ちがう語" : "未学習と期限から"}
         </p>
         <button className="cta" onClick={() => begin()}>
           スタート

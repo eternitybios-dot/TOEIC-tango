@@ -74,9 +74,14 @@ describe("quiz", () => {
     expect(takeSession([a, b, c], 2).map((w) => w.id)).toEqual([a.id, b.id]);
   });
 
+  it("defaults to a 100-word learn session", () => {
+    const dealt = dealQuiz(defaultState(), WORDS.slice(0, 150), "due");
+    expect(dealt).toHaveLength(100);
+  });
+
   it("deals a random quiz of unique words from the pool", () => {
     const pool = WORDS.slice(0, 40);
-    const dealt = dealQuiz(defaultState(), pool, "random");
+    const dealt = dealQuiz(defaultState(), pool, "random", Date.now(), 10);
     expect(dealt).toHaveLength(10);
     expect(new Set(dealt.map((word) => word.id)).size).toBe(10);
     expect(dealt.every((word) => pool.some((item) => item.id === word.id))).toBe(true);
@@ -84,7 +89,7 @@ describe("quiz", () => {
 
   it("fills a due quiz with unseen words when nothing is due", () => {
     const pool = WORDS.slice(0, 40);
-    const dealt = dealQuiz(defaultState(), pool, "due");
+    const dealt = dealQuiz(defaultState(), pool, "due", Date.now(), 10);
     expect(dealt).toHaveLength(10);
     expect(dealt.every((word) => pool.some((item) => item.id === word.id))).toBe(true);
   });
