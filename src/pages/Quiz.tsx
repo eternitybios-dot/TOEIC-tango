@@ -3,7 +3,7 @@ import { POS_LABEL, type AppState, type Route, type SavedSession, type Word } fr
 import { catalog, type Catalog } from "../lib/catalog";
 import { canResume, hydrateQueue, sessionOf } from "../lib/resume";
 import { explainMeaning } from "../lib/explain";
-import { clozeParts, phraseParts, pickChoices } from "../lib/quiz";
+import { clozeParts, exampleVisibility, phraseParts, pickChoices, type QuizMode } from "../lib/quiz";
 import { dealQuiz, listMissed, mixLabel, mixNote, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
@@ -22,7 +22,7 @@ type Props = {
   go: (route: Route) => void;
 };
 
-type Mode = "en-ja" | "ja-en" | "cloze";
+type Mode = QuizMode;
 type Scope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
 
 function initialScope(unit?: number, part?: 1 | 2 | 3, lastUnit?: number | null): Scope {
@@ -91,6 +91,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
   const meaning = word && picked !== null ? explainMeaning(word, cat.words) : null;
+  const example = exampleVisibility(mode, picked !== null);
 
   function start(nextQueue: Word[]) {
     setQueue(nextQueue);
@@ -419,13 +420,18 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
             {mode === "cloze" && picked === null ? null : <small>{word.pos}</small>}
           </p>
         </div>
-        {mode === "ja-en" ? (
-          <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-        ) : mode === "cloze" ? (
-          <div className="quiz-prompt-stack">
-            <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
+        <div className="quiz-prompt-stack">
+          {mode === "en-ja" && example.en ? (
             <p className="quiz-prompt quiz-prompt-en">
-              {picked === null
+              {phraseParts(word).map((part, i) =>
+                part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+              )}
+            </p>
+          ) : null}
+          {example.ja ? <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p> : null}
+          {mode !== "en-ja" && example.en ? (
+            <p className="quiz-prompt quiz-prompt-en">
+              {mode === "cloze" && picked === null
                 ? clozeParts(word).map((part, i) =>
                     part.blank ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
                   )
@@ -433,14 +439,8 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
                     part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
                   )}
             </p>
-          </div>
-        ) : (
-          <p className="quiz-prompt quiz-prompt-en">
-            {phraseParts(word).map((part, i) =>
-              part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
-            )}
-          </p>
-        )}
+          ) : null}
+        </div>
       </div>
 
       <div className="quiz-body">

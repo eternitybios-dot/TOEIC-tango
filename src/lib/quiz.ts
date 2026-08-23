@@ -42,6 +42,15 @@ export function clozeParts(word: Word): { text: string; blank: boolean }[] {
     .map((text) => ({ text, blank: text === "______" }));
 }
 
+export type QuizMode = "en-ja" | "ja-en" | "cloze";
+
+/** After an answer, keep the example Japanese in view; never leak English in 和英 before then. */
+export function exampleVisibility(mode: QuizMode, revealed: boolean): { ja: boolean; en: boolean } {
+  if (mode === "cloze") return { ja: true, en: true };
+  if (mode === "ja-en") return { ja: true, en: revealed };
+  return { ja: revealed, en: true };
+}
+
 export function phraseParts(word: Word): { text: string; hit: boolean }[] {
   const escaped = word.word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const re = new RegExp(`(\\b${escaped}\\b)`, "i");

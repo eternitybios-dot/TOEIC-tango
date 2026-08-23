@@ -1102,7 +1102,7 @@ button:disabled {
 
 .quiz-stage {
   animation: page-in 360ms var(--ease);
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
   position: relative;
   margin: 2px 0 8px;
@@ -1201,7 +1201,7 @@ button:disabled {
   line-height: 1.4;
 }
 
-.page-quiz.is-answered .choice-rest {
+.page-quiz.is-answered .choice:not(.correct) .choice-rest {
   display: none;
 }
 
