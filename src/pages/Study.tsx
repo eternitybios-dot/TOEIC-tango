@@ -37,7 +37,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   const done = Math.max(0, (queue.length > 0 ? SESSION_SIZE : score.good + score.again) - remaining);
 
   useEffect(() => {
-    if (word && state.settings.autoSpeak) speak(word.word);
+    if (word && state.settings.autoSpeak) speak(word.word, word.phrase);
   }, [word, state.settings.autoSpeak]);
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
         <button
           type="button"
           className="btn speak"
-          onClick={() => speak(revealed ? word.phrase : word.word)}
+          onClick={() => speak(word.word, word.phrase)}
           aria-label="発音"
         >
           <IconSpeak size={20} />
