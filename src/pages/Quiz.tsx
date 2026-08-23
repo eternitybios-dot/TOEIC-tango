@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { AppState, Route, Word } from "../types";
-import { UNIT_META, WORDS, wordsByUnit } from "../data";
+import { WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
 import { clozePhrase, phraseParts, pickChoices, pickSession } from "../lib/quiz";
 import { dealSession, SESSION_SIZE } from "../lib/session";
@@ -124,32 +124,32 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   }
 
   return (
-    <div className={`page${shake ? " shake" : ""}`}>
-      <button className="back-link" onClick={() => go({ name: "home" })}>
-        <IconBack /> ホーム
-      </button>
-      <div className="progress-label">
-        <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : "期限＋新規"}</span>
-        <span>
-          {index + 1} / {queue.length}
-        </span>
-      </div>
-      <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />
-
-      <div className="row" style={{ marginBottom: 8 }}>
-        <button className={`chip${mode === "en-ja" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("en-ja")}>
-          英 → 和
-        </button>
-        <button className={`chip${mode === "ja-en" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("ja-en")}>
-          和 → 英
-        </button>
-        <button className={`chip${mode === "cloze" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("cloze")}>
-          空所
-        </button>
-        <button className="chip" onClick={() => speak(mode === "cloze" && picked === null ? word.phrase : word.word)}>
-          発音
-        </button>
-      </div>
+    <div className={`page page-quiz${shake ? " shake" : ""}${picked !== null ? " is-answered" : ""}`}>
+      <header className="quiz-head">
+        <div className="quiz-head-row">
+          <button className="back-link" onClick={() => go({ name: "home" })}>
+            <IconBack /> ホーム
+          </button>
+          <span className="tiny">
+            {unit ? `UNIT ${unit}` : "期限＋新規"} · {index + 1}/{queue.length}
+          </span>
+        </div>
+        <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />
+        <div className="quiz-modes">
+          <button className={`chip${mode === "en-ja" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("en-ja")}>
+            英 → 和
+          </button>
+          <button className={`chip${mode === "ja-en" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("ja-en")}>
+            和 → 英
+          </button>
+          <button className={`chip${mode === "cloze" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("cloze")}>
+            空所
+          </button>
+          <button className="chip" onClick={() => speak(mode === "cloze" && picked === null ? word.phrase : word.word)}>
+            発音
+          </button>
+        </div>
+      </header>
 
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
         <div className="quiz-word">
@@ -171,47 +171,47 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
         )}
       </div>
 
-      {choices.map((choice, i) => {
-        const selected = picked === choice.id;
-        const correct = picked !== null && choice.id === word.id;
-        const wrong = selected && choice.id !== word.id;
-        return (
-          <button
-            key={choice.id}
-            className={`choice rise${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
-            style={{ animationDelay: `${i * 50}ms` }}
-            onClick={() => choose(choice)}
-          >
-            <mark>{choiceLead(choice)}</mark>
-            <span className="choice-rest">{choiceRest(choice)}</span>
-          </button>
-        );
-      })}
+      <div className="quiz-body">
+        {choices.map((choice, i) => {
+          const selected = picked === choice.id;
+          const correct = picked !== null && choice.id === word.id;
+          const wrong = selected && choice.id !== word.id;
+          return (
+            <button
+              key={choice.id}
+              className={`choice rise${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
+              style={{ animationDelay: `${i * 50}ms` }}
+              onClick={() => choose(choice)}
+            >
+              <mark>{choiceLead(choice)}</mark>
+              <span className="choice-rest">{choiceRest(choice)}</span>
+            </button>
+          );
+        })}
 
-      {picked !== null && meaning && pickedWord && (
-        <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`} aria-live="polite">
-          <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
-          {!isCorrect && (
-            <p className="explain-compare">
-              あなたの答え {pickedWord.word}「{pickedWord.meaning}」
-              <br />
-              正解 {word.word}「{word.meaning}」
-            </p>
-          )}
-          <p className="explain-word">
-            {word.word}
-            <small>{word.pos}</small>
-          </p>
-          <p className="explain-gloss">{meaning.gloss}</p>
-          {meaning.lines.map((line) => (
-            <p key={line} className="explain-body">
-              {line}
-            </p>
-          ))}
-          <button className="cta" style={{ marginTop: 14 }} onClick={next}>
+        {picked !== null && meaning && pickedWord && (
+          <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`} aria-live="polite">
+            <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
+            {!isCorrect && (
+              <p className="explain-compare">
+                あなたの答え {pickedWord.word}「{pickedWord.meaning}」 / 正解 {word.word}「{word.meaning}」
+              </p>
+            )}
+            {meaning.lines.map((line) => (
+              <p key={line} className="explain-body">
+                {line}
+              </p>
+            ))}
+          </section>
+        )}
+      </div>
+
+      {picked !== null && (
+        <div className="quiz-dock">
+          <button className="cta" onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
           </button>
-        </section>
+        </div>
       )}
     </div>
   );
