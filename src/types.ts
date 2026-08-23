@@ -20,6 +20,8 @@ export type Word = {
   phraseJa: string;
   part: 1 | 2 | 3;
   unit: number;
+  /** Short learner note shown on the card back. Unique per word. */
+  note?: string;
 };
 
 export type Mastery = "new" | "learning" | "reviewing" | "mastered";

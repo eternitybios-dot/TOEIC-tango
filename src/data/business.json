@@ -8,7 +8,8 @@
     "phrase": "Check the meeting agenda.",
     "phraseJa": "会議の議題を確認してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "meeting agenda は会議の進行表。set/check the agenda で覚える。"
   },
   {
     "id": 20002,
@@ -19,7 +20,8 @@
     "phrase": "The deadline is Friday.",
     "phraseJa": "締め切りは金曜日です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "the deadline is … で締切日。meet/miss a deadline が定番。"
   },
   {
     "id": 20003,
@@ -30,7 +32,8 @@
     "phrase": "I will send the schedule today.",
     "phraseJa": "今日中に予定を送ります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "予定表そのもの。on schedule / ahead of schedule もセット。"
   },
   {
     "id": 20004,
@@ -41,7 +44,8 @@
     "phrase": "I have an appointment at ten.",
     "phraseJa": "10時に予約があります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "人と会う約束。have/make an appointment。reservation は席や部屋。"
   },
   {
     "id": 20005,
@@ -52,7 +56,8 @@
     "phrase": "The conference starts at nine.",
     "phraseJa": "会議は9時に始まります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "大規模な会議。start/attend a conference。"
   },
   {
     "id": 20006,
@@ -63,7 +68,8 @@
     "phrase": "She gave a short presentation.",
     "phraseJa": "彼女は短い発表をしました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "give a presentation で発表する。資料は slides。"
   },
   {
     "id": 20007,
@@ -74,7 +80,8 @@
     "phrase": "Please share the minutes.",
     "phraseJa": "議事録を共有してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会議の公式記録。take/share the minutes。複数形のまま。"
   },
   {
     "id": 20008,
@@ -85,7 +92,8 @@
     "phrase": "Ten attendees joined the call.",
     "phraseJa": "10人の出席者が通話に参加しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会議や通話の出席者。participant より会議寄り。"
   },
   {
     "id": 20009,
@@ -96,7 +104,8 @@
     "phrase": "The chairperson opened the meeting.",
     "phraseJa": "議長が会議を始めました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会議を進行する人。chair the meeting とも言う。"
   },
   {
     "id": 20010,
@@ -107,7 +116,8 @@
     "phrase": "We should postpone the meeting.",
     "phraseJa": "会議を延期すべきです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会合を後の日時にずらす。cancel は中止。"
   },
   {
     "id": 20011,
@@ -118,7 +128,8 @@
     "phrase": "Can we reschedule the call?",
     "phraseJa": "通話の予定を変更できますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "予定を別の枠に入れ直す。re- ＋ schedule。"
   },
   {
     "id": 20012,
@@ -129,7 +140,8 @@
     "phrase": "Please confirm the time.",
     "phraseJa": "時間を確認してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "日時や内容を確かめて確定する。confirm the time。"
   },
   {
     "id": 20013,
@@ -140,7 +152,8 @@
     "phrase": "I cannot attend tomorrow.",
     "phraseJa": "明日は出席できません。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "attend a meeting。to は付けない。出席できないは cannot attend。"
   },
   {
     "id": 20014,
@@ -151,7 +164,8 @@
     "phrase": "Let’s discuss the plan.",
     "phraseJa": "計画について話し合いましょう。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "議題を口頭で検討する。discuss ＋名詞（about は冗長）。"
   },
   {
     "id": 20015,
@@ -162,7 +176,8 @@
     "phrase": "He proposed a new idea.",
     "phraseJa": "彼は新しい案を提案しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "案を正式に出す。propose a new idea。"
   },
   {
     "id": 20016,
@@ -173,7 +188,8 @@
     "phrase": "The manager approved the request.",
     "phraseJa": "上司がその依頼を承認しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "上長が申請をよしとする。approve the request。"
   },
   {
     "id": 20017,
@@ -184,7 +200,8 @@
     "phrase": "They rejected the proposal.",
     "phraseJa": "彼らはその提案を却下しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "提案を退ける。reject the proposal。"
   },
   {
     "id": 20018,
@@ -195,7 +212,8 @@
     "phrase": "I assigned the task to Ken.",
     "phraseJa": "その仕事をケンに割り当てました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "assign A to B で仕事を人に振る。"
   },
   {
     "id": 20019,
@@ -206,7 +224,8 @@
     "phrase": "This is a deadline-driven project.",
     "phraseJa": "これは締め切り重視の案件です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "締切が最優先の。deadline-driven project。"
   },
   {
     "id": 20020,
@@ -217,7 +236,8 @@
     "phrase": "This is an urgent request.",
     "phraseJa": "これは急ぎの依頼です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "urgent request は即対応が要る依頼。"
   },
   {
     "id": 20021,
@@ -228,7 +248,8 @@
     "phrase": "I am available after lunch.",
     "phraseJa": "昼過ぎなら都合がつきます。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "日程が空いている。available after / on 曜日。"
   },
   {
     "id": 20022,
@@ -239,7 +260,8 @@
     "phrase": "Give a brief update.",
     "phraseJa": "短い報告をしてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "短い。brief update は要点だけの報告。"
   },
   {
     "id": 20023,
@@ -250,7 +272,8 @@
     "phrase": "We have a weekly meeting.",
     "phraseJa": "週次の会議があります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "毎週の。weekly meeting / report。"
   },
   {
     "id": 20024,
@@ -261,7 +284,8 @@
     "phrase": "The monthly report is ready.",
     "phraseJa": "月次報告の準備ができています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "毎月の。monthly report は月次報告。"
   },
   {
     "id": 20025,
@@ -272,7 +296,8 @@
     "phrase": "I will send a follow-up email.",
     "phraseJa": "続きの確認メールを送ります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "後追いの確認連絡。send a follow-up。"
   },
   {
     "id": 20026,
@@ -283,7 +308,8 @@
     "phrase": "The kickoff is on Monday.",
     "phraseJa": "開始会合は月曜日です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "案件の最初の会合。kickoff meeting。"
   },
   {
     "id": 20027,
@@ -294,7 +320,8 @@
     "phrase": "Let’s do a quick wrap-up.",
     "phraseJa": "簡単にまとめましょう。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "終わりのまとめ。do a wrap-up。"
   },
   {
     "id": 20028,
@@ -305,7 +332,8 @@
     "phrase": "This is your action item.",
     "phraseJa": "これがあなたの宿題です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会議後の担当作業。assign an action item。"
   },
   {
     "id": 20029,
@@ -316,7 +344,8 @@
     "phrase": "Please arrive on time.",
     "phraseJa": "時間どおりに来てください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "遅れず。arrive/finish on time。"
   },
   {
     "id": 20030,
@@ -327,7 +356,8 @@
     "phrase": "Tell me in advance.",
     "phraseJa": "前もって教えてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "事前に。tell/book in advance。"
   },
   {
     "id": 20031,
@@ -338,7 +368,8 @@
     "phrase": "Reply as soon as possible.",
     "phraseJa": "できるだけ早く返信してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "ASAP と略す。返信や提出を急ぐとき。"
   },
   {
     "id": 20032,
@@ -349,7 +380,8 @@
     "phrase": "Finish it by the end of the day.",
     "phraseJa": "今日中に終わらせてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "今日の業務時間内に。EOD と略すこともある。"
   },
   {
     "id": 20033,
@@ -360,7 +392,8 @@
     "phrase": "I am out of office today.",
     "phraseJa": "本日は不在です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "OOO。不在返信の定番表現。"
   },
   {
     "id": 20034,
@@ -371,7 +404,8 @@
     "phrase": "Let’s touch base tomorrow.",
     "phraseJa": "明日軽く連絡を取りましょう。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "短く進捗を合わせる口語。フォーマル文書では避ける。"
   },
   {
     "id": 20035,
@@ -382,7 +416,8 @@
     "phrase": "We can move forward now.",
     "phraseJa": "これで先に進めます。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "次の段階へ進める。合意後によく使う。"
   },
   {
     "id": 20036,
@@ -393,7 +428,8 @@
     "phrase": "Please take notes.",
     "phraseJa": "メモを取ってください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "会議中にメモを残す。minutes 作成の下準備。"
   },
   {
     "id": 20037,
@@ -404,7 +440,8 @@
     "phrase": "May I raise a question?",
     "phraseJa": "質問してもよろしいですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "発言権をもらって質問する。会議の定番。"
   },
   {
     "id": 20038,
@@ -415,7 +452,8 @@
     "phrase": "Are we on the same page?",
     "phraseJa": "認識は一致していますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "認識が揃っているか確認する口語。"
   },
   {
     "id": 20039,
@@ -426,7 +464,8 @@
     "phrase": "I will circle back later.",
     "phraseJa": "後でまた戻ります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "一旦置いて後で再連絡する口語。"
   },
   {
     "id": 20040,
@@ -437,7 +476,8 @@
     "phrase": "The meeting may run late.",
     "phraseJa": "会議が遅れるかもしれません。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "予定より長引く。The meeting ran late。"
   },
   {
     "id": 20041,
@@ -448,7 +488,8 @@
     "phrase": "The client asked for a change.",
     "phraseJa": "顧客が変更を求めました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "取引相手の顧客。customer より案件単位。"
   },
   {
     "id": 20042,
@@ -459,7 +500,8 @@
     "phrase": "The customer was satisfied.",
     "phraseJa": "お客様は満足していました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "商品・サービスを買う側。satisfied customer。"
   },
   {
     "id": 20043,
@@ -470,7 +512,8 @@
     "phrase": "Ask your colleague for help.",
     "phraseJa": "同僚に助けを求めてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "同じ職場の人。ask a colleague。"
   },
   {
     "id": 20044,
@@ -481,7 +524,8 @@
     "phrase": "Talk to your supervisor first.",
     "phraseJa": "まず上司に相談してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "直属の上司。report to your supervisor。"
   },
   {
     "id": 20045,
@@ -492,7 +536,8 @@
     "phrase": "Which department do you work in?",
     "phraseJa": "どの部署で働いていますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "社内の部。which department。"
   },
   {
     "id": 20046,
@@ -503,7 +548,8 @@
     "phrase": "She works at headquarters.",
     "phraseJa": "彼女は本社で働いています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "本社。複数扱いのことが多い。at headquarters。"
   },
   {
     "id": 20047,
@@ -514,7 +560,8 @@
     "phrase": "He moved to the Osaka branch.",
     "phraseJa": "彼は大阪支店に移りました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "支店。the Osaka branch。"
   },
   {
     "id": 20048,
@@ -525,7 +572,8 @@
     "phrase": "Teamwork is important here.",
     "phraseJa": "ここでは協力が大切です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "チームで協力すること。不可算。"
   },
   {
     "id": 20049,
@@ -536,7 +584,8 @@
     "phrase": "My workload is heavy this week.",
     "phraseJa": "今週は仕事量が多いです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "仕事の総量。heavy workload。"
   },
   {
     "id": 20050,
@@ -547,7 +596,8 @@
     "phrase": "I did two hours of overtime.",
     "phraseJa": "2時間残業しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "所定外の労働。do overtime / work overtime。"
   },
   {
     "id": 20051,
@@ -558,7 +608,8 @@
     "phrase": "I work the morning shift.",
     "phraseJa": "朝の勤務時間帯です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "交替勤務の枠。morning/night shift。"
   },
   {
     "id": 20052,
@@ -569,7 +620,8 @@
     "phrase": "We need to hire a designer.",
     "phraseJa": "デザイナーを雇う必要があります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "人を採用する。hire a designer。"
   },
   {
     "id": 20053,
@@ -580,7 +632,8 @@
     "phrase": "He resigned last month.",
     "phraseJa": "彼は先月辞職しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "職を自分から辞める。resign from。"
   },
   {
     "id": 20054,
@@ -591,7 +644,8 @@
     "phrase": "They promoted her to manager.",
     "phraseJa": "彼女は課長に昇進しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "職位を上げる。promote 人 to 役職。"
   },
   {
     "id": 20055,
@@ -602,7 +656,8 @@
     "phrase": "We will train new staff.",
     "phraseJa": "新入社員を研修します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "技能を教える。train new staff。"
   },
   {
     "id": 20056,
@@ -613,7 +668,8 @@
     "phrase": "We evaluate performance yearly.",
     "phraseJa": "毎年成果を評価します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "業績を評価する。evaluate performance。"
   },
   {
     "id": 20057,
@@ -624,7 +680,8 @@
     "phrase": "Please cooperate with the team.",
     "phraseJa": "チームに協力してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "cooperate with 人・部署。"
   },
   {
     "id": 20058,
@@ -635,7 +692,8 @@
     "phrase": "She is a reliable worker.",
     "phraseJa": "彼女は信頼できる社員です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "任せても大丈夫。a reliable worker。"
   },
   {
     "id": 20059,
@@ -646,7 +704,8 @@
     "phrase": "I am busy until three.",
     "phraseJa": "3時まで忙しいです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "busy until / with。予定が埋まっている。"
   },
   {
     "id": 20060,
@@ -657,7 +716,8 @@
     "phrase": "The hours are flexible.",
     "phraseJa": "勤務時間は融通が利きます。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "時間ややり方を変えられる。flexible hours。"
   },
   {
     "id": 20061,
@@ -668,7 +728,8 @@
     "phrase": "I work remote on Fridays.",
     "phraseJa": "金曜は遠隔で働きます。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "職場にいない勤務。work remote / remotely。"
   },
   {
     "id": 20062,
@@ -679,7 +740,8 @@
     "phrase": "This is a full-time role.",
     "phraseJa": "これはフルタイムの仕事です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "フルタイムの。a full-time role。"
   },
   {
     "id": 20063,
@@ -690,7 +752,8 @@
     "phrase": "She has a part-time job.",
     "phraseJa": "彼女はパートの仕事があります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "非常勤の。a part-time job。"
   },
   {
     "id": 20064,
@@ -701,7 +764,8 @@
     "phrase": "Ask human resources about leave.",
     "phraseJa": "休暇のことは人事に聞いてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "人事部。HR と略す。休暇や採用の窓口。"
   },
   {
     "id": 20065,
@@ -712,7 +776,8 @@
     "phrase": "I received a job offer.",
     "phraseJa": "採用通知を受け取りました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "採用する側からの通知。receive a job offer。"
   },
   {
     "id": 20066,
@@ -723,7 +788,8 @@
     "phrase": "I will take paid leave.",
     "phraseJa": "有給休暇を取ります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "有給。take paid leave。"
   },
   {
     "id": 20067,
@@ -734,7 +800,8 @@
     "phrase": "Monday is my day off.",
     "phraseJa": "月曜は休みの日です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "勤務のない日。my day off。"
   },
   {
     "id": 20068,
@@ -745,7 +812,8 @@
     "phrase": "I work from home today.",
     "phraseJa": "今日は在宅勤務です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "在宅で働く。WFH。work from home today。"
   },
   {
     "id": 20069,
@@ -756,7 +824,8 @@
     "phrase": "She is on leave this week.",
     "phraseJa": "彼女は今週休暇中です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "休暇を取っている状態。be on leave。"
   },
   {
     "id": 20070,
@@ -767,7 +836,8 @@
     "phrase": "I am in charge of sales.",
     "phraseJa": "私は営業を担当しています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "担当範囲。in charge of sales。"
   },
   {
     "id": 20071,
@@ -778,7 +848,8 @@
     "phrase": "I report to Ms. Aoki.",
     "phraseJa": "上司は青木さんです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "報告先の上司。I report to …。"
   },
   {
     "id": 20072,
@@ -789,7 +860,8 @@
     "phrase": "Can you fill in for me?",
     "phraseJa": "代わりをしてもらえますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "不在の人の代わりをする。fill in for 人。"
   },
   {
     "id": 20073,
@@ -800,7 +872,8 @@
     "phrase": "Please clock in at nine.",
     "phraseJa": "9時に出勤してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "出勤打刻。clock in at 時刻。"
   },
   {
     "id": 20074,
@@ -811,7 +884,8 @@
     "phrase": "I clock out at six.",
     "phraseJa": "6時に退勤します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "退勤打刻。clock out at 時刻。"
   },
   {
     "id": 20075,
@@ -822,7 +896,8 @@
     "phrase": "The performance review is next week.",
     "phraseJa": "人事評価は来週です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "人事評価の面談や書類。the performance review is next week。"
   },
   {
     "id": 20076,
@@ -833,7 +908,8 @@
     "phrase": "Think about your career path.",
     "phraseJa": "自分のキャリアの道を考えてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "今後の昇進・職種の道筋。think about your career path。"
   },
   {
     "id": 20077,
@@ -844,7 +920,8 @@
     "phrase": "This role needs a new skill set.",
     "phraseJa": "この仕事には新しい技能が要ります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "持っている技能の一式。this role needs a new skill set。"
   },
   {
     "id": 20078,
@@ -855,7 +932,8 @@
     "phrase": "Ask the team lead first.",
     "phraseJa": "まずチームの責任者に聞いてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "チームの取りまとめ役。ask the team lead first。"
   },
   {
     "id": 20079,
@@ -866,7 +944,8 @@
     "phrase": "The staff meeting is at two.",
     "phraseJa": "職員会議は2時です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "部署全体の会議。the staff meeting is at two。"
   },
   {
     "id": 20080,
@@ -877,7 +956,8 @@
     "phrase": "Office hours end at six.",
     "phraseJa": "勤務時間は6時までです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "開局している勤務時間。office hours end at six。"
   },
   {
     "id": 20081,
@@ -888,7 +968,8 @@
     "phrase": "I sent the email this morning.",
     "phraseJa": "今朝メールを送りました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "send/reply to an email。件名は subject。"
   },
   {
     "id": 20082,
@@ -899,7 +980,8 @@
     "phrase": "Please open the attachment.",
     "phraseJa": "添付ファイルを開いてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "メールに付けるファイル。see the attachment。"
   },
   {
     "id": 20083,
@@ -910,7 +992,8 @@
     "phrase": "Write a clear subject line.",
     "phraseJa": "わかりやすい件名を書いてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "件名欄。a clear subject line。"
   },
   {
     "id": 20084,
@@ -921,7 +1004,8 @@
     "phrase": "Check the recipient again.",
     "phraseJa": "宛先をもう一度確認してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "宛先。誤送信前に確認する語。"
   },
   {
     "id": 20085,
@@ -932,7 +1016,8 @@
     "phrase": "Add her in cc.",
     "phraseJa": "彼女を写しに入れてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "写しで送る。add 人 in cc。"
   },
   {
     "id": 20086,
@@ -943,7 +1028,8 @@
     "phrase": "My inbox is full.",
     "phraseJa": "受信箱がいっぱいです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "受信トレイ。inbox is full。"
   },
   {
     "id": 20087,
@@ -954,7 +1040,8 @@
     "phrase": "I saved it as a draft.",
     "phraseJa": "下書きとして保存しました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "未送信の下書き。save as a draft。"
   },
   {
     "id": 20088,
@@ -965,7 +1052,8 @@
     "phrase": "Send a reminder tomorrow.",
     "phraseJa": "明日催促を送ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "催促や再通知。send a reminder。"
   },
   {
     "id": 20089,
@@ -976,7 +1064,8 @@
     "phrase": "Thank you for your feedback.",
     "phraseJa": "ご意見をありがとうございます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "改善のための意見。give/receive feedback。不可算。"
   },
   {
     "id": 20090,
@@ -987,7 +1076,8 @@
     "phrase": "I have a small request.",
     "phraseJa": "小さな依頼があります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "依頼ごと。have a request / request that。"
   },
   {
     "id": 20091,
@@ -998,7 +1088,8 @@
     "phrase": "Please reply by noon.",
     "phraseJa": "正午までに返信してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "返信する。reply to the email。by 期限。"
   },
   {
     "id": 20092,
@@ -1009,7 +1100,8 @@
     "phrase": "Forward this to the team.",
     "phraseJa": "これをチームに転送してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "他人にメールを回す。forward A to B。"
   },
   {
     "id": 20093,
@@ -1020,7 +1112,8 @@
     "phrase": "Did you attach the file?",
     "phraseJa": "ファイルを添付しましたか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "ファイルを付ける。attach the file。"
   },
   {
     "id": 20094,
@@ -1031,7 +1124,8 @@
     "phrase": "Let me clarify the point.",
     "phraseJa": "その点をはっきりさせます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "曖昧な点をはっきりさせる。clarify the point。"
   },
   {
     "id": 20095,
@@ -1042,7 +1136,8 @@
     "phrase": "Summarize the email in two lines.",
     "phraseJa": "メールを2行で要約してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "長くなった内容を短くまとめる。"
   },
   {
     "id": 20096,
@@ -1053,7 +1148,8 @@
     "phrase": "Use a polite tone.",
     "phraseJa": "丁寧な口調にしてください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "丁寧な語調。a polite tone。"
   },
   {
     "id": 20097,
@@ -1064,7 +1160,8 @@
     "phrase": "This letter is too formal.",
     "phraseJa": "この手紙は堅すぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "堅い文体。社外文書向き。"
   },
   {
     "id": 20098,
@@ -1075,7 +1172,8 @@
     "phrase": "The note is informal.",
     "phraseJa": "そのメモはくだけています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "くだけた文体。社内メモ向き。"
   },
   {
     "id": 20099,
@@ -1086,7 +1184,8 @@
     "phrase": "Your message is clear.",
     "phraseJa": "メッセージはわかりやすいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "わかりやすい。a clear message。"
   },
   {
     "id": 20100,
@@ -1097,7 +1196,8 @@
     "phrase": "I am writing regarding the invoice.",
     "phraseJa": "請求書に関して書いています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "件名や書き出しで「〜の件」。regarding ＋名詞。"
   },
   {
     "id": 20101,
@@ -1108,7 +1208,8 @@
     "phrase": "According to the email, it is done.",
     "phraseJa": "メールによれば完了しています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "情報源を示す。According to the email。"
   },
   {
     "id": 20102,
@@ -1119,7 +1220,8 @@
     "phrase": "Please find attached the file.",
     "phraseJa": "添付のファイルをご覧ください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "添付を案内する定型。Please find attached …。"
   },
   {
     "id": 20103,
@@ -1130,7 +1232,8 @@
     "phrase": "I send this for your reference.",
     "phraseJa": "参考までに送ります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "参考送付の定型。for your reference。"
   },
   {
     "id": 20104,
@@ -1141,7 +1244,8 @@
     "phrase": "Let me know if you agree.",
     "phraseJa": "賛成なら知らせてください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "返事や判断を求める定型。"
   },
   {
     "id": 20105,
@@ -1152,7 +1256,8 @@
     "phrase": "I look forward to your reply.",
     "phraseJa": "返信を楽しみにしています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "to のあと動名詞。look forward to hearing。"
   },
   {
     "id": 20106,
@@ -1163,7 +1268,8 @@
     "phrase": "Kind regards, Aya.",
     "phraseJa": "敬具 アヤ",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "末尾の結び。Kind regards, 名前。"
   },
   {
     "id": 20107,
@@ -1174,7 +1280,8 @@
     "phrase": "Thank you in advance.",
     "phraseJa": "前もってお礼を申し上げます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "先に礼を言う定型。依頼メールで多用。"
   },
   {
     "id": 20108,
@@ -1185,7 +1292,8 @@
     "phrase": "As discussed, we will wait.",
     "phraseJa": "話し合ったとおり、待ちます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "会議の合意を前提にする書き出し。"
   },
   {
     "id": 20109,
@@ -1196,7 +1304,8 @@
     "phrase": "Please be advised of the change.",
     "phraseJa": "変更をお知らせします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "変更を正式に知らせる硬い定型。"
   },
   {
     "id": 20110,
@@ -1207,7 +1316,8 @@
     "phrase": "This is for your information.",
     "phraseJa": "これはご参考までです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "FYI。対応不要の共有。"
   },
   {
     "id": 20111,
@@ -1218,7 +1328,8 @@
     "phrase": "I would like to confirm the date.",
     "phraseJa": "日付を確認したいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "丁寧な希望。I would like to ＋動詞。"
   },
   {
     "id": 20112,
@@ -1229,7 +1340,8 @@
     "phrase": "Could you please check this?",
     "phraseJa": "これを確認していただけますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "依頼を一段柔らかくする定型。"
   },
   {
     "id": 20113,
@@ -1240,7 +1352,8 @@
     "phrase": "Sorry for the delay in reply.",
     "phraseJa": "返信が遅れてすみません。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "返信遅れの定型。Sorry for the delay。"
   },
   {
     "id": 20114,
@@ -1251,7 +1364,8 @@
     "phrase": "Please ignore my last email.",
     "phraseJa": "先のメールは無視してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "誤送のあと取り消す定型。"
   },
   {
     "id": 20115,
@@ -1262,7 +1376,8 @@
     "phrase": "See below for details.",
     "phraseJa": "詳細は以下を見てください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "詳細は本文の下、と誘導する。"
   },
   {
     "id": 20116,
@@ -1273,7 +1388,8 @@
     "phrase": "As mentioned, the file is ready.",
     "phraseJa": "述べたように、ファイルはできています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "前に述べた内容を受ける。"
   },
   {
     "id": 20117,
@@ -1284,7 +1400,8 @@
     "phrase": "Keep me posted on the result.",
     "phraseJa": "結果の経過を知らせてください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "途中経過をくれ、と頼む口語。"
   },
   {
     "id": 20118,
@@ -1295,7 +1412,8 @@
     "phrase": "Please reach out if needed.",
     "phraseJa": "必要なら連絡してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "必要なとき連絡して、の口語。"
   },
   {
     "id": 20119,
@@ -1306,7 +1424,8 @@
     "phrase": "I will get back to you today.",
     "phraseJa": "今日折り返します。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "折り返し連絡する。get back to you。"
   },
   {
     "id": 20120,
@@ -1317,7 +1436,8 @@
     "phrase": "The budget is limited.",
     "phraseJa": "予算は限られています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "使える金額の枠。over/on budget とセット。"
   },
   {
     "id": 20121,
@@ -1328,7 +1448,8 @@
     "phrase": "Please pay the invoice.",
     "phraseJa": "請求書を支払ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "支払い請求の書類。pay/issue an invoice。"
   },
   {
     "id": 20122,
@@ -1339,7 +1460,8 @@
     "phrase": "I need a receipt.",
     "phraseJa": "領収書が必要です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "支払済みの証明。need a receipt。"
   },
   {
     "id": 20123,
@@ -1350,7 +1472,8 @@
     "phrase": "Send an estimate tomorrow.",
     "phraseJa": "明日見積もりを送ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "概算の見積。send an estimate。"
   },
   {
     "id": 20124,
@@ -1361,7 +1484,8 @@
     "phrase": "We can offer a small discount.",
     "phraseJa": "少し割引できます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値引き。offer/give a discount。"
   },
   {
     "id": 20125,
@@ -1372,7 +1496,8 @@
     "phrase": "Profit went up this year.",
     "phraseJa": "今年は利益が増えました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "もうけ。profit went up。"
   },
   {
     "id": 20126,
@@ -1383,7 +1508,8 @@
     "phrase": "The project was a loss.",
     "phraseJa": "その案件は損失でした。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "赤字になること。a loss。"
   },
   {
     "id": 20127,
@@ -1394,7 +1520,8 @@
     "phrase": "The cost is too high.",
     "phraseJa": "費用が高すぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "かかる金額。the cost is high。"
   },
   {
     "id": 20128,
@@ -1405,7 +1532,8 @@
     "phrase": "What is the price per unit?",
     "phraseJa": "1個あたりの価格はいくらですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "売値。price per unit。"
   },
   {
     "id": 20129,
@@ -1416,7 +1544,8 @@
     "phrase": "Sales rose in June.",
     "phraseJa": "6月は売上が伸びました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "売上高。複数扱い。sales rose。"
   },
   {
     "id": 20130,
@@ -1427,7 +1556,8 @@
     "phrase": "Please sign the contract.",
     "phraseJa": "契約に署名してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "契約書。sign/renew a contract。"
   },
   {
     "id": 20131,
@@ -1438,7 +1568,8 @@
     "phrase": "We closed the deal.",
     "phraseJa": "取引がまとまりました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "取引のまとまり。close a deal。"
   },
   {
     "id": 20132,
@@ -1449,7 +1580,8 @@
     "phrase": "Talk to the supplier today.",
     "phraseJa": "今日仕入先と話してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "仕入れ先。talk to the supplier。"
   },
   {
     "id": 20133,
@@ -1460,7 +1592,8 @@
     "phrase": "Inventory is low.",
     "phraseJa": "在庫が少ないです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "在庫。inventory is low。"
   },
   {
     "id": 20134,
@@ -1471,7 +1604,8 @@
     "phrase": "The shipment arrives Friday.",
     "phraseJa": "発送は金曜に届きます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "貨物の発送。the shipment arrives。"
   },
   {
     "id": 20135,
@@ -1482,7 +1616,8 @@
     "phrase": "Payment is due next week.",
     "phraseJa": "支払いは来週です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "代金の支払い。payment is due。"
   },
   {
     "id": 20136,
@@ -1493,7 +1628,8 @@
     "phrase": "They issued a refund.",
     "phraseJa": "返金が出ました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "返金。issue a refund。"
   },
   {
     "id": 20137,
@@ -1504,7 +1640,8 @@
     "phrase": "The price includes tax.",
     "phraseJa": "価格には税が含まれます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "税。price includes tax。"
   },
   {
     "id": 20138,
@@ -1515,7 +1652,8 @@
     "phrase": "There is a small fee.",
     "phraseJa": "少し手数料がかかります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "手数料。a small fee。"
   },
   {
     "id": 20139,
@@ -1526,7 +1664,8 @@
     "phrase": "We ordered more paper.",
     "phraseJa": "紙を追加発注しました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "発注する。order ＋品物。"
   },
   {
     "id": 20140,
@@ -1537,7 +1676,8 @@
     "phrase": "Please pay by bank transfer.",
     "phraseJa": "銀行振込で支払ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "代金を払う。pay by 手段。"
   },
   {
     "id": 20141,
@@ -1548,7 +1688,8 @@
     "phrase": "They charged an extra fee.",
     "phraseJa": "追加の手数料を請求されました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "料金を課す。charge a fee。"
   },
   {
     "id": 20142,
@@ -1559,7 +1700,8 @@
     "phrase": "This plan can save money.",
     "phraseJa": "この案ならお金を節約できます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "節約する。save money/time。"
   },
   {
     "id": 20143,
@@ -1570,7 +1712,8 @@
     "phrase": "We need to increase sales.",
     "phraseJa": "売上を増やす必要があります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "増やす。increase sales。"
   },
   {
     "id": 20144,
@@ -1581,7 +1724,8 @@
     "phrase": "Reduce unnecessary costs.",
     "phraseJa": "不要な費用を減らしてください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "減らす。reduce costs。"
   },
   {
     "id": 20145,
@@ -1592,7 +1736,8 @@
     "phrase": "We need an affordable option.",
     "phraseJa": "手ごろな選択肢が必要です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "予算内で手が届く。an affordable option。"
   },
   {
     "id": 20146,
@@ -1603,7 +1748,8 @@
     "phrase": "That tool is expensive.",
     "phraseJa": "その道具は高いです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値段が高い。too expensive。"
   },
   {
     "id": 20147,
@@ -1614,7 +1760,8 @@
     "phrase": "This product is profitable.",
     "phraseJa": "この商品はもうかります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "利益が出る。a profitable product。"
   },
   {
     "id": 20148,
@@ -1625,7 +1772,8 @@
     "phrase": "The payment is due today.",
     "phraseJa": "支払いは本日期限です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "支払期限が来ている。payment is due。"
   },
   {
     "id": 20149,
@@ -1636,7 +1784,8 @@
     "phrase": "This is a quarterly report.",
     "phraseJa": "これは四半期の報告です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "3か月ごとの。quarterly report。"
   },
   {
     "id": 20150,
@@ -1647,7 +1796,8 @@
     "phrase": "The shop is in the black.",
     "phraseJa": "その店は黒字です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "黒字。in the black。"
   },
   {
     "id": 20151,
@@ -1658,7 +1808,8 @@
     "phrase": "The unit is in the red.",
     "phraseJa": "その部門は赤字です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "赤字。in the red。"
   },
   {
     "id": 20152,
@@ -1669,7 +1820,8 @@
     "phrase": "We will break even next year.",
     "phraseJa": "来年損益なしになります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "損益ゼロになる。break even。"
   },
   {
     "id": 20153,
@@ -1680,7 +1832,8 @@
     "phrase": "They announced a price cut.",
     "phraseJa": "値下げが発表されました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値下げ。announce a price cut。"
   },
   {
     "id": 20154,
@@ -1691,7 +1844,8 @@
     "phrase": "We missed the sales target.",
     "phraseJa": "売上目標に届きませんでした。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "売上のノルマ。meet/miss the sales target。"
   },
   {
     "id": 20155,
@@ -1702,7 +1856,8 @@
     "phrase": "Send the purchase order today.",
     "phraseJa": "今日発注書を送ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "発注書。PO。send the purchase order。"
   },
   {
     "id": 20156,
@@ -1713,7 +1868,8 @@
     "phrase": "Pay by bank transfer.",
     "phraseJa": "銀行振込で払ってください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "銀行振込。pay by bank transfer。"
   },
   {
     "id": 20157,
@@ -1724,7 +1880,8 @@
     "phrase": "We accept a credit card.",
     "phraseJa": "クレジットカードが使えます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "カード払い。accept a credit card。"
   },
   {
     "id": 20158,
@@ -1735,7 +1892,8 @@
     "phrase": "Watch the cash flow closely.",
     "phraseJa": "資金の流れをよく見てください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "資金の出入り。watch the cash flow。"
   },
   {
     "id": 20159,
@@ -1746,7 +1904,8 @@
     "phrase": "Our market share is growing.",
     "phraseJa": "市場占有率は伸びています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "市場占有率。market share is growing。"
   },
   {
     "id": 20160,
@@ -1757,7 +1916,8 @@
     "phrase": "The supply chain was delayed.",
     "phraseJa": "供給の流れが遅れました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "調達から納品までの流れ。"
   },
   {
     "id": 20161,
@@ -1768,7 +1928,8 @@
     "phrase": "This is a cost effective choice.",
     "phraseJa": "これは費用対効果のよい選択です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "費用の割に効果がある。ハイフンなし表記も多い。"
   },
   {
     "id": 20162,
@@ -1779,7 +1940,8 @@
     "phrase": "We finished on budget.",
     "phraseJa": "予算内で終わりました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "予算内で収まる。finish on budget。"
   },
   {
     "id": 20163,
@@ -1790,7 +1952,8 @@
     "phrase": "The work went over budget.",
     "phraseJa": "作業が予算を超えました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "予算を超える。go over budget。"
   },
   {
     "id": 20164,
@@ -1801,7 +1964,8 @@
     "phrase": "Net profit rose by five percent.",
     "phraseJa": "純利益が5パーセント増えた。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "経費差し引き後の利益。net profit。"
   },
   {
     "id": 20165,
@@ -1812,7 +1976,8 @@
     "phrase": "Gross sales were strong.",
     "phraseJa": "総売上は好調でした。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値引き前の総売上。gross sales。"
   },
   {
     "id": 20166,
@@ -1823,7 +1988,8 @@
     "phrase": "Check the unit price first.",
     "phraseJa": "まず単価を確認してください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "1個あたりの値段。unit price。"
   },
   {
     "id": 20167,
@@ -1834,7 +2000,8 @@
     "phrase": "We need a new strategy.",
     "phraseJa": "新しい戦略が必要です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "勝ち方の方針。a new strategy。"
   },
   {
     "id": 20168,
@@ -1845,7 +2012,8 @@
     "phrase": "Set a clear goal.",
     "phraseJa": "はっきりした目標を立ててください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "目指す成果。set a goal。"
   },
   {
     "id": 20169,
@@ -1856,7 +2024,8 @@
     "phrase": "The result was better than expected.",
     "phraseJa": "結果は予想より良かったです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "出てきた成果。the result was …。"
   },
   {
     "id": 20170,
@@ -1867,7 +2036,8 @@
     "phrase": "There is a small issue.",
     "phraseJa": "小さな問題があります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "対処が要る問題。a small issue。"
   },
   {
     "id": 20171,
@@ -1878,7 +2048,8 @@
     "phrase": "This plan has some risk.",
     "phraseJa": "この案には危険があります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "うまくいかない恐れ。have some risk。"
   },
   {
     "id": 20172,
@@ -1889,7 +2060,8 @@
     "phrase": "We found a simple solution.",
     "phraseJa": "簡単な解決策が見つかりました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "問題の解き方。find a solution。"
   },
   {
     "id": 20173,
@@ -1900,7 +2072,8 @@
     "phrase": "Follow the process.",
     "phraseJa": "手順に従ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "決められた手順。follow the process。"
   },
   {
     "id": 20174,
@@ -1911,7 +2084,8 @@
     "phrase": "Quality comes first.",
     "phraseJa": "質が一番です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "質。quality comes first。不可算。"
   },
   {
     "id": 20175,
@@ -1922,7 +2096,8 @@
     "phrase": "This meets the standard.",
     "phraseJa": "これは基準を満たしています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "合格ライン。meet the standard。"
   },
   {
     "id": 20176,
@@ -1933,7 +2108,8 @@
     "phrase": "Read the company policy.",
     "phraseJa": "会社の方針を読んでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "社の決まり。company policy。"
   },
   {
     "id": 20177,
@@ -1944,7 +2120,8 @@
     "phrase": "The data supports the idea.",
     "phraseJa": "資料がその考えを支えています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "数字や事実の材料。不可算扱いが多い。"
   },
   {
     "id": 20178,
@@ -1955,7 +2132,8 @@
     "phrase": "Finish the report today.",
     "phraseJa": "今日中に報告書を仕上げてください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "報告書。finish/submit a report。"
   },
   {
     "id": 20179,
@@ -1966,7 +2144,8 @@
     "phrase": "These figures look correct.",
     "phraseJa": "これらの数値は正しそうです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "数値。these figures。"
   },
   {
     "id": 20180,
@@ -1977,7 +2156,8 @@
     "phrase": "The trend is going up.",
     "phraseJa": "傾向は上向きです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "長期の向き。the trend is up。"
   },
   {
     "id": 20181,
@@ -1988,7 +2168,8 @@
     "phrase": "We hit the target.",
     "phraseJa": "目標値に届きました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "数値目標。hit/miss the target。"
   },
   {
     "id": 20182,
@@ -1999,7 +2180,8 @@
     "phrase": "We must improve the process.",
     "phraseJa": "手順を改善しなければなりません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "今より良くする。improve the process。"
   },
   {
     "id": 20183,
@@ -2010,7 +2192,8 @@
     "phrase": "Analyze the latest data.",
     "phraseJa": "最新の資料を分析してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "データを分解して読む。analyze the data。"
   },
   {
     "id": 20184,
@@ -2021,7 +2204,8 @@
     "phrase": "Compare the two plans.",
     "phraseJa": "2つの案を比べてください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "compare A and/with B。"
   },
   {
     "id": 20185,
@@ -2032,7 +2216,8 @@
     "phrase": "We will decide tomorrow.",
     "phraseJa": "明日決めます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "decide to do / decide on。"
   },
   {
     "id": 20186,
@@ -2043,7 +2228,8 @@
     "phrase": "They will implement the change.",
     "phraseJa": "その変更を実行します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "決めた改革を現場に入れる。"
   },
   {
     "id": 20187,
@@ -2054,7 +2240,8 @@
     "phrase": "Monitor the results weekly.",
     "phraseJa": "結果を毎週監視してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "継続的に見張る。monitor the results。"
   },
   {
     "id": 20188,
@@ -2065,7 +2252,8 @@
     "phrase": "This is an effective method.",
     "phraseJa": "これは効果的な方法です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "狙い通りの効果がある。effective method。"
   },
   {
     "id": 20189,
@@ -2076,7 +2264,8 @@
     "phrase": "Find a more efficient way.",
     "phraseJa": "より能率のよい方法を探してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "無駄が少ない。efficient way。effective と区別。"
   },
   {
     "id": 20190,
@@ -2087,7 +2276,8 @@
     "phrase": "The launch was successful.",
     "phraseJa": "発売は成功しました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "うまくいった。a successful launch。"
   },
   {
     "id": 20191,
@@ -2098,7 +2288,8 @@
     "phrase": "Is this change necessary?",
     "phraseJa": "この変更は必要ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "なくてはならない。necessary change。"
   },
   {
     "id": 20192,
@@ -2109,7 +2300,8 @@
     "phrase": "Is an earlier date possible?",
     "phraseJa": "より早い日は可能ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "実現できる。Is … possible?"
   },
   {
     "id": 20193,
@@ -2120,7 +2312,8 @@
     "phrase": "This is the key point.",
     "phraseJa": "これが要点です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "いちばん伝えたい点。the key point。"
   },
   {
     "id": 20194,
@@ -2131,7 +2324,8 @@
     "phrase": "What is the next step?",
     "phraseJa": "次の段階は何ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "これから取る一手。the next step。"
   },
   {
     "id": 20195,
@@ -2142,7 +2336,8 @@
     "phrase": "Think about the long term.",
     "phraseJa": "長期のことを考えてください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "長い目の。long-term とハイフンも。"
   },
   {
     "id": 20196,
@@ -2153,7 +2348,8 @@
     "phrase": "This is a short term fix.",
     "phraseJa": "これは短期の手当てです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "当面の。a short-term fix。"
   },
   {
     "id": 20197,
@@ -2164,7 +2360,8 @@
     "phrase": "Share the best practice.",
     "phraseJa": "よいやり方を共有してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "うまくいく定石。share a best practice。"
   },
   {
     "id": 20198,
@@ -2175,7 +2372,8 @@
     "phrase": "Read this case study.",
     "phraseJa": "この事例研究を読んでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "実例の分析。read a case study。"
   },
   {
     "id": 20199,
@@ -2186,7 +2384,8 @@
     "phrase": "We want a win-win deal.",
     "phraseJa": "双方得な取引にしたいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "双方得。a win-win deal。"
   },
   {
     "id": 20200,
@@ -2197,7 +2396,8 @@
     "phrase": "We need to make a decision.",
     "phraseJa": "決定する必要があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "決定を下す。make a decision。decide の名詞用法。"
   },
   {
     "id": 20201,
@@ -2208,7 +2408,8 @@
     "phrase": "I will take responsibility.",
     "phraseJa": "私が責任を持ちます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "責任を引き受ける。take responsibility。"
   },
   {
     "id": 20202,
@@ -2219,7 +2420,8 @@
     "phrase": "We met the goal this month.",
     "phraseJa": "今月は目標を達成しました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "目標を達成する。meet a goal。"
   },
   {
     "id": 20203,
@@ -2230,7 +2432,8 @@
     "phrase": "Do not fall behind schedule.",
     "phraseJa": "予定より遅れないでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "予定より遅れる。fall behind schedule。catch up の対。"
   },
   {
     "id": 20204,
@@ -2241,7 +2444,8 @@
     "phrase": "I need to catch up on work.",
     "phraseJa": "仕事に追いつく必要があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "遅れを取り戻す。catch up on work。"
   },
   {
     "id": 20205,
@@ -2252,7 +2456,8 @@
     "phrase": "Let’s figure out the cause.",
     "phraseJa": "原因を理解しましょう。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "原因ややり方を理解して特定する。figure out the cause。"
   },
   {
     "id": 20206,
@@ -2263,7 +2468,8 @@
     "phrase": "We can work out a plan.",
     "phraseJa": "計画を解決できます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "案を練ってまとめる。work out a plan。運動の意と区別。"
   },
   {
     "id": 20207,
@@ -2274,7 +2480,8 @@
     "phrase": "Keep track of the numbers.",
     "phraseJa": "数字を把握してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "数字や進捗を追い続ける。keep track of ＋名詞。"
   },
   {
     "id": 20208,
@@ -2285,7 +2492,8 @@
     "phrase": "Come up with a better idea.",
     "phraseJa": "よりよい案を考え出してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "新しい案を出す。come up with an idea。"
   },
   {
     "id": 20209,
@@ -2296,7 +2504,8 @@
     "phrase": "Let’s go over the report.",
     "phraseJa": "報告書を見直しましょう。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "資料を上から見直す。go over the report。"
   },
   {
     "id": 20210,
@@ -2307,7 +2516,8 @@
     "phrase": "She pointed out the error.",
     "phraseJa": "彼女がその誤りを指摘しました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "誤りを指摘する。point out the error。"
   },
   {
     "id": 20211,
@@ -2318,7 +2528,8 @@
     "phrase": "Carry out the plan as agreed.",
     "phraseJa": "合意どおり計画を実行してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "決めた計画を実行する。carry out the plan。"
   },
   {
     "id": 20212,
@@ -2329,7 +2540,8 @@
     "phrase": "Set up the meeting room.",
     "phraseJa": "会議室を準備してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "会場や仕組みを整える。set up the room。"
   },
   {
     "id": 20213,
@@ -2340,7 +2552,8 @@
     "phrase": "I will look into the issue.",
     "phraseJa": "その問題を調べます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "原因を調べる。look into the issue。"
   },
   {
     "id": 20214,
@@ -2351,7 +2564,8 @@
     "phrase": "The brand is well known.",
     "phraseJa": "その商標はよく知られています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "商標・銘柄。the brand is well known。"
   },
   {
     "id": 20215,
@@ -2362,7 +2576,8 @@
     "phrase": "The campaign starts in May.",
     "phraseJa": "宣伝活動は5月に始まります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "宣伝の一連の活動。the campaign starts。"
   },
   {
     "id": 20216,
@@ -2373,7 +2588,8 @@
     "phrase": "I saw the advertisement online.",
     "phraseJa": "ネットでその広告を見ました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "広告そのもの。see an advertisement。ad と略す。"
   },
   {
     "id": 20217,
@@ -2384,7 +2600,8 @@
     "phrase": "This market is growing.",
     "phraseJa": "この市場は伸びています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "売り買いの場。this market is growing。"
   },
   {
     "id": 20218,
@@ -2395,7 +2612,8 @@
     "phrase": "Watch the competitor closely.",
     "phraseJa": "競合をよく見てください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "競合他社。watch the competitor。"
   },
   {
     "id": 20219,
@@ -2406,7 +2624,8 @@
     "phrase": "The launch is next month.",
     "phraseJa": "発売は来月です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "発売・公開の時点。the launch is next month。"
   },
   {
     "id": 20220,
@@ -2417,7 +2636,8 @@
     "phrase": "This product is new.",
     "phraseJa": "この製品は新しいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "売り物。this product is new。"
   },
   {
     "id": 20221,
@@ -2428,7 +2648,8 @@
     "phrase": "The service was excellent.",
     "phraseJa": "サービスはとてもよかったです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "役務。the service was excellent。"
   },
   {
     "id": 20222,
@@ -2439,7 +2660,8 @@
     "phrase": "This is the main feature.",
     "phraseJa": "これが主な特徴です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "目玉の機能や特徴。the main feature。"
   },
   {
     "id": 20223,
@@ -2450,7 +2672,8 @@
     "phrase": "What is the benefit for users?",
     "phraseJa": "利用者の利点は何ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "利用者にとっての利点。the benefit for users。"
   },
   {
     "id": 20224,
@@ -2461,7 +2684,8 @@
     "phrase": "We ran a short survey.",
     "phraseJa": "短い調査を行いました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "アンケート調査。run a survey。"
   },
   {
     "id": 20225,
@@ -2472,7 +2696,8 @@
     "phrase": "Call customer service.",
     "phraseJa": "顧客対応に電話してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "顧客対応窓口。call customer service。"
   },
   {
     "id": 20226,
@@ -2483,7 +2708,8 @@
     "phrase": "Improve the user experience.",
     "phraseJa": "使い心地を改善してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "使い心地。UX。improve the user experience。"
   },
   {
     "id": 20227,
@@ -2494,7 +2720,8 @@
     "phrase": "Who is the target customer?",
     "phraseJa": "狙う客層は誰ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "狙う客層。who is the target customer。"
   },
   {
     "id": 20228,
@@ -2505,7 +2732,8 @@
     "phrase": "Send the press release today.",
     "phraseJa": "今日報道発表を送ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "報道向け発表文。send a press release。"
   },
   {
     "id": 20229,
@@ -2516,7 +2744,8 @@
     "phrase": "Post it on social media.",
     "phraseJa": "交流サイトに投稿してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "交流サイト。post on social media。"
   },
   {
     "id": 20230,
@@ -2527,7 +2756,8 @@
     "phrase": "Word of mouth helped sales.",
     "phraseJa": "口コミが売上を助けました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "口コミ。word of mouth。冠詞なしが多い。"
   },
   {
     "id": 20231,
@@ -2538,7 +2768,8 @@
     "phrase": "We will promote the product.",
     "phraseJa": "製品を宣伝します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "製品を売り込む。promote a product。"
   },
   {
     "id": 20232,
@@ -2549,7 +2780,8 @@
     "phrase": "I will meet a client at two.",
     "phraseJa": "2時に顧客に会います。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "顧客と面会する。meet a client。"
   },
   {
     "id": 20233,
@@ -2560,7 +2792,8 @@
     "phrase": "She closed the sale.",
     "phraseJa": "彼女が販売をまとめました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "販売を成立させる。close a sale。"
   },
   {
     "id": 20234,
@@ -2571,7 +2804,8 @@
     "phrase": "Please place an order today.",
     "phraseJa": "今日発注してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "発注する。place an order。"
   },
   {
     "id": 20235,
@@ -2582,7 +2816,8 @@
     "phrase": "The buyer made a complaint.",
     "phraseJa": "買い手が苦情を言いました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "苦情を言う。make a complaint。"
   },
   {
     "id": 20236,
@@ -2593,7 +2828,8 @@
     "phrase": "We will handle the claim.",
     "phraseJa": "その苦情を処理します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "苦情を処理する。handle a claim。"
   },
   {
     "id": 20237,
@@ -2604,7 +2840,8 @@
     "phrase": "We can offer a discount.",
     "phraseJa": "割引を出せます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "値引きを出す。offer a discount。"
   },
   {
     "id": 20238,
@@ -2615,7 +2852,8 @@
     "phrase": "They signed the contract.",
     "phraseJa": "彼らは契約しました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "契約書に署名する。sign a contract。"
   },
   {
     "id": 20239,
@@ -2626,7 +2864,8 @@
     "phrase": "Always keep a promise.",
     "phraseJa": "いつも約束を守ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "約束を守る。keep a promise。"
   },
   {
     "id": 20240,
@@ -2637,7 +2876,8 @@
     "phrase": "Honest work gains trust.",
     "phraseJa": "誠実な仕事が信頼を得ます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "信頼を得る。gain trust。"
   },
   {
     "id": 20241,
@@ -2648,7 +2888,8 @@
     "phrase": "We want to build a relationship.",
     "phraseJa": "関係を築きたいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "取引関係を育てる。build a relationship。"
   },
   {
     "id": 20242,
@@ -2659,7 +2900,8 @@
     "phrase": "After-sales support is strong.",
     "phraseJa": "販売後の支援は手厚いです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "販売後の。after-sales support。"
   },
   {
     "id": 20243,
@@ -2670,7 +2912,8 @@
     "phrase": "We have loyal customers.",
     "phraseJa": "忠実なお客様がいます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "繰り返し買う。loyal customers。"
   },
   {
     "id": 20244,
@@ -2681,7 +2924,8 @@
     "phrase": "This model is popular.",
     "phraseJa": "この型は人気です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "人気がある。this model is popular。"
   },
   {
     "id": 20245,
@@ -2692,7 +2936,8 @@
     "phrase": "The price is competitive.",
     "phraseJa": "価格に競争力があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "競争しても勝てる。a competitive price。"
   },
   {
     "id": 20246,
@@ -2703,7 +2948,8 @@
     "phrase": "They advertise on the radio.",
     "phraseJa": "ラジオで宣伝しています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "広告する。advertise on 媒体。"
   },
   {
     "id": 20247,
@@ -2714,7 +2960,8 @@
     "phrase": "I recommend this plan.",
     "phraseJa": "このプランを勧めます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "勧める。recommend this plan。"
   },
   {
     "id": 20248,
@@ -2725,7 +2972,8 @@
     "phrase": "We will negotiate the price.",
     "phraseJa": "価格を交渉します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "条件を交渉する。negotiate the price。"
   },
   {
     "id": 20249,
@@ -2736,7 +2984,8 @@
     "phrase": "They deliver on Tuesdays.",
     "phraseJa": "火曜に届けます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "届け先へ運ぶ。deliver on 曜日。"
   },
   {
     "id": 20250,
@@ -2747,7 +2996,8 @@
     "phrase": "We will release it in July.",
     "phraseJa": "7月に発売します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "発売する。release it in 月。"
   },
   {
     "id": 20251,
@@ -2758,7 +3008,8 @@
     "phrase": "They want to expand overseas.",
     "phraseJa": "海外へ広げたいと考えています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "規模を海外へ広げる。expand overseas。"
   },
   {
     "id": 20252,
@@ -2769,7 +3020,8 @@
     "phrase": "She has a wide network.",
     "phraseJa": "彼女は広い人脈があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "人脈。a wide network。"
   },
   {
     "id": 20253,
@@ -2780,7 +3032,8 @@
     "phrase": "The partnership starts in April.",
     "phraseJa": "提携は4月に始まります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "提携関係。the partnership starts。"
   },
   {
     "id": 20254,
@@ -2791,7 +3044,8 @@
     "phrase": "We reached an agreement.",
     "phraseJa": "合意に達しました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "合意。reach an agreement。"
   },
   {
     "id": 20255,
@@ -2802,7 +3056,8 @@
     "phrase": "Check the conditions first.",
     "phraseJa": "まず条件を確認してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "条件。check the conditions。"
   },
   {
     "id": 20256,
@@ -2813,7 +3068,8 @@
     "phrase": "These terms are fair.",
     "phraseJa": "これらの条項は妥当です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "契約の条項。these terms are fair。"
   },
   {
     "id": 20257,
@@ -2824,6 +3080,7 @@
     "phrase": "The due date is Monday.",
     "phraseJa": "支払期限は月曜です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "支払期限。the due date is Monday。"
   }
 ]
