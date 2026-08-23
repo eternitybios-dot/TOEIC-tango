@@ -15,7 +15,7 @@ export type DeckMeta = {
 export const DECK_LIST: DeckMeta[] = [
   { id: "toeic", label: "TOEIC", kicker: "試験対策", title: "受験頻出 1900", blurb: "試験でよく出る語" },
   { id: "business", label: "ビジネス", kicker: "仕事の英語", title: "ビジネス英単語", blurb: "会議・メール・取引" },
-  { id: "travel", label: "日常・旅行", kicker: "会話で使う", title: "日常・旅行英単語", blurb: "街・移動・宿泊" },
+  { id: "travel", label: "日常・旅行", kicker: "会話で使う", title: "日常・旅行英単語", blurb: "街・生活・会話" },
 ];
 
 const WORDS: Record<DeckId, Word[]> = {
@@ -50,7 +50,7 @@ function partsFor(deck: DeckId, words: Word[]): PartInfo[] {
       : {
           1: { label: "移動", score: "空港・交通" },
           2: { label: "滞在", score: "宿・食事" },
-          3: { label: "会話", score: "街歩き" },
+          3: { label: "会話", score: "生活・仕事" },
         };
   return ([1, 2, 3] as const)
     .filter((id) => counts[id] > 0)
@@ -71,10 +71,19 @@ export function catalog(deck: DeckId): Catalog {
       const inUnit = words.filter((word) => word.unit === unit);
       const part = inUnit[0]?.part ?? 1;
       const label = parts.find((item) => item.id === part)?.label ?? `${inUnit.length}語`;
+      const travelUnit: Record<number, string> = {
+        1: "移動",
+        2: "滞在",
+        3: "会話",
+        4: "生活",
+        5: "日常会話",
+      };
       const title =
         deck === "toeic"
           ? `${label} ${(unit - 1) * 100 + 1}–${Math.min(unit * 100, words.length)}`
-          : `${label} ${inUnit.length}語`;
+          : deck === "travel"
+            ? `${travelUnit[unit] ?? label} ${inUnit.length}語`
+            : `${label} ${inUnit.length}語`;
       return [unit, { title, part }];
     }),
   ) as Catalog["unitMeta"];
