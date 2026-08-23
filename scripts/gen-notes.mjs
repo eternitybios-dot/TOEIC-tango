@@ -1,12 +1,13 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const { buildLearnerNote } = await import(new URL("../src/lib/note.ts", import.meta.url));
+const teacherNotes = JSON.parse(readFileSync(new URL("../src/data/teacherNotes.json", import.meta.url), "utf8"));
 
 function rewrite(path) {
   const words = JSON.parse(readFileSync(path, "utf8"));
   const next = words.map((word) => {
     const { note: _dropped, ...rest } = word;
-    return { ...rest, note: buildLearnerNote(word) };
+    return { ...rest, note: teacherNotes[String(word.id)] || buildLearnerNote(word) };
   });
   writeFileSync(path, `${JSON.stringify(next, null, 2)}\n`);
   return next;

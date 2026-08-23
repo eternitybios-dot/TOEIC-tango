@@ -76,7 +76,7 @@ export const WORD_TIPS: Record<string, string> = {
   approve: "approve ＋案。approve of は「賛成する」",
   approximate: "概数。approximately で「およそ」",
   argue: "論点を論理で押し出す。argue that 節",
-  arise: "問題などが自然に起こる自動詞。目的語を取らない",
+  arise: "問題などが自然に起こる。problems arise の語順で、rise より事態の発生",
   arrange: "会合・旅行などを段取りする",
   arrest: "arrest ＋容疑者。under arrest で逮捕中",
   article: "新聞・雑誌の1本。冠詞の article とは別",
