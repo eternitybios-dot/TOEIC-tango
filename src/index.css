@@ -1146,6 +1146,8 @@ button:disabled {
 }
 
 .quiz-dock {
+  position: relative;
+  z-index: 2;
   flex: 0 0 auto;
   padding-top: 8px;
   background: linear-gradient(180deg, transparent, var(--bg) 16px);

@@ -206,6 +206,8 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
 
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (picked === null || busy.current) return;
+    const target = event.target;
+    if (target instanceof Element && target.closest("button, a, input")) return;
     swipeStart.current = { x: event.clientX, y: event.clientY };
     dragging.current = false;
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -374,10 +376,6 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   return (
     <div
       className={`page page-quiz${shake ? " shake" : ""}${picked !== null ? " is-answered" : ""}${drag ? " is-dragging" : ""}`}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
     >
       <header className="quiz-head">
         <div className="quiz-head-row">
@@ -412,6 +410,10 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
       <div
         className={`quiz-slide${drag && !flight ? " is-dragging" : ""}${flight ? ` fly-${flight}` : ""}`}
         style={flight ? undefined : drag ? { transform: `translateX(${drag}px)` } : undefined}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
       >
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
         <div className="quiz-word">
@@ -489,7 +491,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
       {picked !== null && (
         <div className="quiz-dock">
           <p className="quiz-swipe-hint">{index + 1 >= queue.length ? "スワイプでも結果へ" : "スワイプでも次へ"}</p>
-          <button className="cta" onClick={next}>
+          <button type="button" className="cta" onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
           </button>
         </div>
