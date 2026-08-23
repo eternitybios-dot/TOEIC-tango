@@ -583,6 +583,13 @@ button:disabled {
   border: 1px solid var(--line);
 }
 
+.btn.with-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .btn.speak {
   flex: 0 0 52px;
   display: grid;
