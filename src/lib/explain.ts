@@ -17,21 +17,14 @@ const POS_NOTE: Record<Pos, string> = {
   句: "ひとまとまりの表現として覚える。",
 };
 
-const BY_MEANING = new Map<string, Word[]>();
-for (const item of WORDS) {
-  const list = BY_MEANING.get(item.meaning) ?? [];
-  list.push(item);
-  BY_MEANING.set(item.meaning, list);
+function nearWords(word: Word, source: Word[]): Word[] {
+  return source.filter((item) => item.id !== word.id && item.meaning === word.meaning).slice(0, 2);
 }
 
-function nearWords(word: Word): Word[] {
-  return (BY_MEANING.get(word.meaning) ?? []).filter((item) => item.id !== word.id).slice(0, 2);
-}
-
-export function explainMeaning(word: Word): MeaningNote {
+export function explainMeaning(word: Word, source: Word[] = WORDS): MeaningNote {
   const lines = [`${POS_LABEL[word.pos]}。「${word.meaning}」の意。${POS_NOTE[word.pos]}`];
 
-  const similar = nearWords(word);
+  const similar = nearWords(word, source);
   if (similar.length > 0) {
     lines.push(`類語：${similar.map((item) => item.word).join(" / ")}。`);
   }

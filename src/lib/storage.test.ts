@@ -14,6 +14,40 @@ describe("storage", () => {
     expect(next.onboarded).toBe(true);
     expect(next.studyDays).toEqual([]);
     expect(next.streak).toBe(3);
+    expect(next.deck).toBe("toeic");
+    expect(next.progressByDeck.toeic[1]?.correct).toBe(1);
+    expect(next.resume.study).toBe(null);
+    expect(next.resume.quiz).toBe(null);
+  });
+
+  it("keeps a saved deck and resume session", () => {
+    const next = normalizeState({
+      deck: "business",
+      progressByDeck: { toeic: {}, business: { 20001: { ease: 2.5, interval: 0, repetitions: 0, nextReview: 0, lastResult: "again", seen: 1, correct: 0, wrong: 1 } }, travel: {} },
+      resume: {
+        study: {
+          kind: "study",
+          deck: "business",
+          mix: "due",
+          size: 10,
+          scope: { type: "all" },
+          queue: [20001],
+          index: 0,
+          seen: [],
+          good: 0,
+          again: 0,
+          score: 0,
+          missed: [],
+          quizMode: "en-ja",
+          sessionLen: 10,
+        },
+        quiz: null,
+      },
+    });
+    expect(next.deck).toBe("business");
+    expect(next.progressByDeck.business[20001]?.wrong).toBe(1);
+    expect(next.resume.study?.kind).toBe("study");
+    expect(next.resume.study?.queue).toEqual([20001]);
   });
 
   it("keeps a muted sound setting", () => {

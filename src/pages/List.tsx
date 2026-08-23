@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import type { AppState, Route } from "../types";
-import { PARTS } from "../types";
-import { UNITS, UNIT_META, WORDS, wordsByUnit } from "../data";
+import { catalog } from "../lib/catalog";
 import { getProgress } from "../lib/storage";
 import { masteryOf } from "../lib/srs";
 import { speak } from "../lib/speech";
@@ -29,8 +28,9 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
   const [openId, setOpenId] = useState<number | null>(null);
   const [limit, setLimit] = useState(PAGE);
 
+  const cat = catalog(state.deck);
   const words = useMemo(() => {
-    const source = unit === "all" ? WORDS : wordsByUnit(unit);
+    const source = unit === "all" ? cat.words : cat.wordsByUnit(unit);
     const q = query.trim().toLowerCase();
     if (!q) return source;
     return source.filter(
@@ -40,7 +40,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
         w.phrase.toLowerCase().includes(q) ||
         w.phraseJa.includes(q),
     );
-  }, [unit, query]);
+  }, [unit, query, state.deck]);
 
   const shown = words.slice(0, limit);
   const open = words.find((w) => w.id === openId);
@@ -75,7 +75,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
         >
           すべて
         </button>
-        {UNITS.map((u) => (
+        {cat.units.map((u) => (
           <button
             key={u}
             className={`chip${unit === u ? " on" : ""}`}
@@ -91,7 +91,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
 
       {unit !== "all" && (
         <p className="muted" style={{ marginBottom: 8 }}>
-          UNIT {unit} {UNIT_META[unit].title} · {PARTS[UNIT_META[unit].part - 1].label}
+          UNIT {unit} {cat.unitMeta[unit].title} · {cat.parts.find((item) => item.id === cat.unitMeta[unit].part)?.label ?? ""}
         </p>
       )}
 

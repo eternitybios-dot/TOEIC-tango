@@ -41,8 +41,31 @@ export type Settings = {
   autoSpeak: boolean;
 };
 
+export type DeckId = "toeic" | "business" | "travel";
+
+export type SessionScope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
+
+export type SavedSession = {
+  kind: "study" | "quiz";
+  deck: DeckId;
+  mix: "due" | "random" | "missed";
+  size: number;
+  scope: SessionScope;
+  queue: number[];
+  index: number;
+  seen: number[];
+  good: number;
+  again: number;
+  score: number;
+  missed: number[];
+  quizMode: "en-ja" | "ja-en" | "cloze";
+  sessionLen: number;
+};
+
 export type AppState = {
+  deck: DeckId;
   progress: Record<number, WordProgress>;
+  progressByDeck: Record<DeckId, Record<number, WordProgress>>;
   streak: number;
   lastStudyDate: string | null;
   todayCount: number;
@@ -51,7 +74,9 @@ export type AppState = {
   settings: Settings;
   onboarded: boolean;
   lastUnit: number | null;
+  lastUnitByDeck: Record<DeckId, number | null>;
   studyDays: string[];
+  resume: { study: SavedSession | null; quiz: SavedSession | null };
 };
 
 export type Route =
@@ -61,8 +86,10 @@ export type Route =
   | { name: "list"; unit?: number }
   | { name: "stats" };
 
-export const PARTS = [
-  { id: 1 as const, label: "基礎", subtitle: "1–800", score: "常に出る" },
-  { id: 2 as const, label: "必修", subtitle: "801–1500", score: "重要語" },
-  { id: 3 as const, label: "発展", subtitle: "1501–1900", score: "差がつく" },
+export type PartInfo = { id: 1 | 2 | 3; label: string; subtitle: string; score: string };
+
+export const PARTS: PartInfo[] = [
+  { id: 1, label: "基礎", subtitle: "1–800", score: "常に出る" },
+  { id: 2, label: "必修", subtitle: "801–1500", score: "重要語" },
+  { id: 3, label: "発展", subtitle: "1501–1900", score: "差がつく" },
 ];

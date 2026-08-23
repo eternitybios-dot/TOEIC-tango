@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import type { AppState, Route, Settings } from "../types";
-import { PARTS } from "../types";
-import { UNITS, UNIT_META, WORDS, wordsByPart, wordsByUnit } from "../data";
+import type { AppState, DeckId, Route, Settings } from "../types";
+import { catalog, DECK_LIST } from "../lib/catalog";
 import { dashboard } from "../lib/stats";
 import { listMissed } from "../lib/session";
+import { canResume, sessionRemaining } from "../lib/resume";
 import { playSfx } from "../lib/feedback";
 import { IconClose, IconFlame, IconGear, IconSpeak } from "../components/Icons";
 import { ProgressBar } from "../components/ProgressBar";
@@ -17,22 +17,30 @@ type Props = {
   go: (route: Route) => void;
   onSettings: (settings: Partial<Settings>) => void;
   onGoal: (goal: number) => void;
+  onDeck: (deck: DeckId) => void;
 };
 
-export function Home({ state, go, onSettings, onGoal }: Props) {
-  const dash = useMemo(() => dashboard(state, WORDS), [state]);
+export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
+  const cat = useMemo(() => catalog(state.deck), [state.deck]);
+  const { words, units, unitMeta, parts, meta } = cat;
+  const dash = useMemo(() => dashboard(state, words), [state, words]);
   const remaining = Math.max(0, state.goal - state.todayCount);
   const dueNow = dash.all.due;
-  const missedNow = listMissed(state, WORDS).length;
+  const missedNow = listMissed(state, words).length;
   const [sheetUnit, setSheetUnit] = useState<number | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const daily = useMemo(() => {
     const day = Math.floor(Date.now() / 86_400_000);
-    return WORDS[day % WORDS.length];
-  }, []);
-  const sheet = sheetUnit ? UNIT_META[sheetUnit] : null;
-  const sheetWords = sheetUnit ? wordsByUnit(sheetUnit) : [];
+    return words[day % words.length];
+  }, [words]);
+  const sheet = sheetUnit ? unitMeta[sheetUnit] : null;
+  const sheetWords = sheetUnit ? cat.wordsByUnit(sheetUnit) : [];
   const sheetStats = sheetUnit ? dash.units[sheetUnit] : null;
+  const resumeStudy = canResume(state.resume, "study", state.deck);
+  const resumeQuiz = canResume(state.resume, "quiz", state.deck);
+  const resumeLeft = resumeStudy
+    ? sessionRemaining(state.resume, "study", state.deck)
+    : sessionRemaining(state.resume, "quiz", state.deck);
 
   const cta = dueNow > 0
     ? `期限の復習（${Math.min(100, dueNow)}語）`
@@ -44,13 +52,29 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
     <div className="page">
       <header className="topbar">
         <div className="brand">
-          受験頻出 1900
-          <span>フレーズ単語帳</span>
+          {meta.kicker}
+          <span>{meta.title}</span>
         </div>
         <button className="icon-btn" aria-label="設定" onClick={() => setSettingsOpen(true)}>
           <IconGear />
         </button>
       </header>
+
+      <div className="deck-switch" role="tablist" aria-label="単語セット">
+        {DECK_LIST.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            role="tab"
+            aria-selected={state.deck === item.id}
+            className={`deck-card${state.deck === item.id ? " on" : ""}`}
+            onClick={() => onDeck(item.id)}
+          >
+            <span className="tiny">{item.kicker}</span>
+            <strong>{item.label}</strong>
+          </button>
+        ))}
+      </div>
 
       <section className="hero hero-glow">
         <div className="hero-top">
@@ -69,9 +93,23 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
           </div>
         </div>
         <ProgressBar value={state.todayCount} max={state.goal} />
-        <button className="cta" onClick={() => go({ name: "study", mode: "due" })}>
-          {cta}
-        </button>
+        {resumeStudy || resumeQuiz ? (
+          <button
+            className="cta"
+            onClick={() => go({ name: resumeQuiz && !resumeStudy ? "quiz" : "study" })}
+          >
+            続きから（残り {resumeLeft}）
+          </button>
+        ) : (
+          <button className="cta" onClick={() => go({ name: "study", mode: "due" })}>
+            {cta}
+          </button>
+        )}
+        {resumeStudy || resumeQuiz ? (
+          <button className="cta ghost" style={{ marginTop: 8 }} onClick={() => go({ name: "study", mode: "due" })}>
+            {cta}
+          </button>
+        ) : null}
         {missedNow > 0 ? (
           <button
             className="cta ghost"
@@ -87,7 +125,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             style={{ marginTop: 8 }}
             onClick={() => go({ name: "study", unit: state.lastUnit!, mode: "unit" })}
           >
-            UNIT {state.lastUnit} の100問
+            UNIT {state.lastUnit} を続ける
           </button>
         ) : null}
       </section>
@@ -119,8 +157,8 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
 
       <p className="section-title">レベル</p>
       <div className="grid-3">
-        {PARTS.map((part, i) => {
-          const words = wordsByPart(part.id);
+        {parts.map((part, i) => {
+          const words = cat.wordsByPart(part.id);
           const stats = dash.parts[part.id];
           const pct = Math.round((stats.mastered / Math.max(1, words.length)) * 100);
           return (
@@ -141,10 +179,10 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
 
       <p className="section-title">UNIT</p>
       <div className="unit-list">
-        {UNITS.map((unit, i) => {
-          const words = wordsByUnit(unit);
+        {units.map((unit, i) => {
+          const words = cat.wordsByUnit(unit);
           const stats = dash.units[unit] ?? { mastered: 0, due: 0, new: 0 };
-          const meta = UNIT_META[unit];
+          const info = unitMeta[unit];
           const pct = Math.round((stats.mastered / words.length) * 100);
           return (
             <button
@@ -158,9 +196,9 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             >
               <div>
                 <span className="tiny">
-                  UNIT {unit} · {PARTS[meta.part - 1].label}
+                  UNIT {unit} · {parts.find((item) => item.id === info.part)?.label ?? ""}
                 </span>
-                <strong>{meta.title}</strong>
+                <strong>{info.title}</strong>
                 <span className="muted">
                   習得 {stats.mastered}/{words.length} · 期限 {stats.due}
                 </span>
@@ -188,7 +226,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             <div className="sheet-handle" />
             <div className="progress-label">
               <span className="tiny">
-                UNIT {sheetUnit} · {PARTS[sheet.part - 1].label}
+                UNIT {sheetUnit} · {parts.find((item) => item.id === sheet.part)?.label ?? ""}
               </span>
               <button className="icon-btn" aria-label="閉じる" onClick={() => setSheetUnit(null)}>
                 <IconClose size={18} />
