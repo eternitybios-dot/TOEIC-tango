@@ -79,6 +79,14 @@ describe("quiz", () => {
     expect(clozePhrase(word!).toLowerCase().includes("abandon")).toBe(false);
     expect(phraseParts(word!).some((part) => part.hit && part.text.toLowerCase() === "abandon")).toBe(true);
   });
+
+  it("never leaves the answer word in a cloze prompt", () => {
+    for (const word of WORDS) {
+      const prompt = clozePhrase(word).toLowerCase();
+      expect(prompt).toMatch(/______/);
+      expect(prompt.includes(word.word.toLowerCase())).toBe(false);
+    }
+  });
 });
 
 describe("quiz vs card srs", () => {

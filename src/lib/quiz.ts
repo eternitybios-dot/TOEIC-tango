@@ -28,8 +28,18 @@ export function takeSession(pool: Word[], size: number): Word[] {
 
 export function clozePhrase(word: Word): string {
   const escaped = word.word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const blanked = word.phrase.replace(new RegExp(`\\b${escaped}\\b`, "i"), "______");
-  return blanked === word.phrase ? `______ ${word.phrase}` : blanked;
+  const patterns = [new RegExp(`\\b${escaped}s\\b`, "i"), new RegExp(`\\b${escaped}\\b`, "i")];
+  for (const re of patterns) {
+    if (re.test(word.phrase)) return word.phrase.replace(re, "______");
+  }
+  return "______";
+}
+
+export function clozeParts(word: Word): { text: string; blank: boolean }[] {
+  return clozePhrase(word)
+    .split(/(______)/)
+    .filter(Boolean)
+    .map((text) => ({ text, blank: text === "______" }));
 }
 
 export function phraseParts(word: Word): { text: string; hit: boolean }[] {
