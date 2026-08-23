@@ -43,7 +43,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
 
   useEffect(() => {
     if (!word || finished || mode !== "en-ja") return;
-    speak(word.phrase);
+    speak(word.word, word.phrase);
   }, [word, mode, finished]);
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
@@ -227,7 +227,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
           <button
             className="chip"
             disabled={picked === null && mode !== "en-ja"}
-            onClick={() => speak(mode === "en-ja" ? word.phrase : word.word)}
+            onClick={() => speak(word.word, word.phrase)}
           >
             発音
           </button>
