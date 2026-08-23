@@ -1,4 +1,5 @@
 import type { Pos, Word } from "../types";
+import { POS_LABEL } from "../types";
 import { WORDS } from "../data";
 
 export type MeaningNote = {
@@ -6,14 +7,14 @@ export type MeaningNote = {
   lines: string[];
 };
 
-const ROLE: Record<Pos, string> = {
-  名: "もの・こと",
-  動: "動き",
-  形: "性質",
-  副: "様子",
-  前: "関係",
-  接: "つなぎ",
-  句: "かたまり",
+const POS_NOTE: Record<Pos, string> = {
+  名: "人・物・事を指して用いる。",
+  動: "動作や状態の変化を表して用いる。",
+  形: "人や物の性質・状態を表す。",
+  副: "動詞や形容詞を修飾して用いる。",
+  前: "名詞の前に置いて、あとの語との関係を示す。",
+  接: "語や文をつないで用いる。",
+  句: "ひとまとまりの表現として覚える。",
 };
 
 const BY_MEANING = new Map<string, Word[]>();
@@ -28,11 +29,11 @@ function nearWords(word: Word): Word[] {
 }
 
 export function explainMeaning(word: Word): MeaningNote {
-  const lines = [`${ROLE[word.pos]}を表す。核は「${word.meaning}」。`];
+  const lines = [`${POS_LABEL[word.pos]}。「${word.meaning}」の意。${POS_NOTE[word.pos]}`];
 
   const similar = nearWords(word);
   if (similar.length > 0) {
-    lines.push(`近い訳: ${similar.map((item) => item.word).join("・")}。`);
+    lines.push(`類語：${similar.map((item) => item.word).join(" / ")}。`);
   }
 
   return { gloss: word.meaning, lines };
