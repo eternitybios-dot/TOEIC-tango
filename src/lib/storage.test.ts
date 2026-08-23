@@ -16,6 +16,13 @@ describe("storage", () => {
     expect(next.streak).toBe(3);
   });
 
+  it("keeps a muted sound setting", () => {
+    const next = normalizeState({
+      settings: { sound: false, haptics: true, autoSpeak: false },
+    });
+    expect(next.settings.sound).toBe(false);
+  });
+
   it("keeps a new user on onboarding", () => {
     expect(normalizeState({}).onboarded).toBe(false);
     expect(defaultState().onboarded).toBe(false);

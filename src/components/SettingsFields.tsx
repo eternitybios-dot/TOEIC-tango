@@ -1,4 +1,5 @@
 import type { AppState, Settings } from "../types";
+import { stopSpeak } from "../lib/speech";
 
 type Props = {
   state: AppState;
@@ -22,12 +23,20 @@ export function SettingsFields({ state, onSettings, onGoal }: Props) {
         </span>
       </label>
       <label className="setting">
-        <span>効果音</span>
+        <span>
+          効果音
+          <small>オフでチャイムと自動発音をミュート</small>
+        </span>
         <button
           type="button"
           className={`switch${state.settings.sound ? " on" : ""}`}
-          onClick={() => onSettings({ sound: !state.settings.sound })}
+          onClick={() => {
+            const next = !state.settings.sound;
+            if (!next) stopSpeak();
+            onSettings({ sound: next });
+          }}
           aria-pressed={state.settings.sound}
+          aria-label={state.settings.sound ? "効果音をミュート" : "効果音をオン"}
         />
       </label>
       <label className="setting">

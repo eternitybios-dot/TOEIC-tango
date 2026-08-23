@@ -16,6 +16,11 @@ function makeUtterance(text: string): SpeechSynthesisUtterance {
   return utter;
 }
 
+export function stopSpeak(): void {
+  if (typeof window === "undefined" || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+}
+
 export function speak(...texts: string[]): void {
   if (typeof window === "undefined" || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
