@@ -72,10 +72,15 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     setPicked(null);
   }
 
-  function label(choice: Word) {
-    if (mode === "cloze") return `${choice.word}  ${choice.meaning}`;
-    if (mode === "ja-en") return `${choice.word}  ${choice.phrase}`;
-    return `${choice.meaning}  ${choice.phraseJa}`;
+  function choiceLead(choice: Word) {
+    if (mode === "en-ja") return choice.meaning;
+    return choice.word;
+  }
+
+  function choiceRest(choice: Word) {
+    if (mode === "cloze") return choice.meaning;
+    if (mode === "ja-en") return choice.phrase;
+    return choice.phraseJa;
   }
 
   if (finished) {
@@ -177,7 +182,8 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
             style={{ animationDelay: `${i * 50}ms` }}
             onClick={() => choose(choice)}
           >
-            {label(choice)}
+            <mark>{choiceLead(choice)}</mark>
+            <span className="choice-rest">{choiceRest(choice)}</span>
           </button>
         );
       })}
