@@ -89,7 +89,6 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     if (!word || finished || mode !== "en-ja" || !state.settings.autoSpeak) return;
     speak(word.word, word.phrase);
   }, [word, mode, finished, state.settings.autoSpeak]);
-  const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
   const meaning = word && picked !== null ? explainMeaning(word, cat.words) : null;
   const example = exampleVisibility(mode, picked !== null);
@@ -262,13 +261,6 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     if (picked === null && mode === "ja-en") return word.meaning;
     if (picked === null && mode === "cloze") return POS_LABEL[word.pos];
     return word.word;
-  }
-
-  function compareAnswer(correct: Word, pickedChoice: Word): string {
-    if (mode === "en-ja") {
-      return `あなたの答え「${pickedChoice.meaning}」 / 正解「${correct.meaning}」`;
-    }
-    return `あなたの答え ${pickedChoice.word} / 正解 ${correct.word}`;
   }
 
   if (finished) {
@@ -464,14 +456,16 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
       <div className="quiz-body">
         {choices.map((choice, i) => {
           const selected = picked === choice.id;
-          const correct = picked !== null && choice.id === word.id;
-          const wrong = selected && choice.id !== word.id;
+          const pickedWrong = picked !== null && selected && !isCorrect;
+          const pickedCorrect = picked !== null && selected && isCorrect;
           return (
             <button
               key={choice.id}
-              className={`choice rise${correct ? " correct" : ""}${wrong ? " wrong" : ""}`}
+              className={`choice rise${pickedCorrect ? " correct" : ""}${pickedWrong ? " wrong" : ""}`}
               style={{ animationDelay: `${i * 50}ms` }}
               onClick={() => choose(choice)}
+              disabled={picked !== null}
+              aria-disabled={picked !== null}
             >
               <mark>{choiceLead(choice)}</mark>
               {picked !== null ? (
@@ -487,15 +481,8 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
         })}
 
         {picked !== null && meaning && (
-          <section
-            ref={explainRef}
-            className={`explain slide-up${isCorrect ? " ok" : " ng"}`}
-            aria-live="polite"
-          >
-            <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
-            {!isCorrect && pickedWord ? (
-              <p className="explain-compare">{compareAnswer(word, pickedWord)}</p>
-            ) : null}
+          <section ref={explainRef} className="explain slide-up ok" aria-live="polite">
+            <p className="explain-result">正解</p>
             {meaning.lines.map((line) => (
               <p key={line} className="explain-body">
                 {line}
