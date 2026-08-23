@@ -1236,6 +1236,26 @@ button:disabled {
   pointer-events: none;
 }
 
+.page-quiz.is-answered .choice.correct {
+  border-color: var(--green);
+  background: linear-gradient(180deg, #274233, #1a261e);
+  box-shadow: inset 0 0 0 1px rgba(143, 212, 168, 0.22);
+}
+
+.page-quiz.is-answered .choice.wrong {
+  border-color: #e06a52;
+  background: linear-gradient(180deg, #4a241f, #261714);
+  box-shadow:
+    inset 0 0 0 1px rgba(224, 106, 82, 0.45),
+    0 0 0 1px rgba(224, 106, 82, 0.18);
+}
+
+.page-quiz.is-answered .choice.wrong mark {
+  background: linear-gradient(180deg, rgba(240, 170, 150, 0.34), rgba(212, 90, 66, 0.22));
+  color: #ffd4c8;
+  box-shadow: inset 0 0 0 1px rgba(240, 170, 150, 0.2);
+}
+
 .page-quiz.is-answered .choice mark {
   display: inline;
   margin-bottom: 2px;
@@ -1281,6 +1301,7 @@ button:disabled {
 
 .page-quiz.is-answered .explain {
   flex: 0 0 auto;
+  scroll-margin-bottom: 96px;
 }
 
 .quiz-prompt {
