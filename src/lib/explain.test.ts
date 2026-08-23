@@ -42,8 +42,27 @@ describe("explainMeaning", () => {
     expect(text.includes("類語：")).toBe(true);
   });
 
+  it("avoids recycled template phrases", () => {
+    const banned = [
+      "とセットで覚える",
+      "フォーマルな他動詞になりやすい",
+      "のあとに対象",
+      "結びつきやすい",
+      "を指す名詞",
+      "分解せずこの語順で覚える",
+      "補語に置く",
+      "人や物の性質・状態を表す",
+    ];
+    for (const word of ALL) {
+      const text = word.note?.trim() || buildLearnerNote(word);
+      for (const phrase of banned) {
+        expect(text.includes(phrase), `${word.word}: ${phrase} in ${text}`).toBe(false);
+      }
+    }
+  });
+
   it("gives each word its own learner note", () => {
-    const rows = ALL.map((word) => ({ word, note: buildLearnerNote(word) }));
+    const rows = ALL.map((word) => ({ word, note: word.note?.trim() || buildLearnerNote(word) }));
     const tooShort = rows.filter((row) => row.note.length < 12).map((row) => `${row.word.word}:${row.note}`);
     const tooLong = rows.filter((row) => row.note.length > 96).map((row) => `${row.word.id}:${row.note.length}:${row.note}`);
     const seen = new Map<string, string[]>();
