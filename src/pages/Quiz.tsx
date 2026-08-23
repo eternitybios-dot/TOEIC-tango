@@ -3,7 +3,7 @@ import { PARTS, POS_LABEL, type AppState, type Route, type Word } from "../types
 import { UNITS, WORDS, wordsByPart, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
 import { clozeParts, phraseParts, pickChoices } from "../lib/quiz";
-import { dealQuiz, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
+import { dealQuiz, listMissed, mixLabel, mixNote, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
@@ -38,7 +38,7 @@ function poolOf(scope: Scope): Word[] {
 function scopeLabel(scope: Scope, mix: QuizMix): string {
   const place =
     scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
-  return `${place} · ${mix === "random" ? "ランダム" : "覚える"}`;
+  return `${place} · ${mixLabel(mix)}`;
 }
 
 export function Quiz({ state, unit, part, onQuiz, go }: Props) {
@@ -47,6 +47,8 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
   const [size, setSize] = useState(SESSION_SIZE);
   const [started, setStarted] = useState(false);
   const source = poolOf(scope);
+  const missedPool = listMissed(state, source);
+  const poolCount = mix === "missed" ? missedPool.length : source.length;
   const [queue, setQueue] = useState<Word[]>([]);
   const [index, setIndex] = useState(0);
   const [mode, setMode] = useState<Mode>("en-ja");
@@ -202,6 +204,16 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
           <button className="cta" onClick={() => start(missed)}>
             間違えた語だけ再テスト
           </button>
+        ) : missedPool.length > 0 ? (
+          <button
+            className="cta"
+            onClick={() => {
+              setMix("missed");
+              begin("missed");
+            }}
+          >
+            まちがいを集中
+          </button>
         ) : null}
         <button className="cta ghost" style={{ marginTop: 10 }} onClick={() => begin()}>
           同じ条件でもう一度
@@ -270,11 +282,14 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
           <button className={`chip${mix === "random" ? " on" : ""}`} onClick={() => setMix("random")}>
             ランダム
           </button>
+          <button className={`chip${mix === "missed" ? " on" : ""}`} onClick={() => setMix("missed")}>
+            集中
+          </button>
         </div>
         <p className="muted" style={{ margin: "8px 0 18px" }}>
-          {source.length}語から {Math.min(size, source.length)}問 · {mix === "random" ? "毎回ちがう語" : "未学習と期限から"}
+          {poolCount}語から {Math.min(size, poolCount)}問 · {mixNote(mix, missedPool.length)}
         </p>
-        <button className="cta" onClick={() => begin()}>
+        <button className="cta" onClick={() => begin()} disabled={mix === "missed" && missedPool.length === 0}>
           スタート
         </button>
       </div>
