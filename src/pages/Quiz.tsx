@@ -33,7 +33,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   const [shake, setShake] = useState(false);
   const [drag, setDrag] = useState(0);
   const [flight, setFlight] = useState<"left" | "right" | null>(null);
-  const start = useRef<{ x: number; y: number } | null>(null);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const dragging = useRef(false);
   const busy = useRef(false);
   const dragRef = useRef(0);
@@ -104,15 +104,15 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
 
   function onPointerDown(event: PointerEvent<HTMLDivElement>) {
     if (picked === null || busy.current) return;
-    start.current = { x: event.clientX, y: event.clientY };
+    swipeStart.current = { x: event.clientX, y: event.clientY };
     dragging.current = false;
     event.currentTarget.setPointerCapture(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (!start.current || picked === null || busy.current) return;
-    const dx = event.clientX - start.current.x;
-    const dy = event.clientY - start.current.y;
+    if (!swipeStart.current || picked === null || busy.current) return;
+    const dx = event.clientX - swipeStart.current.x;
+    const dy = event.clientY - swipeStart.current.y;
     if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
       dragging.current = true;
       dragRef.current = dx;
@@ -123,7 +123,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   function onPointerUp() {
     if (busy.current) return;
     const dx = dragRef.current;
-    start.current = null;
+    swipeStart.current = null;
     if (picked !== null && dragging.current && Math.abs(dx) > 72) {
       void swipeNext(dx > 0 ? "right" : "left");
       return;
