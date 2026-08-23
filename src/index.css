@@ -741,6 +741,14 @@ button:disabled {
   margin-bottom: 0;
 }
 
+.quiz-setup-title {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 8px 0 18px;
+}
+
 .page-quiz {
   display: flex;
   flex-direction: column;

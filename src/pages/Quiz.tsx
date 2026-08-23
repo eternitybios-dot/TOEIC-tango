@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
-import { POS_LABEL, type AppState, type Route, type Word } from "../types";
-import { WORDS, wordsByUnit } from "../data";
+import { PARTS, POS_LABEL, type AppState, type Route, type Word } from "../types";
+import { WORDS, wordsByPart, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
-import { clozeParts, phraseParts, pickChoices, pickSession } from "../lib/quiz";
-import { dealSession, SESSION_SIZE } from "../lib/session";
+import { clozeParts, phraseParts, pickChoices } from "../lib/quiz";
+import { dealQuiz, SESSION_SIZE, type QuizMix } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
@@ -15,15 +15,38 @@ import { ProgressBar } from "../components/ProgressBar";
 type Props = {
   state: AppState;
   unit?: number;
+  part?: 1 | 2 | 3;
   onQuiz: (word: Word, ok: boolean) => void;
   go: (route: Route) => void;
 };
 
 type Mode = "en-ja" | "ja-en" | "cloze";
+type Scope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
 
-export function Quiz({ state, unit, onQuiz, go }: Props) {
-  const source = unit ? wordsByUnit(unit) : WORDS;
-  const [queue, setQueue] = useState(() => dealSession(state, source));
+function initialScope(unit?: number, part?: 1 | 2 | 3): Scope {
+  if (unit) return { type: "unit", unit };
+  if (part) return { type: "part", part };
+  return { type: "all" };
+}
+
+function poolOf(scope: Scope): Word[] {
+  if (scope.type === "unit") return wordsByUnit(scope.unit);
+  if (scope.type === "part") return wordsByPart(scope.part);
+  return WORDS;
+}
+
+function scopeLabel(scope: Scope, mix: QuizMix): string {
+  const place =
+    scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
+  return `${place} · ${mix === "random" ? "ランダム" : "期限"}`;
+}
+
+export function Quiz({ state, unit, part, onQuiz, go }: Props) {
+  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part));
+  const [mix, setMix] = useState<QuizMix>("random");
+  const [started, setStarted] = useState(false);
+  const source = poolOf(scope);
+  const [queue, setQueue] = useState<Word[]>([]);
   const [index, setIndex] = useState(0);
   const [mode, setMode] = useState<Mode>("en-ja");
   const [picked, setPicked] = useState<number | null>(null);
@@ -56,8 +79,14 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     setScore(0);
     setMissed([]);
     setFinished(false);
+    setStarted(true);
     setDrag(0);
     setFlight(null);
+  }
+
+  function begin(nextMix = mix, nextScope = scope) {
+    playSfx("tap", state.settings.sound);
+    start(dealQuiz(state, poolOf(nextScope), nextMix));
   }
 
   function choose(choice: Word) {
@@ -173,9 +202,12 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
             間違えた語だけ再テスト
           </button>
         ) : null}
-        <div className="row" style={{ marginTop: missed.length > 0 ? 10 : 0 }}>
-          <button className="cta ghost" onClick={() => go({ name: "study", unit, mode: unit ? "unit" : "due" })}>
-            カードへ
+        <button className="cta ghost" style={{ marginTop: 10 }} onClick={() => begin()}>
+          同じ条件でもう一度
+        </button>
+        <div className="row" style={{ marginTop: 10 }}>
+          <button className="cta ghost" onClick={() => setStarted(false)}>
+            出題を変える
           </button>
           <button className="cta ghost" onClick={() => go({ name: "home" })}>
             ホーム
@@ -185,12 +217,51 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     );
   }
 
-  if (!word) {
+  if (!started || !word) {
     return (
-      <div className="page empty">
-        <p>今、期限の語はありません。</p>
-        <button className="cta" style={{ marginTop: 16 }} onClick={() => start(pickSession(source, SESSION_SIZE))}>
-          10語ランダム
+      <div className="page quiz-setup">
+        <button className="back-link" onClick={() => go({ name: "home" })}>
+          <IconBack /> ホーム
+        </button>
+        <p className="tiny gold">クイズ</p>
+        <h2 className="quiz-setup-title">出題を選ぶ</h2>
+        <p className="section-title">レベル</p>
+        <div className="filters">
+          <button className={`chip${scope.type === "all" ? " on" : ""}`} onClick={() => setScope({ type: "all" })}>
+            すべて
+          </button>
+          {PARTS.map((item) => (
+            <button
+              key={item.id}
+              className={`chip${scope.type === "part" && scope.part === item.id ? " on" : ""}`}
+              onClick={() => setScope({ type: "part", part: item.id })}
+            >
+              {item.label}
+            </button>
+          ))}
+          {unit ? (
+            <button
+              className={`chip${scope.type === "unit" && scope.unit === unit ? " on" : ""}`}
+              onClick={() => setScope({ type: "unit", unit })}
+            >
+              UNIT {unit}
+            </button>
+          ) : null}
+        </div>
+        <p className="section-title">出題</p>
+        <div className="filters">
+          <button className={`chip${mix === "random" ? " on" : ""}`} onClick={() => setMix("random")}>
+            ランダム
+          </button>
+          <button className={`chip${mix === "due" ? " on" : ""}`} onClick={() => setMix("due")}>
+            期限の復習
+          </button>
+        </div>
+        <p className="muted" style={{ margin: "8px 0 18px" }}>
+          {source.length}語から {Math.min(SESSION_SIZE, source.length)}問 · {mix === "random" ? "毎回ちがう語" : "期限と未学習から"}
+        </p>
+        <button className="cta" onClick={() => begin()}>
+          スタート
         </button>
       </div>
     );
@@ -206,11 +277,11 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     >
       <header className="quiz-head">
         <div className="quiz-head-row">
-          <button className="back-link" onClick={() => go({ name: "home" })}>
-            <IconBack /> ホーム
+          <button className="back-link" onClick={() => setStarted(false)}>
+            <IconBack /> 出題
           </button>
           <span className="tiny">
-            {unit ? `UNIT ${unit}` : "期限＋新規"} · {index + 1}/{queue.length}
+            {scopeLabel(scope, mix)} · {index + 1}/{queue.length}
           </span>
         </div>
         <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />

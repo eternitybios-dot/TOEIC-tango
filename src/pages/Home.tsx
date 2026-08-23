@@ -117,7 +117,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
               key={part.id}
               className="part-card rise"
               style={{ animationDelay: `${i * 60}ms` }}
-              onClick={() => go({ name: "list", unit: words[0]?.unit })}
+              onClick={() => go({ name: "quiz", part: part.id })}
             >
               <span className="tiny">{part.score}</span>
               <strong>{part.label}</strong>
