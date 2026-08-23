@@ -1,5 +1,15 @@
 export type Pos = "名" | "動" | "形" | "副" | "前" | "接" | "句";
 
+export const POS_LABEL: Record<Pos, string> = {
+  名: "名詞",
+  動: "動詞",
+  形: "形容詞",
+  副: "副詞",
+  前: "前置詞",
+  接: "接続詞",
+  句: "句",
+};
+
 export type Word = {
   id: number;
   word: string;

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
-import type { AppState, Route, Word } from "../types";
+import { POS_LABEL, type AppState, type Route, type Word } from "../types";
 import { WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
 import { clozeParts, phraseParts, pickChoices, pickSession } from "../lib/quiz";
@@ -152,7 +152,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   function promptHead() {
     if (!word) return "";
     if (picked === null && mode === "ja-en") return word.meaning;
-    if (picked === null && mode === "cloze") return "______";
+    if (picked === null && mode === "cloze") return POS_LABEL[word.pos];
     return word.word;
   }
 
@@ -242,7 +242,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
         <div className="quiz-word">
           <p>
             {promptHead()}
-            <small>{word.pos}</small>
+            {mode === "cloze" && picked === null ? null : <small>{word.pos}</small>}
           </p>
         </div>
         {mode === "ja-en" ? (
