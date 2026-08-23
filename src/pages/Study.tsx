@@ -245,11 +245,11 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       </div>
 
       <div className="row actions">
-        <button type="button" className="btn again" onClick={() => void answer("again")}>
-          もう一度
-        </button>
         <button type="button" className="btn good" onClick={() => void answer("good")}>
           覚えた
+        </button>
+        <button type="button" className="btn again" onClick={() => void answer("again")}>
+          もう一度
         </button>
       </div>
       <p className="muted center-hint">表のまま判定できます。タップで意味を見ます</p>
