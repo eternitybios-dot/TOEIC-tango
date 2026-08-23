@@ -921,6 +921,18 @@ button:disabled {
   letter-spacing: 0.04em;
 }
 
+.quiz-prompt-stack .quiz-prompt {
+  margin: 4px 0;
+}
+
+.quiz-prompt-stack .quiz-prompt-ja {
+  margin-top: 6px;
+}
+
+.quiz-prompt-stack .quiz-prompt-en {
+  margin-bottom: 10px;
+}
+
 @media (max-height: 700px) {
   .page-quiz .quiz-word p {
     font-size: 22px;
