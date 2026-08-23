@@ -99,7 +99,7 @@ export default function App() {
 
   const pageKey =
     route.name === "study"
-      ? `study-${route.unit ?? "all"}-${route.mode ?? "due"}`
+      ? `study-${route.unit ?? route.part ?? "all"}-${route.mode ?? "due"}`
       : route.name === "quiz"
         ? `quiz-${route.unit ?? route.part ?? "all"}`
         : route.name === "list"
@@ -111,7 +111,7 @@ export default function App() {
       <div key={pageKey} className="page-shell">
         {route.name === "home" && <Home state={state} go={go} onSettings={onSettings} onGoal={onGoal} />}
         {route.name === "study" && (
-          <Study state={state} unit={route.unit} mode={route.mode} onReview={onReview} go={go} />
+          <Study state={state} unit={route.unit} part={route.part} mode={route.mode} onReview={onReview} go={go} />
         )}
         {route.name === "quiz" && <Quiz state={state} unit={route.unit} part={route.part} onQuiz={onQuiz} go={go} />}
         {route.name === "list" && <WordList state={state} unit={route.unit} go={go} />}

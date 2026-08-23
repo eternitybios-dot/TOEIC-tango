@@ -128,6 +128,8 @@ describe("quiz vs card srs", () => {
 describe("routes", () => {
   it("round-trips study and quiz hashes", () => {
     expect(hashToRoute("#/study/3")).toEqual({ name: "study", mode: "unit", unit: 3 });
+    expect(routeToHash({ name: "study", part: 1 })).toBe("#/study/part/1");
+    expect(hashToRoute("#/study/part/2")).toEqual({ name: "study", part: 2, mode: "due" });
     expect(routeToHash({ name: "quiz" })).toBe("#/quiz");
     expect(routeToHash({ name: "quiz", part: 2 })).toBe("#/quiz/part/2");
     expect(hashToRoute("#/quiz/part/1")).toEqual({ name: "quiz", part: 1 });

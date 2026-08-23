@@ -3,7 +3,9 @@ import type { Route } from "../types";
 export function routeToHash(route: Route): string {
   if (route.name === "home") return "#/";
   if (route.name === "study") {
-    return route.unit ? `#/study/${route.unit}` : "#/study";
+    if (route.unit) return `#/study/${route.unit}`;
+    if (route.part) return `#/study/part/${route.part}`;
+    return "#/study";
   }
   if (route.name === "quiz") {
     if (route.unit) return `#/quiz/${route.unit}`;
@@ -23,7 +25,13 @@ export function hashToRoute(hash: string): Route {
   const parsed = id ? Number(id) : undefined;
   const unit = parsed && Number.isFinite(parsed) ? parsed : undefined;
 
-  if (name === "study") return { name: "study", mode: unit ? "unit" : "due", unit };
+  if (name === "study") {
+    if (id === "part") {
+      const part = Number(extra);
+      if (part === 1 || part === 2 || part === 3) return { name: "study", part, mode: "due" };
+    }
+    return { name: "study", mode: unit ? "unit" : "due", unit };
+  }
   if (name === "quiz") {
     if (id === "part") {
       const part = Number(extra);
