@@ -101,7 +101,7 @@ export default function App() {
     route.name === "study"
       ? `study-${route.unit ?? "all"}-${route.mode ?? "due"}`
       : route.name === "quiz"
-        ? `quiz-${route.unit ?? "all"}`
+        ? `quiz-${route.unit ?? route.part ?? "all"}`
         : route.name === "list"
           ? `list-${route.unit ?? "all"}`
           : route.name;
@@ -113,7 +113,7 @@ export default function App() {
         {route.name === "study" && (
           <Study state={state} unit={route.unit} mode={route.mode} onReview={onReview} go={go} />
         )}
-        {route.name === "quiz" && <Quiz state={state} unit={route.unit} onQuiz={onQuiz} go={go} />}
+        {route.name === "quiz" && <Quiz state={state} unit={route.unit} part={route.part} onQuiz={onQuiz} go={go} />}
         {route.name === "list" && <WordList state={state} unit={route.unit} go={go} />}
         {route.name === "stats" && (
           <Stats

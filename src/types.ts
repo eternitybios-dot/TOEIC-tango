@@ -57,7 +57,7 @@ export type AppState = {
 export type Route =
   | { name: "home" }
   | { name: "study"; unit?: number; mode?: "due" | "unit" }
-  | { name: "quiz"; unit?: number }
+  | { name: "quiz"; unit?: number; part?: 1 | 2 | 3 }
   | { name: "list"; unit?: number }
   | { name: "stats" };
 

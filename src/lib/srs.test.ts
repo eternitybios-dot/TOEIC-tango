@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
 import { afterAgain, afterGood, clozePhrase, phraseParts, pickChoices, takeSession } from "./quiz";
+import { dealQuiz } from "./session";
 import { emptyProgress, masteryOf, recordQuiz, review } from "./srs";
+import { defaultState } from "./storage";
 import { hashToRoute, routeToHash } from "./route";
 
 describe("word data", () => {
@@ -72,6 +74,21 @@ describe("quiz", () => {
     expect(takeSession([a, b, c], 2).map((w) => w.id)).toEqual([a.id, b.id]);
   });
 
+  it("deals a random quiz of unique words from the pool", () => {
+    const pool = WORDS.slice(0, 40);
+    const dealt = dealQuiz(defaultState(), pool, "random");
+    expect(dealt).toHaveLength(10);
+    expect(new Set(dealt.map((word) => word.id)).size).toBe(10);
+    expect(dealt.every((word) => pool.some((item) => item.id === word.id))).toBe(true);
+  });
+
+  it("fills a due quiz with unseen words when nothing is due", () => {
+    const pool = WORDS.slice(0, 40);
+    const dealt = dealQuiz(defaultState(), pool, "due");
+    expect(dealt).toHaveLength(10);
+    expect(dealt.every((word) => pool.some((item) => item.id === word.id))).toBe(true);
+  });
+
   it("blanks the headword for cloze prompts", () => {
     const word = WORDS.find((item) => item.word === "abandon");
     expect(word).toBeTruthy();
@@ -112,6 +129,8 @@ describe("routes", () => {
   it("round-trips study and quiz hashes", () => {
     expect(hashToRoute("#/study/3")).toEqual({ name: "study", mode: "unit", unit: 3 });
     expect(routeToHash({ name: "quiz" })).toBe("#/quiz");
+    expect(routeToHash({ name: "quiz", part: 2 })).toBe("#/quiz/part/2");
+    expect(hashToRoute("#/quiz/part/1")).toEqual({ name: "quiz", part: 1 });
     expect(hashToRoute("")).toEqual({ name: "home" });
   });
 });
