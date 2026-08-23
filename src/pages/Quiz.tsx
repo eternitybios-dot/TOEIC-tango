@@ -148,7 +148,6 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
 
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
         <div className="quiz-word">
-          <span className="tiny gold">今の語</span>
           <p>
             {mode === "cloze" && picked === null ? "______" : word.word}
             <small>{word.pos}</small>
