@@ -1201,8 +1201,41 @@ button:disabled {
   line-height: 1.4;
 }
 
-.page-quiz.is-answered .choice:not(.correct) .choice-rest {
-  display: none;
+.page-quiz.is-answered .choice {
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 0;
+  padding: 12px 14px;
+}
+
+.page-quiz.is-answered .choice mark {
+  margin-bottom: 4px;
+}
+
+.choice-example {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  white-space: normal;
+}
+
+.choice-example-en,
+.choice-example-ja {
+  display: block;
+}
+
+.choice-example-en {
+  color: var(--paper);
+}
+
+.choice-example-ja {
+  margin-top: 2px;
+  color: #f0e6d4;
 }
 
 .quiz-prompt {
