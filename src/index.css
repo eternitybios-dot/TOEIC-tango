@@ -746,6 +746,7 @@ button:disabled {
   flex-direction: column;
   height: calc(100dvh - var(--nav) - 42px);
   min-height: 0;
+  overflow: hidden;
 }
 
 .quiz-head {
