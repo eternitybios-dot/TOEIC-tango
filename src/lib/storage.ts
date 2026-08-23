@@ -1,7 +1,16 @@
-import type { AppState, WordProgress } from "../types";
+import type { AppState, DeckId, SavedSession, WordProgress } from "../types";
 import { emptyProgress } from "./srs";
 
 const KEY = "toeic-tango-v2";
+const DECKS: DeckId[] = ["toeic", "business", "travel"];
+
+function emptyDeckProgress(): Record<DeckId, Record<number, WordProgress>> {
+  return { toeic: {}, business: {}, travel: {} };
+}
+
+function emptyLastUnits(): Record<DeckId, number | null> {
+  return { toeic: null, business: null, travel: null };
+}
 
 export function todayKey(date = new Date()): string {
   const y = date.getFullYear();
@@ -12,7 +21,9 @@ export function todayKey(date = new Date()): string {
 
 export function defaultState(): AppState {
   return {
+    deck: "toeic",
     progress: {},
+    progressByDeck: emptyDeckProgress(),
     streak: 0,
     lastStudyDate: null,
     todayCount: 0,
@@ -21,23 +32,56 @@ export function defaultState(): AppState {
     settings: { sound: true, haptics: true, autoSpeak: true },
     onboarded: false,
     lastUnit: null,
+    lastUnitByDeck: emptyLastUnits(),
     studyDays: [],
+    resume: { study: null, quiz: null },
   };
 }
 
 export function normalizeState(parsed: Partial<AppState> | null | undefined): AppState {
   const base = defaultState();
   if (!parsed || typeof parsed !== "object") return base;
-  const progress = parsed.progress ?? {};
+  const legacy = parsed.progress ?? {};
+  const progressByDeck = emptyDeckProgress();
+  for (const deck of DECKS) {
+    progressByDeck[deck] = parsed.progressByDeck?.[deck] ?? {};
+  }
+  if (Object.keys(progressByDeck.toeic).length === 0 && Object.keys(legacy).length > 0) {
+    progressByDeck.toeic = legacy;
+  }
+  const deck: DeckId = DECKS.includes(parsed.deck as DeckId) ? (parsed.deck as DeckId) : "toeic";
+  const lastUnitByDeck = emptyLastUnits();
+  for (const item of DECKS) {
+    lastUnitByDeck[item] = parsed.lastUnitByDeck?.[item] ?? null;
+  }
+  if (lastUnitByDeck.toeic == null && parsed.lastUnit != null) lastUnitByDeck.toeic = parsed.lastUnit;
+
   return {
     ...base,
     ...parsed,
-    progress,
+    deck,
+    progressByDeck,
+    progress: progressByDeck[deck],
     goal: typeof parsed.goal === "number" && parsed.goal > 0 ? parsed.goal : base.goal,
     settings: { ...base.settings, ...(parsed.settings ?? {}) },
-    onboarded: parsed.onboarded ?? Object.keys(progress).length > 0,
-    lastUnit: parsed.lastUnit ?? null,
+    onboarded: parsed.onboarded ?? Object.keys(progressByDeck.toeic).length > 0,
+    lastUnit: lastUnitByDeck[deck],
+    lastUnitByDeck,
     studyDays: Array.isArray(parsed.studyDays) ? parsed.studyDays : [],
+    resume: {
+      study:
+        parsed.resume && "study" in parsed.resume
+          ? parsed.resume.study
+          : parsed.resume && (parsed.resume as SavedSession).kind === "study"
+            ? (parsed.resume as SavedSession)
+            : null,
+      quiz:
+        parsed.resume && "quiz" in parsed.resume
+          ? parsed.resume.quiz
+          : parsed.resume && (parsed.resume as SavedSession).kind === "quiz"
+            ? (parsed.resume as SavedSession)
+            : null,
+    },
   };
 }
 
@@ -56,7 +100,18 @@ export function saveState(state: AppState): void {
 }
 
 export function getProgress(state: AppState, id: number): WordProgress {
-  return state.progress[id] ?? emptyProgress();
+  return (state.progressByDeck[state.deck] ?? {})[id] ?? state.progress[id] ?? emptyProgress();
+}
+
+export function writeProgress(state: AppState, id: number, progress: WordProgress): AppState {
+  const deck = state.deck;
+  const current = state.progressByDeck[deck] ?? {};
+  const nextDeck = { ...current, [id]: progress };
+  return {
+    ...state,
+    progress: nextDeck,
+    progressByDeck: { ...state.progressByDeck, [deck]: nextDeck },
+  };
 }
 
 export function withStudyTick(state: AppState, now = new Date()): AppState {

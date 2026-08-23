@@ -1,6 +1,7 @@
 import type { Word } from "../types";
 import raw from "./words.json";
 
+/** TOEIC deck, used by tests and as the default word list. */
 export const WORDS = raw as Word[];
 
 export const UNITS = [...new Set(WORDS.map((w) => w.unit))].sort((a, b) => a - b);
@@ -26,3 +27,5 @@ export function wordsByPart(part: Word["part"]): Word[] {
 export function getWord(id: number): Word | undefined {
   return WORDS.find((w) => w.id === id);
 }
+
+export { catalog, DECK_LIST, deckMeta } from "../lib/catalog";

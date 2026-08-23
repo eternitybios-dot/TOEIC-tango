@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
+import { catalog } from "./catalog";
 import { afterAgain, afterGood, clozePhrase, phraseParts, pickChoices, takeSession } from "./quiz";
 import { dealQuiz, listMissed } from "./session";
 import { emptyProgress, masteryOf, recordQuiz, review } from "./srs";
@@ -21,6 +22,18 @@ describe("word data", () => {
     expect(parts.size).toBe(3);
     expect(WORDS.length).toBe(1900);
     expect(WORDS.every((w) => w.phrase && w.phraseJa)).toBe(true);
+  });
+
+  it("has unique business and travel decks", () => {
+    for (const deck of ["business", "travel"] as const) {
+      const words = catalog(deck).words;
+      expect(words.length).toBeGreaterThan(200);
+      const ids = words.map((word) => word.id);
+      const heads = words.map((word) => word.word.toLowerCase());
+      expect(new Set(ids).size).toBe(ids.length);
+      expect(new Set(heads).size).toBe(heads.length);
+      expect(words.every((word) => word.phrase && word.phraseJa)).toBe(true);
+    }
   });
 });
 

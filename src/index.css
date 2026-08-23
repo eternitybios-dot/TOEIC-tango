@@ -41,6 +41,7 @@ body,
 html {
   background: var(--bg);
   color-scheme: dark;
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -152,6 +153,41 @@ button:disabled {
   font-weight: 700;
   color: var(--gold-2);
   text-transform: none;
+}
+
+.deck-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.deck-card {
+  text-align: left;
+  padding: 10px 10px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 236, 190, 0.05), rgba(16, 13, 10, 0.96));
+  min-height: 64px;
+}
+
+.deck-card strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.deck-card.on {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(228, 178, 74, 0.16), rgba(16, 13, 10, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(246, 217, 138, 0.2);
+}
+
+.nav,
+.deck-switch,
+.app {
+  touch-action: pan-y;
 }
 
 .brand span {

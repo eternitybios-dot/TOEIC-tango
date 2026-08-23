@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
-import { PARTS, POS_LABEL, type AppState, type Route, type Word } from "../types";
-import { UNITS, WORDS, wordsByPart, wordsByUnit } from "../data";
+import { POS_LABEL, type AppState, type Route, type SavedSession, type Word } from "../types";
+import { catalog, type Catalog } from "../lib/catalog";
+import { canResume, hydrateQueue, sessionOf } from "../lib/resume";
 import { explainMeaning } from "../lib/explain";
 import { clozeParts, phraseParts, pickChoices } from "../lib/quiz";
 import { dealQuiz, listMissed, mixLabel, mixNote, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
@@ -17,6 +18,7 @@ type Props = {
   unit?: number;
   part?: 1 | 2 | 3;
   onQuiz: (word: Word, ok: boolean) => void;
+  onResume: (session: SavedSession | null, kind: SavedSession["kind"]) => void;
   go: (route: Route) => void;
 };
 
@@ -29,32 +31,44 @@ function initialScope(unit?: number, part?: 1 | 2 | 3, lastUnit?: number | null)
   return { type: "unit", unit: lastUnit ?? 1 };
 }
 
-function poolOf(scope: Scope): Word[] {
-  if (scope.type === "unit") return wordsByUnit(scope.unit);
-  if (scope.type === "part") return wordsByPart(scope.part);
-  return WORDS;
+function poolOf(scope: Scope, cat: Catalog): Word[] {
+  if (scope.type === "unit") return cat.wordsByUnit(scope.unit);
+  if (scope.type === "part") return cat.wordsByPart(scope.part);
+  return cat.words;
 }
 
-function scopeLabel(scope: Scope, mix: QuizMix): string {
+function scopeLabel(scope: Scope, mix: QuizMix, cat: Catalog): string {
   const place =
-    scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
+    scope.type === "unit"
+      ? `UNIT ${scope.unit}`
+      : scope.type === "part"
+        ? cat.parts.find((item) => item.id === scope.part)?.label ?? "このレベル"
+        : "全体";
   return `${place} · ${mixLabel(mix)}`;
 }
 
-export function Quiz({ state, unit, part, onQuiz, go }: Props) {
-  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part, state.lastUnit));
-  const [mix, setMix] = useState<QuizMix>("due");
-  const [size, setSize] = useState(SESSION_SIZE);
-  const [started, setStarted] = useState(false);
-  const source = poolOf(scope);
+export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
+  const cat = catalog(state.deck);
+  const boot = (() => {
+    if (!canResume(state.resume, "quiz", state.deck)) return null;
+    const session = sessionOf(state.resume, "quiz")!;
+    const nextQueue = hydrateQueue(session.queue, cat);
+    if (nextQueue.length === 0) return null;
+    return { session, queue: nextQueue, missed: hydrateQueue(session.missed, cat) };
+  })();
+  const [scope, setScope] = useState<Scope>(() => boot?.session.scope ?? initialScope(unit, part, state.lastUnit));
+  const [mix, setMix] = useState<QuizMix>(() => boot?.session.mix ?? "due");
+  const [size, setSize] = useState(() => boot?.session.size ?? SESSION_SIZE);
+  const [started, setStarted] = useState(() => Boolean(boot));
+  const source = poolOf(scope, cat);
   const missedPool = listMissed(state, source);
   const poolCount = mix === "missed" ? missedPool.length : source.length;
-  const [queue, setQueue] = useState<Word[]>([]);
-  const [index, setIndex] = useState(0);
-  const [mode, setMode] = useState<Mode>("en-ja");
+  const [queue, setQueue] = useState<Word[]>(() => boot?.queue ?? []);
+  const [index, setIndex] = useState(() => boot?.session.index ?? 0);
+  const [mode, setMode] = useState<Mode>(() => boot?.session.quizMode ?? "en-ja");
   const [picked, setPicked] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
-  const [missed, setMissed] = useState<Word[]>([]);
+  const [score, setScore] = useState(() => boot?.session.score ?? 0);
+  const [missed, setMissed] = useState<Word[]>(() => boot?.missed ?? []);
   const [finished, setFinished] = useState(false);
   const [shake, setShake] = useState(false);
   const [drag, setDrag] = useState(0);
@@ -63,6 +77,9 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
   const dragging = useRef(false);
   const busy = useRef(false);
   const dragRef = useRef(0);
+  const onResumeRef = useRef<(session: SavedSession | null) => void>((session) => onResume(session, "quiz"));
+  const lastSaved = useRef("");
+  onResumeRef.current = (session) => onResume(session, "quiz");
 
   const word = queue[index];
   const choices = useMemo(() => (word ? pickChoices(word, source, 4) : []), [word, source]);
@@ -73,7 +90,7 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
   }, [word, mode, finished, state.settings.autoSpeak]);
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
-  const meaning = word && picked !== null ? explainMeaning(word) : null;
+  const meaning = word && picked !== null ? explainMeaning(word, cat.words) : null;
 
   function start(nextQueue: Word[]) {
     setQueue(nextQueue);
@@ -89,8 +106,55 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
 
   function begin(nextMix = mix, nextScope = scope) {
     playSfx("tap", state.settings.sound);
-    start(dealQuiz(state, poolOf(nextScope), nextMix, Date.now(), size));
+    start(dealQuiz(state, poolOf(nextScope, cat), nextMix, Date.now(), size));
   }
+
+  function restoreSaved() {
+    const session = sessionOf(state.resume, "quiz");
+    if (!canResume(state.resume, "quiz", state.deck) || !session) return;
+    playSfx("tap", state.settings.sound);
+    setScope(session.scope);
+    setMix(session.mix);
+    setSize(session.size);
+    setQueue(hydrateQueue(session.queue, cat));
+    setIndex(session.index);
+    setMissed(hydrateQueue(session.missed, cat));
+    setScore(session.score);
+    setMode(session.quizMode);
+    setPicked(null);
+    setFinished(false);
+    setStarted(true);
+  }
+
+  useEffect(() => {
+    if (!started || finished || queue.length === 0) return;
+    const payload = {
+      kind: "quiz" as const,
+      deck: state.deck,
+      mix,
+      size,
+      scope,
+      queue: queue.map((item) => item.id),
+      index,
+      seen: [],
+      good: 0,
+      again: 0,
+      score,
+      missed: missed.map((item) => item.id),
+      quizMode: mode,
+      sessionLen: queue.length,
+    };
+    const raw = JSON.stringify(payload);
+    if (raw === lastSaved.current) return;
+    lastSaved.current = raw;
+    onResumeRef.current(payload);
+  }, [started, finished, queue, index, score, missed, mix, size, scope, mode, state.deck]);
+
+  useEffect(() => {
+    if (!finished) return;
+    lastSaved.current = "";
+    onResumeRef.current(null);
+  }, [finished]);
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -249,7 +313,7 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
         </div>
         <p className="section-title">UNIT</p>
         <div className="filters">
-          {UNITS.map((item) => (
+          {cat.units.map((item) => (
             <button
               key={item}
               className={`chip${scope.type === "unit" && scope.unit === item ? " on" : ""}`}
@@ -264,7 +328,7 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
           <button className={`chip${scope.type === "all" ? " on" : ""}`} onClick={() => setScope({ type: "all" })}>
             すべて
           </button>
-          {PARTS.map((item) => (
+          {cat.parts.map((item) => (
             <button
               key={item.id}
               className={`chip${scope.type === "part" && scope.part === item.id ? " on" : ""}`}
@@ -289,7 +353,17 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
         <p className="muted" style={{ margin: "8px 0 18px" }}>
           {poolCount}語から {Math.min(size, poolCount)}問 · {mixNote(mix, missedPool.length)}
         </p>
-        <button className="cta" onClick={() => begin()} disabled={mix === "missed" && missedPool.length === 0}>
+        {canResume(state.resume, "quiz", state.deck) ? (
+          <button className="cta" onClick={restoreSaved}>
+            続きから
+          </button>
+        ) : null}
+        <button
+          className={`cta${canResume(state.resume, "quiz", state.deck) ? " ghost" : ""}`}
+          style={{ marginTop: canResume(state.resume, "quiz", state.deck) ? 10 : 0 }}
+          onClick={() => begin()}
+          disabled={mix === "missed" && missedPool.length === 0}
+        >
           スタート
         </button>
       </div>
@@ -310,7 +384,7 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
             <IconBack /> 出題
           </button>
           <span className="tiny">
-            {scopeLabel(scope, mix)} · {index + 1}/{queue.length}
+            {scopeLabel(scope, mix, cat)} · {index + 1}/{queue.length}
           </span>
         </div>
         <ProgressBar value={index + (picked !== null ? 0.5 : 0)} max={queue.length} />

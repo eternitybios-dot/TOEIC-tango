@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
-import { PARTS, type AppState, type Route, type Word } from "../types";
-import { UNITS, WORDS, wordsByPart, wordsByUnit } from "../data";
+import { type AppState, type Route, type SavedSession, type Word } from "../types";
+import { catalog, type Catalog } from "../lib/catalog";
+import { canResume, hydrateQueue, sessionOf } from "../lib/resume";
 import { speak } from "../lib/speech";
 import { explainMeaning } from "../lib/explain";
 import { afterAgain, afterGood } from "../lib/quiz";
@@ -18,6 +19,7 @@ type Props = {
   part?: 1 | 2 | 3;
   mode?: "due" | "unit" | "missed";
   onReview: (word: Word, result: "again" | "good") => void;
+  onResume: (session: SavedSession | null, kind: SavedSession["kind"]) => void;
   go: (route: Route) => void;
 };
 
@@ -35,41 +37,58 @@ function initialScope(
   return { type: "unit", unit: lastUnit ?? 1 };
 }
 
-function poolOf(scope: Scope): Word[] {
-  if (scope.type === "unit") return wordsByUnit(scope.unit);
-  if (scope.type === "part") return wordsByPart(scope.part);
-  return WORDS;
+function poolOf(scope: Scope, cat: Catalog): Word[] {
+  if (scope.type === "unit") return cat.wordsByUnit(scope.unit);
+  if (scope.type === "part") return cat.wordsByPart(scope.part);
+  return cat.words;
 }
 
-function scopeLabel(scope: Scope, mix: QuizMix): string {
+function scopeLabel(scope: Scope, mix: QuizMix, cat: Catalog): string {
   const place =
-    scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
+    scope.type === "unit"
+      ? `UNIT ${scope.unit}`
+      : scope.type === "part"
+        ? cat.parts.find((item) => item.id === scope.part)?.label ?? "このレベル"
+        : "全体";
   return `${place} · ${mixLabel(mix)}`;
 }
 
-export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: Props) {
-  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part, state.lastUnit, _mode));
-  const [mix, setMix] = useState<QuizMix>(_mode === "missed" ? "missed" : "due");
-  const [size, setSize] = useState(SESSION_SIZE);
-  const [started, setStarted] = useState(false);
-  const [sessionLen, setSessionLen] = useState(0);
-  const source = poolOf(scope);
+export function Study({ state, unit, part, mode: _mode = "due", onReview, onResume, go }: Props) {
+  const cat = catalog(state.deck);
+  const boot = (() => {
+    if (!canResume(state.resume, "study", state.deck)) return null;
+    const session = sessionOf(state.resume, "study")!;
+    const nextQueue = hydrateQueue(session.queue, cat);
+    if (nextQueue.length === 0) return null;
+    return { session, queue: nextQueue, seen: hydrateQueue(session.seen, cat) };
+  })();
+  const [scope, setScope] = useState<Scope>(() => boot?.session.scope ?? initialScope(unit, part, state.lastUnit, _mode));
+  const [mix, setMix] = useState<QuizMix>(() => boot?.session.mix ?? (_mode === "missed" ? "missed" : "due"));
+  const [size, setSize] = useState(() => boot?.session.size ?? SESSION_SIZE);
+  const [started, setStarted] = useState(() => Boolean(boot));
+  const [sessionLen, setSessionLen] = useState(() => boot?.session.sessionLen ?? 0);
+  const source = poolOf(scope, cat);
   const missedPool = listMissed(state, source);
   const poolCount = mix === "missed" ? missedPool.length : source.length;
-  const [queue, setQueue] = useState<Word[]>([]);
-  const [index, setIndex] = useState(0);
+  const [queue, setQueue] = useState<Word[]>(() => boot?.queue ?? []);
+  const [index, setIndex] = useState(() => boot?.session.index ?? 0);
   const [revealed, setRevealed] = useState(false);
-  const [score, setScore] = useState({ good: 0, again: 0 });
+  const [score, setScore] = useState(() =>
+    boot ? { good: boot.session.good, again: boot.session.again } : { good: 0, again: 0 },
+  );
   const [finished, setFinished] = useState(false);
   const [drag, setDrag] = useState(0);
   const [flight, setFlight] = useState<"good" | "again" | null>(null);
-  const [seen, setSeen] = useState<Word[]>([]);
+  const [seen, setSeen] = useState<Word[]>(() => boot?.seen ?? []);
   const start = useRef<{ x: number; y: number } | null>(null);
   const dragging = useRef(false);
   const busy = useRef(false);
+  const onResumeRef = useRef<(session: SavedSession | null) => void>((session) => onResume(session, "study"));
+  const lastSaved = useRef("");
+  onResumeRef.current = (session) => onResume(session, "study");
 
   const word = queue[index];
-  const note = word ? explainMeaning(word) : null;
+  const note = word ? explainMeaning(word, cat.words) : null;
   const remaining = queue.length;
   const done = Math.max(0, (queue.length > 0 ? sessionLen : score.good + score.again) - remaining);
 
@@ -108,8 +127,55 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
 
   function begin(nextMix = mix, nextScope = scope) {
     playSfx("tap", state.settings.sound);
-    restart(dealQuiz(state, poolOf(nextScope), nextMix, Date.now(), size));
+    restart(dealQuiz(state, poolOf(nextScope, cat), nextMix, Date.now(), size));
   }
+
+  function restoreSaved() {
+    const session = sessionOf(state.resume, "study");
+    if (!canResume(state.resume, "study", state.deck) || !session) return;
+    playSfx("tap", state.settings.sound);
+    setScope(session.scope);
+    setMix(session.mix);
+    setSize(session.size);
+    setQueue(hydrateQueue(session.queue, cat));
+    setIndex(session.index);
+    setSeen(hydrateQueue(session.seen, cat));
+    setScore({ good: session.good, again: session.again });
+    setSessionLen(session.sessionLen);
+    setRevealed(false);
+    setFinished(false);
+    setStarted(true);
+  }
+
+  useEffect(() => {
+    if (!started || finished || queue.length === 0) return;
+    const payload = {
+      kind: "study" as const,
+      deck: state.deck,
+      mix,
+      size,
+      scope,
+      queue: queue.map((item) => item.id),
+      index,
+      seen: seen.map((item) => item.id),
+      good: score.good,
+      again: score.again,
+      score: 0,
+      missed: [],
+      quizMode: "en-ja" as const,
+      sessionLen,
+    };
+    const raw = JSON.stringify(payload);
+    if (raw === lastSaved.current) return;
+    lastSaved.current = raw;
+    onResumeRef.current(payload);
+  }, [started, finished, queue, index, seen, score, mix, size, scope, sessionLen, state.deck]);
+
+  useEffect(() => {
+    if (!finished) return;
+    lastSaved.current = "";
+    onResumeRef.current(null);
+  }, [finished]);
 
   function flip() {
     playSfx("flip", state.settings.sound);
@@ -236,7 +302,7 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
         </div>
         <p className="section-title">UNIT</p>
         <div className="filters">
-          {UNITS.map((item) => (
+          {cat.units.map((item) => (
             <button
               key={item}
               className={`chip${scope.type === "unit" && scope.unit === item ? " on" : ""}`}
@@ -251,7 +317,7 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
           <button className={`chip${scope.type === "all" ? " on" : ""}`} onClick={() => setScope({ type: "all" })}>
             すべて
           </button>
-          {PARTS.map((item) => (
+          {cat.parts.map((item) => (
             <button
               key={item.id}
               className={`chip${scope.type === "part" && scope.part === item.id ? " on" : ""}`}
@@ -276,7 +342,17 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
         <p className="muted" style={{ margin: "8px 0 18px" }}>
           {poolCount}語から {Math.min(size, poolCount)}枚 · {mixNote(mix, missedPool.length)}
         </p>
-        <button className="cta" onClick={() => begin()} disabled={mix === "missed" && missedPool.length === 0}>
+        {canResume(state.resume, "study", state.deck) ? (
+          <button className="cta" onClick={restoreSaved}>
+            続きから
+          </button>
+        ) : null}
+        <button
+          className={`cta${canResume(state.resume, "study", state.deck) ? " ghost" : ""}`}
+          style={{ marginTop: canResume(state.resume, "study", state.deck) ? 10 : 0 }}
+          onClick={() => begin()}
+          disabled={mix === "missed" && missedPool.length === 0}
+        >
           スタート
         </button>
       </div>
@@ -292,7 +368,7 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
         <IconBack /> 出題
       </button>
       <div className="progress-label">
-        <span>{scopeLabel(scope, mix)}</span>
+        <span>{scopeLabel(scope, mix, cat)}</span>
         <span>残り {remaining}</span>
       </div>
       <ProgressBar value={done + (revealed ? 0.35 : 0)} max={Math.max(1, sessionLen)} />

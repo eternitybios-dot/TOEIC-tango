@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import type { AppState, Route, Settings } from "../types";
-import { PARTS } from "../types";
-import { WORDS } from "../data";
+import { catalog } from "../lib/catalog";
 import { dashboard } from "../lib/stats";
 import { todayKey } from "../lib/storage";
 import { CountUp } from "../components/CountUp";
@@ -31,7 +30,8 @@ function lastDays(count: number): string[] {
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
 
 export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
-  const dash = useMemo(() => dashboard(state, WORDS), [state]);
+  const cat = catalog(state.deck);
+  const dash = useMemo(() => dashboard(state, cat.words), [state, cat.words]);
   const all = dash.all;
   const days = useMemo(() => lastDays(35), []);
   const studied = new Set(state.studyDays);
@@ -58,16 +58,16 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
 
       <section className="hero hero-glow">
         <div className="hero-top">
-          <Ring value={all.mastered} max={WORDS.length} size={100} stroke={8}>
+          <Ring value={all.mastered} max={cat.words.length} size={100} stroke={8}>
             <b>
-              <CountUp value={Math.round((all.mastered / WORDS.length) * 100)} />
+              <CountUp value={Math.round((all.mastered / cat.words.length) * 100)} />
             </b>
             <small>%</small>
           </Ring>
           <div className="hero-copy">
             <h2>全体の習得</h2>
             <p className="muted">
-              {all.mastered} / {WORDS.length} 語
+              {all.mastered} / {cat.words.length} 語
             </p>
             <p className="muted">期限 {all.due} 語 · 今日 {state.todayCount}/{state.goal}</p>
           </div>
@@ -117,9 +117,9 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
         色がついた日に学習しています
       </p>
 
-      {PARTS.map((part) => {
+      {cat.parts.map((part) => {
         const stats = dash.parts[part.id];
-        const total = part.id === 1 ? 800 : part.id === 2 ? 700 : 400;
+        const total = cat.wordsByPart(part.id).length;
         const pct = Math.round((stats.mastered / total) * 100);
         return (
           <div key={part.id} className="unit-card" style={{ marginBottom: 8 }}>
