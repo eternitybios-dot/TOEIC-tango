@@ -8,7 +8,8 @@
     "phrase": "I need my passport.",
     "phraseJa": "旅券が必要です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "出国・搭乗で必須の旅券。show/need my passport。"
   },
   {
     "id": 30002,
@@ -19,7 +20,8 @@
     "phrase": "Do I need a visa?",
     "phraseJa": "査証は要りますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "入国許可の査証。need a visa。国によって要否が変わる。"
   },
   {
     "id": 30003,
@@ -30,7 +32,8 @@
     "phrase": "I bought a train ticket.",
     "phraseJa": "列車の切符を買いました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "乗車券・航空券。a train/plane ticket。"
   },
   {
     "id": 30004,
@@ -41,7 +44,8 @@
     "phrase": "Here is my boarding pass.",
     "phraseJa": "これが搭乗券です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "保安検査のあとに見せる搭乗券。boarding pass。"
   },
   {
     "id": 30005,
@@ -52,7 +56,8 @@
     "phrase": "Which gate is it?",
     "phraseJa": "搭乗口はどこですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "搭乗口。which gate。番号と時刻を確認。"
   },
   {
     "id": 30006,
@@ -63,7 +68,8 @@
     "phrase": "Go to terminal two.",
     "phraseJa": "第2ターミナルへ行ってください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "空港の棟。terminal two。"
   },
   {
     "id": 30007,
@@ -74,7 +80,8 @@
     "phrase": "Security is this way.",
     "phraseJa": "保安検査はこちらです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "保安検査場。security is this way。"
   },
   {
     "id": 30008,
@@ -85,7 +92,8 @@
     "phrase": "I have nothing to declare at customs.",
     "phraseJa": "税関で申告するものはありません。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "税関。declare は申告する。nothing to declare。"
   },
   {
     "id": 30009,
@@ -96,7 +104,8 @@
     "phrase": "Where is the baggage claim?",
     "phraseJa": "荷物受け取りはどこですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "預け荷物。baggage claim は受取所。不可算。"
   },
   {
     "id": 30010,
@@ -107,7 +116,8 @@
     "phrase": "My suitcase is black.",
     "phraseJa": "スーツケースは黒です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "スーツケース。my suitcase is …。"
   },
   {
     "id": 30011,
@@ -118,7 +128,8 @@
     "phrase": "The flight has a delay.",
     "phraseJa": "便に遅れが出ています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "便の遅れ。the flight has a delay / is delayed。"
   },
   {
     "id": 30012,
@@ -129,7 +140,8 @@
     "phrase": "They canceled the flight.",
     "phraseJa": "その便は取り消されました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "便や予約を取り消す。cancel the flight。"
   },
   {
     "id": 30013,
@@ -140,7 +152,8 @@
     "phrase": "The bus departs at eight.",
     "phraseJa": "バスは8時に出発します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "出発する。depart at 時刻。departure が名詞。"
   },
   {
     "id": 30014,
@@ -151,7 +164,8 @@
     "phrase": "We arrive at noon.",
     "phraseJa": "正午に到着します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "到着する。arrive at 時刻/場所。"
   },
   {
     "id": 30015,
@@ -162,7 +176,8 @@
     "phrase": "I need to transfer in Nagoya.",
     "phraseJa": "名古屋で乗り換える必要があります。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "乗り換える。transfer in 都市。"
   },
   {
     "id": 30016,
@@ -173,7 +188,8 @@
     "phrase": "Please check in here.",
     "phraseJa": "ここで搭乗手続きをしてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "空港やホテルの到着手続き。check in here。"
   },
   {
     "id": 30017,
@@ -184,7 +200,8 @@
     "phrase": "I will check out at ten.",
     "phraseJa": "10時に出発手続きをします。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "ホテルの出発手続き。check out at 時刻。"
   },
   {
     "id": 30018,
@@ -195,7 +212,8 @@
     "phrase": "The plane will take off soon.",
     "phraseJa": "まもなく離陸します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "離陸する。the plane takes off。"
   },
   {
     "id": 30019,
@@ -206,7 +224,8 @@
     "phrase": "We will land in ten minutes.",
     "phraseJa": "10分後に着陸します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "着陸する。land in 分。"
   },
   {
     "id": 30020,
@@ -217,7 +236,8 @@
     "phrase": "I prefer an aisle seat.",
     "phraseJa": "通路側の席がよいです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "通路側の席。an aisle seat。"
   },
   {
     "id": 30021,
@@ -228,7 +248,8 @@
     "phrase": "A window seat, please.",
     "phraseJa": "窓側の席をお願いします。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "窓側。a window seat。"
   },
   {
     "id": 30022,
@@ -239,7 +260,8 @@
     "phrase": "Is this seat free?",
     "phraseJa": "この席は空いていますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "座席。is this seat free。"
   },
   {
     "id": 30023,
@@ -250,7 +272,8 @@
     "phrase": "The train is on platform three.",
     "phraseJa": "列車は3番ホームです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "ホーム。platform ＋番号。"
   },
   {
     "id": 30024,
@@ -261,7 +284,8 @@
     "phrase": "How much is the fare?",
     "phraseJa": "運賃はいくらですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "運賃。how much is the fare。"
   },
   {
     "id": 30025,
@@ -272,7 +296,8 @@
     "phrase": "A one-way ticket, please.",
     "phraseJa": "片道の切符をお願いします。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "片道の。a one-way ticket。"
   },
   {
     "id": 30026,
@@ -283,7 +308,8 @@
     "phrase": "I need a round-trip ticket.",
     "phraseJa": "往復の切符が必要です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "往復の。a round-trip ticket。英は return。"
   },
   {
     "id": 30027,
@@ -294,7 +320,8 @@
     "phrase": "This is a reserved seat.",
     "phraseJa": "これは指定席です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "指定席の。a reserved seat。"
   },
   {
     "id": 30028,
@@ -305,7 +332,8 @@
     "phrase": "Is there a nonstop train?",
     "phraseJa": "直行の列車はありますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "途中停車なし。a nonstop train。"
   },
   {
     "id": 30029,
@@ -316,7 +344,8 @@
     "phrase": "The train is late.",
     "phraseJa": "列車が遅れています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "遅れている。the train is late。"
   },
   {
     "id": 30030,
@@ -327,7 +356,8 @@
     "phrase": "I want an early flight.",
     "phraseJa": "早い便がほしいです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "早い便・時間。an early flight。"
   },
   {
     "id": 30031,
@@ -338,7 +368,8 @@
     "phrase": "I am lost.",
     "phraseJa": "道に迷いました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "道に迷った。I am lost。lost-and-found と区別。"
   },
   {
     "id": 30032,
@@ -349,7 +380,8 @@
     "phrase": "Excuse me, where is the station?",
     "phraseJa": "すみません、駅はどこですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "声をかける定型。Excuse me, where is …。"
   },
   {
     "id": 30033,
@@ -360,7 +392,8 @@
     "phrase": "How long does it take?",
     "phraseJa": "どのくらいかかりますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "所要時間を聞く。How long does it take。"
   },
   {
     "id": 30034,
@@ -371,7 +404,8 @@
     "phrase": "How much is this?",
     "phraseJa": "これはいくらですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "値段を聞く。How much is this。"
   },
   {
     "id": 30035,
@@ -382,7 +416,8 @@
     "phrase": "Where is the restroom?",
     "phraseJa": "トイレはどこにありますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "場所を聞く。Where is the …。"
   },
   {
     "id": 30036,
@@ -393,7 +428,8 @@
     "phrase": "Please come this way.",
     "phraseJa": "こちらへどうぞ。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "案内の定型。come this way。"
   },
   {
     "id": 30037,
@@ -404,7 +440,8 @@
     "phrase": "The taxi is over there.",
     "phraseJa": "タクシーはあそこです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "指差して「あそこ」。over there。"
   },
   {
     "id": 30038,
@@ -415,7 +452,8 @@
     "phrase": "The gate is on the right.",
     "phraseJa": "搭乗口は右側です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "右側に。on the right。"
   },
   {
     "id": 30039,
@@ -426,7 +464,8 @@
     "phrase": "The exit is on the left.",
     "phraseJa": "出口は左側です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "左側に。on the left。"
   },
   {
     "id": 30040,
@@ -437,7 +476,8 @@
     "phrase": "Go straight and turn left.",
     "phraseJa": "まっすぐ行って左折してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "まっすぐ行く。go straight and …。"
   },
   {
     "id": 30041,
@@ -448,7 +488,8 @@
     "phrase": "Turn right at the light.",
     "phraseJa": "信号で右に曲がってください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "右折。turn right at …。"
   },
   {
     "id": 30042,
@@ -459,7 +500,8 @@
     "phrase": "Turn left after the bridge.",
     "phraseJa": "橋のあとで左に曲がってください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "左折。turn left after …。"
   },
   {
     "id": 30043,
@@ -470,7 +512,8 @@
     "phrase": "Get off at the next stop.",
     "phraseJa": "次の停留所で降りてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "次で降りる。get off at the next stop。"
   },
   {
     "id": 30044,
@@ -481,7 +524,8 @@
     "phrase": "What time is the last train?",
     "phraseJa": "終電は何時ですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "終電。the last train。"
   },
   {
     "id": 30045,
@@ -492,7 +536,8 @@
     "phrase": "The bus stop is across the street.",
     "phraseJa": "バス停は通りの向こうです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "バス停。the bus stop is …。"
   },
   {
     "id": 30046,
@@ -503,7 +548,8 @@
     "phrase": "The taxi stand is outside.",
     "phraseJa": "タクシー乗り場は外です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "タクシー乗り場。the taxi stand。"
   },
   {
     "id": 30047,
@@ -514,7 +560,8 @@
     "phrase": "Take the subway to city hall.",
     "phraseJa": "市役所までは地下鉄です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "地下鉄。take the subway。"
   },
   {
     "id": 30048,
@@ -525,7 +572,8 @@
     "phrase": "How do I get to the airport?",
     "phraseJa": "空港へはどう行きますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "空港。get to the airport。"
   },
   {
     "id": 30049,
@@ -536,7 +584,8 @@
     "phrase": "The station is five minutes away.",
     "phraseJa": "駅まで5分です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "駅。the station is … minutes away。"
   },
   {
     "id": 30050,
@@ -547,7 +596,8 @@
     "phrase": "Can I see a map?",
     "phraseJa": "地図を見せてもらえますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "地図。see a map。"
   },
   {
     "id": 30051,
@@ -558,7 +608,8 @@
     "phrase": "I booked a hotel near the station.",
     "phraseJa": "駅の近くのホテルを予約しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "ホテル。book a hotel。"
   },
   {
     "id": 30052,
@@ -569,7 +620,8 @@
     "phrase": "I have a reservation.",
     "phraseJa": "予約しています。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "予約。have a reservation。"
   },
   {
     "id": 30053,
@@ -580,7 +632,8 @@
     "phrase": "Please go to reception.",
     "phraseJa": "受付へ行ってください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "受付。go to reception。"
   },
   {
     "id": 30054,
@@ -591,7 +644,8 @@
     "phrase": "Here is your room key.",
     "phraseJa": "部屋の鍵です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "部屋の鍵。room key。"
   },
   {
     "id": 30055,
@@ -602,7 +656,8 @@
     "phrase": "The room is on the third floor.",
     "phraseJa": "部屋は3階です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "客室。the room is on the … floor。"
   },
   {
     "id": 30056,
@@ -613,7 +668,8 @@
     "phrase": "A single room, please.",
     "phraseJa": "1人用の部屋をお願いします。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "1人部屋の。a single room。"
   },
   {
     "id": 30057,
@@ -624,7 +680,8 @@
     "phrase": "Do you have a double room?",
     "phraseJa": "2人用の部屋はありますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "2人ベッドの部屋。a double room。"
   },
   {
     "id": 30058,
@@ -635,7 +692,8 @@
     "phrase": "Do you have a vacancy?",
     "phraseJa": "空きはありますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "空き部屋。have a vacancy。"
   },
   {
     "id": 30059,
@@ -646,7 +704,8 @@
     "phrase": "Is breakfast included?",
     "phraseJa": "朝食は含まれますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "朝食。is breakfast included。"
   },
   {
     "id": 30060,
@@ -657,7 +716,8 @@
     "phrase": "What is the wifi password?",
     "phraseJa": "無線のパスワードは何ですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "無線LAN。wifi password。"
   },
   {
     "id": 30061,
@@ -668,7 +728,8 @@
     "phrase": "Can I have another towel?",
     "phraseJa": "タオルをもう1枚もらえますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "タオル。another towel。"
   },
   {
     "id": 30062,
@@ -679,7 +740,8 @@
     "phrase": "Where is the laundry?",
     "phraseJa": "洗濯はどこですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "洗濯場／洗濯。where is the laundry。"
   },
   {
     "id": 30063,
@@ -690,7 +752,8 @@
     "phrase": "The elevator is over there.",
     "phraseJa": "エレベーターはあそこです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "エレベーター。英は lift も。"
   },
   {
     "id": 30064,
@@ -701,7 +764,8 @@
     "phrase": "I want a quiet room.",
     "phraseJa": "静かな部屋がほしいです。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "静かな部屋を頼むとき。a quiet room。"
   },
   {
     "id": 30065,
@@ -712,7 +776,8 @@
     "phrase": "Is a room available tonight?",
     "phraseJa": "今夜空いている部屋はありますか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "今夜空いている。a room available tonight。"
   },
   {
     "id": 30066,
@@ -723,7 +788,8 @@
     "phrase": "I will stay for two nights.",
     "phraseJa": "2泊します。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "泊まる。stay for two nights。"
   },
   {
     "id": 30067,
@@ -734,7 +800,8 @@
     "phrase": "I booked the room online.",
     "phraseJa": "部屋はネットで予約しました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "予約する。book the room online。"
   },
   {
     "id": 30068,
@@ -745,7 +812,8 @@
     "phrase": "Please wake me at seven.",
     "phraseJa": "7時に起こしてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "モーニングコール。wake me at 時刻。"
   },
   {
     "id": 30069,
@@ -756,7 +824,8 @@
     "phrase": "Please clean the room.",
     "phraseJa": "部屋を掃除してください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "部屋を掃除する。clean the room。"
   },
   {
     "id": 30070,
@@ -767,7 +836,8 @@
     "phrase": "What is the check-in time?",
     "phraseJa": "到着手続きの時刻は何時ですか。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "到着手続きを始められる時刻。"
   },
   {
     "id": 30071,
@@ -778,7 +848,8 @@
     "phrase": "Check-out time is eleven.",
     "phraseJa": "出発の時刻は11時です。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "部屋を空ける時刻。check-out time is …。"
   },
   {
     "id": 30072,
@@ -789,7 +860,8 @@
     "phrase": "I called room service.",
     "phraseJa": "部屋への食事を頼みました。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "部屋への食事配達。call room service。"
   },
   {
     "id": 30073,
@@ -800,7 +872,8 @@
     "phrase": "Ask at the front desk.",
     "phraseJa": "フロントで聞いてください。",
     "part": 1,
-    "unit": 1
+    "unit": 1,
+    "note": "フロント。ask at the front desk。"
   },
   {
     "id": 30074,
@@ -811,7 +884,8 @@
     "phrase": "The air conditioner is broken.",
     "phraseJa": "冷暖房が壊れています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "冷暖房。the air conditioner is broken。"
   },
   {
     "id": 30075,
@@ -822,7 +896,8 @@
     "phrase": "Can I have an extra bed?",
     "phraseJa": "予備のベッドはありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "予備ベッド。an extra bed。"
   },
   {
     "id": 30076,
@@ -833,7 +908,8 @@
     "phrase": "A non-smoking room, please.",
     "phraseJa": "禁煙の部屋をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "禁煙の。a non-smoking room。"
   },
   {
     "id": 30077,
@@ -844,7 +920,8 @@
     "phrase": "The room has a nice view.",
     "phraseJa": "部屋からの眺めがよいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "眺め。a nice view。"
   },
   {
     "id": 30078,
@@ -855,7 +932,8 @@
     "phrase": "The restaurant is on the first floor.",
     "phraseJa": "食事店は1階です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "食事店。the restaurant is on …。"
   },
   {
     "id": 30079,
@@ -866,7 +944,8 @@
     "phrase": "Can I see the menu?",
     "phraseJa": "献立表を見せてください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "献立表。see the menu。"
   },
   {
     "id": 30080,
@@ -877,7 +956,8 @@
     "phrase": "Are you ready to order?",
     "phraseJa": "ご注文はお決まりですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "注文。ready to order。"
   },
   {
     "id": 30081,
@@ -888,7 +968,8 @@
     "phrase": "Can I have some water?",
     "phraseJa": "水をください。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "水。some water。"
   },
   {
     "id": 30082,
@@ -899,7 +980,8 @@
     "phrase": "One coffee, please.",
     "phraseJa": "コーヒーを1つお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "コーヒー。one coffee, please。"
   },
   {
     "id": 30083,
@@ -910,7 +992,8 @@
     "phrase": "I would like tea.",
     "phraseJa": "茶をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "茶。I would like tea。"
   },
   {
     "id": 30084,
@@ -921,7 +1004,8 @@
     "phrase": "Orange juice, please.",
     "phraseJa": "オレンジの果汁をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "果汁。orange juice。"
   },
   {
     "id": 30085,
@@ -932,7 +1016,8 @@
     "phrase": "Can I have the bill?",
     "phraseJa": "勘定をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "勘定。can I have the bill。英。米は check。"
   },
   {
     "id": 30086,
@@ -943,7 +1028,8 @@
     "phrase": "Do people leave a tip here?",
     "phraseJa": "ここでは心づけを置きますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "心づけ。leave a tip。国による。"
   },
   {
     "id": 30087,
@@ -954,7 +1040,8 @@
     "phrase": "This dish is too spicy.",
     "phraseJa": "この料理は辛すぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "辛い。too spicy。"
   },
   {
     "id": 30088,
@@ -965,7 +1052,8 @@
     "phrase": "The cake is very sweet.",
     "phraseJa": "ケーキがとても甘いです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "甘い。very sweet。"
   },
   {
     "id": 30089,
@@ -976,7 +1064,8 @@
     "phrase": "The soup is hot.",
     "phraseJa": "スープは熱いです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "熱い。the soup is hot。辛い意にも注意。"
   },
   {
     "id": 30090,
@@ -987,7 +1076,8 @@
     "phrase": "I want a cold drink.",
     "phraseJa": "冷たい飲み物がほしいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "冷たい。a cold drink。"
   },
   {
     "id": 30091,
@@ -998,7 +1088,8 @@
     "phrase": "This is delicious.",
     "phraseJa": "これはおいしいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "おいしい。This is delicious。"
   },
   {
     "id": 30092,
@@ -1009,7 +1100,8 @@
     "phrase": "Do you have a vegetarian dish?",
     "phraseJa": "菜食の料理はありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "菜食の。a vegetarian dish。"
   },
   {
     "id": 30093,
@@ -1020,7 +1112,8 @@
     "phrase": "I am allergic to nuts.",
     "phraseJa": "木の実にアレルギーがあります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "allergic to ＋食材。ナッツなど。"
   },
   {
     "id": 30094,
@@ -1031,7 +1124,8 @@
     "phrase": "I am hungry.",
     "phraseJa": "空腹です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "空腹。I am hungry。"
   },
   {
     "id": 30095,
@@ -1042,7 +1136,8 @@
     "phrase": "I am thirsty.",
     "phraseJa": "喉が渇きました。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "喉が渇いた。I am thirsty。"
   },
   {
     "id": 30096,
@@ -1053,7 +1148,8 @@
     "phrase": "What do you recommend?",
     "phraseJa": "何をお勧めしますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "おすすめを聞く。What do you recommend。"
   },
   {
     "id": 30097,
@@ -1064,7 +1160,8 @@
     "phrase": "Can I taste this?",
     "phraseJa": "味見してもいいですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "味見する。taste this。"
   },
   {
     "id": 30098,
@@ -1075,7 +1172,8 @@
     "phrase": "Can we share this plate?",
     "phraseJa": "この皿を分け合えますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "皿を分け合う。share this plate。"
   },
   {
     "id": 30099,
@@ -1086,7 +1184,8 @@
     "phrase": "For here, please.",
     "phraseJa": "店内でお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "店内飲食。for here。"
   },
   {
     "id": 30100,
@@ -1097,7 +1196,8 @@
     "phrase": "To go, please.",
     "phraseJa": "持ち帰りでお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "持ち帰り。to go。英は takeaway。"
   },
   {
     "id": 30101,
@@ -1108,7 +1208,8 @@
     "phrase": "We will dine in.",
     "phraseJa": "店内で食べます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "店内で食べる。dine in。"
   },
   {
     "id": 30102,
@@ -1119,7 +1220,8 @@
     "phrase": "A table for two, please.",
     "phraseJa": "2人席をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "2人席を頼む。a table for two。"
   },
   {
     "id": 30103,
@@ -1130,7 +1232,8 @@
     "phrase": "The check, please.",
     "phraseJa": "勘定をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "勘定を頼む米語。the check, please。"
   },
   {
     "id": 30104,
@@ -1141,7 +1244,8 @@
     "phrase": "No ice, please.",
     "phraseJa": "氷なしでお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "氷なし。no ice, please。"
   },
   {
     "id": 30105,
@@ -1152,7 +1256,8 @@
     "phrase": "Just a little, please.",
     "phraseJa": "少しだけでお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "量を控える。just a little。"
   },
   {
     "id": 30106,
@@ -1163,7 +1268,8 @@
     "phrase": "That’s all, thank you.",
     "phraseJa": "以上です、ありがとう。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "注文は以上。That's all。"
   },
   {
     "id": 30107,
@@ -1174,7 +1280,8 @@
     "phrase": "The meal was great.",
     "phraseJa": "食事はとてもよかったです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "食事の感想。It was great。"
   },
   {
     "id": 30108,
@@ -1185,7 +1292,8 @@
     "phrase": "I am full, thank you.",
     "phraseJa": "お腹いっぱいです、ありがとう。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "満腹。I am full。"
   },
   {
     "id": 30109,
@@ -1196,7 +1304,8 @@
     "phrase": "What is the main dish?",
     "phraseJa": "主菜は何ですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "主菜。the main dish。"
   },
   {
     "id": 30110,
@@ -1207,7 +1316,8 @@
     "phrase": "I want a small side dish.",
     "phraseJa": "小さな副菜がほしいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "副菜。a side dish。"
   },
   {
     "id": 30111,
@@ -1218,7 +1328,8 @@
     "phrase": "I will have the set meal.",
     "phraseJa": "定食にします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "定食。the set meal。"
   },
   {
     "id": 30112,
@@ -1229,7 +1340,8 @@
     "phrase": "What is today’s special?",
     "phraseJa": "本日のおすすめは何ですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "本日のおすすめ。today's special。"
   },
   {
     "id": 30113,
@@ -1240,7 +1352,8 @@
     "phrase": "This shop is still open.",
     "phraseJa": "この店はまだ開いています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "店。this shop is open。"
   },
   {
     "id": 30114,
@@ -1251,7 +1364,8 @@
     "phrase": "The store closes at eight.",
     "phraseJa": "店舗は8時に閉まります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "店舗。the store closes at …。"
   },
   {
     "id": 30115,
@@ -1262,7 +1376,8 @@
     "phrase": "The price is on the tag.",
     "phraseJa": "値段は札に書いてあります。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値段。the price is on the tag。"
   },
   {
     "id": 30116,
@@ -1273,7 +1388,8 @@
     "phrase": "Do you have a larger size?",
     "phraseJa": "より大きい大きさはありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "大きさ。a larger size。"
   },
   {
     "id": 30117,
@@ -1284,7 +1400,8 @@
     "phrase": "Do you have this in blue?",
     "phraseJa": "これは青はありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "色。in blue / in black。"
   },
   {
     "id": 30118,
@@ -1295,7 +1412,8 @@
     "phrase": "I will pay in cash.",
     "phraseJa": "現金で払います。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "現金。pay in cash。"
   },
   {
     "id": 30119,
@@ -1306,7 +1424,8 @@
     "phrase": "Can I pay by card?",
     "phraseJa": "カードで払えますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "カード払い。pay by card。"
   },
   {
     "id": 30120,
@@ -1317,7 +1436,8 @@
     "phrase": "Keep the change.",
     "phraseJa": "釣りは結構です。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "釣り。keep the change。"
   },
   {
     "id": 30121,
@@ -1328,7 +1448,8 @@
     "phrase": "A bag, please.",
     "phraseJa": "袋をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "袋。a bag, please。"
   },
   {
     "id": 30122,
@@ -1339,7 +1460,8 @@
     "phrase": "Is this on sale?",
     "phraseJa": "これは特売ですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "特売中か聞く。Is this on sale。"
   },
   {
     "id": 30123,
@@ -1350,7 +1472,8 @@
     "phrase": "This is cheaper.",
     "phraseJa": "こっちのほうが安いです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値段が安い。This is cheaper。"
   },
   {
     "id": 30124,
@@ -1361,7 +1484,8 @@
     "phrase": "That is too expensive.",
     "phraseJa": "それは高すぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "高い。too expensive。"
   },
   {
     "id": 30125,
@@ -1372,7 +1496,8 @@
     "phrase": "Is wifi free here?",
     "phraseJa": "ここの無線は無料ですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "無料の。wifi is free。"
   },
   {
     "id": 30126,
@@ -1383,7 +1508,8 @@
     "phrase": "Are you open now?",
     "phraseJa": "今開いていますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "営業中。are you open。"
   },
   {
     "id": 30127,
@@ -1394,7 +1520,8 @@
     "phrase": "The shop is closed.",
     "phraseJa": "店は閉まっています。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "閉店。the shop is closed。"
   },
   {
     "id": 30128,
@@ -1405,7 +1532,8 @@
     "phrase": "Can I try this on?",
     "phraseJa": "試着してもいいですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "試着する。try this on。"
   },
   {
     "id": 30129,
@@ -1416,7 +1544,8 @@
     "phrase": "This is too small.",
     "phraseJa": "これは小さすぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "小さすぎる。too small。"
   },
   {
     "id": 30130,
@@ -1427,7 +1556,8 @@
     "phrase": "This is too big.",
     "phraseJa": "これは大きすぎます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "大きすぎる。too big。"
   },
   {
     "id": 30131,
@@ -1438,7 +1568,8 @@
     "phrase": "I am just looking.",
     "phraseJa": "見ているだけです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "見ているだけ。just looking。"
   },
   {
     "id": 30132,
@@ -1449,7 +1580,8 @@
     "phrase": "I’ll take it.",
     "phraseJa": "これにします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "これにします。I'll take it。"
   },
   {
     "id": 30133,
@@ -1460,7 +1592,8 @@
     "phrase": "Do you have this in black?",
     "phraseJa": "これは黒はありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "在庫を聞く。Do you have this in …。"
   },
   {
     "id": 30134,
@@ -1471,7 +1604,8 @@
     "phrase": "How much is this shirt?",
     "phraseJa": "このシャツはいくらですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "値段を聞く全文。How much is this。"
   },
   {
     "id": 30135,
@@ -1482,7 +1616,8 @@
     "phrase": "Can I pay with a card?",
     "phraseJa": "カードで払えますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "支払い可否。Can I pay with a card。"
   },
   {
     "id": 30136,
@@ -1493,7 +1628,8 @@
     "phrase": "A receipt, please.",
     "phraseJa": "領収書をお願いします。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "領収書を頼む。a receipt, please。"
   },
   {
     "id": 30137,
@@ -1504,7 +1640,8 @@
     "phrase": "I want a small souvenir.",
     "phraseJa": "小さなみやげがほしいです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "みやげ。a small souvenir。"
   },
   {
     "id": 30138,
@@ -1515,7 +1652,8 @@
     "phrase": "The market is busy today.",
     "phraseJa": "今日は市場が混んでいます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "市場。the market is busy。"
   },
   {
     "id": 30139,
@@ -1526,7 +1664,8 @@
     "phrase": "Where is the nearest pharmacy?",
     "phraseJa": "一番近い薬局はどこですか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "薬局。the nearest pharmacy。"
   },
   {
     "id": 30140,
@@ -1537,7 +1676,8 @@
     "phrase": "Is there a bank near here?",
     "phraseJa": "この近くに銀行はありますか。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "銀行。a bank near here。"
   },
   {
     "id": 30141,
@@ -1548,7 +1688,8 @@
     "phrase": "The museum opens at ten.",
     "phraseJa": "博物館は10時に開きます。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "博物館。the museum opens at …。"
   },
   {
     "id": 30142,
@@ -1559,7 +1700,8 @@
     "phrase": "Let’s walk in the park.",
     "phraseJa": "公園を歩きましょう。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "公園。walk in the park。"
   },
   {
     "id": 30143,
@@ -1570,7 +1712,8 @@
     "phrase": "Hello, my name is Aya.",
     "phraseJa": "こんにちは、アヤです。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "初対面のあいさつ。Hello, my name is …。"
   },
   {
     "id": 30144,
@@ -1581,7 +1724,8 @@
     "phrase": "Good morning.",
     "phraseJa": "おはよう。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "朝のあいさつ。Good morning。"
   },
   {
     "id": 30145,
@@ -1592,7 +1736,8 @@
     "phrase": "Good night.",
     "phraseJa": "おやすみ。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "夜のあいさつ。Good night。Good evening と区別。"
   },
   {
     "id": 30146,
@@ -1603,7 +1748,8 @@
     "phrase": "Thank you very much.",
     "phraseJa": "どうもありがとう。",
     "part": 2,
-    "unit": 2
+    "unit": 2,
+    "note": "礼。Thank you very much。"
   },
   {
     "id": 30147,
@@ -1614,7 +1760,8 @@
     "phrase": "You’re welcome.",
     "phraseJa": "どういたしまして。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "礼への返し。You're welcome。"
   },
   {
     "id": 30148,
@@ -1625,7 +1772,8 @@
     "phrase": "Please wait here.",
     "phraseJa": "どうかここで待ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "依頼を柔らかくする。Please wait here。"
   },
   {
     "id": 30149,
@@ -1636,7 +1784,8 @@
     "phrase": "I am sorry I am late.",
     "phraseJa": "遅れてすみません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "謝罪。I am sorry I am late。"
   },
   {
     "id": 30150,
@@ -1647,7 +1796,8 @@
     "phrase": "Yes, I understand.",
     "phraseJa": "はい、わかります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "肯定。Yes, I understand。"
   },
   {
     "id": 30151,
@@ -1658,7 +1808,8 @@
     "phrase": "No, thank you.",
     "phraseJa": "いいえ、結構です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "断るときの No, thank you。"
   },
   {
     "id": 30152,
@@ -1669,7 +1820,8 @@
     "phrase": "Okay, I will wait.",
     "phraseJa": "承知しました、待ちます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "承知。Okay, I will wait。"
   },
   {
     "id": 30153,
@@ -1680,7 +1832,8 @@
     "phrase": "I need help.",
     "phraseJa": "助けが必要です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "助けが要る。I need help。"
   },
   {
     "id": 30154,
@@ -1691,7 +1844,8 @@
     "phrase": "There is a problem.",
     "phraseJa": "困りごとがあります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "困りごと。there is a problem。"
   },
   {
     "id": 30155,
@@ -1702,7 +1856,8 @@
     "phrase": "This is an emergency.",
     "phraseJa": "これは緊急です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "緊急事態。this is an emergency。"
   },
   {
     "id": 30156,
@@ -1713,7 +1868,8 @@
     "phrase": "Please call the police.",
     "phraseJa": "警察を呼んでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "警察。call the police。"
   },
   {
     "id": 30157,
@@ -1724,7 +1880,8 @@
     "phrase": "Where is the hospital?",
     "phraseJa": "病院はどこですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "病院。where is the hospital。"
   },
   {
     "id": 30158,
@@ -1735,7 +1892,8 @@
     "phrase": "I need a doctor.",
     "phraseJa": "医者が必要です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "医者。I need a doctor。"
   },
   {
     "id": 30159,
@@ -1746,7 +1904,8 @@
     "phrase": "I have a pain here.",
     "phraseJa": "ここに痛みがあります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "痛み。a pain here。"
   },
   {
     "id": 30160,
@@ -1757,7 +1916,8 @@
     "phrase": "I have a cough.",
     "phraseJa": "咳が出ます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "咳。have a cough。"
   },
   {
     "id": 30161,
@@ -1768,7 +1928,8 @@
     "phrase": "I have a fever.",
     "phraseJa": "熱があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "熱。have a fever。"
   },
   {
     "id": 30162,
@@ -1779,7 +1940,8 @@
     "phrase": "I need medicine for a headache.",
     "phraseJa": "頭痛の薬が必要です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "薬。medicine for a headache。不可算。"
   },
   {
     "id": 30163,
@@ -1790,7 +1952,8 @@
     "phrase": "Go to lost-and-found.",
     "phraseJa": "遺失物係へ行ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "遺失物係。lost-and-found。"
   },
   {
     "id": 30164,
@@ -1801,7 +1964,8 @@
     "phrase": "I don’t understand.",
     "phraseJa": "わかりません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "理解できない。I don't understand。"
   },
   {
     "id": 30165,
@@ -1812,7 +1976,8 @@
     "phrase": "Please speak slowly.",
     "phraseJa": "ゆっくり話してください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "ゆっくり話して、と頼む定型。"
   },
   {
     "id": 30166,
@@ -1823,7 +1988,8 @@
     "phrase": "Do you speak English?",
     "phraseJa": "英語は話せますか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "英語が通じるか聞く定型。"
   },
   {
     "id": 30167,
@@ -1834,7 +2000,8 @@
     "phrase": "Can you help me?",
     "phraseJa": "助けてもらえますか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "助けを求める定型。Can you help me。"
   },
   {
     "id": 30168,
@@ -1845,7 +2012,8 @@
     "phrase": "I lost my wallet.",
     "phraseJa": "財布をなくしました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "紛失を伝える。I lost my ＋持ち物。"
   },
   {
     "id": 30169,
@@ -1856,7 +2024,8 @@
     "phrase": "Please call a taxi.",
     "phraseJa": "タクシーを呼んでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "タクシーを呼んでもらう。call a taxi。"
   },
   {
     "id": 30170,
@@ -1867,7 +2036,8 @@
     "phrase": "I feel sick.",
     "phraseJa": "気分が悪いです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "気分が悪い。I feel sick。"
   },
   {
     "id": 30171,
@@ -1878,7 +2048,8 @@
     "phrase": "It hurts here.",
     "phraseJa": "ここが痛いです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "痛い。It hurts here。"
   },
   {
     "id": 30172,
@@ -1889,7 +2060,8 @@
     "phrase": "Wait a moment, please.",
     "phraseJa": "少々お待ちください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "少々待ちを頼む。Wait a moment。"
   },
   {
     "id": 30173,
@@ -1900,7 +2072,8 @@
     "phrase": "See you tomorrow.",
     "phraseJa": "また明日。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "別れの定型。See you tomorrow。"
   },
   {
     "id": 30174,
@@ -1911,7 +2084,8 @@
     "phrase": "Nice to meet you.",
     "phraseJa": "はじめまして。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "初対面。Nice to meet you。"
   },
   {
     "id": 30175,
@@ -1922,7 +2096,8 @@
     "phrase": "My name is Ken.",
     "phraseJa": "ケンです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "自己紹介。My name is …。"
   },
   {
     "id": 30176,
@@ -1933,7 +2108,8 @@
     "phrase": "I am from Japan.",
     "phraseJa": "日本出身です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "出身。I am from …。"
   },
   {
     "id": 30177,
@@ -1944,7 +2120,8 @@
     "phrase": "The weather is nice today.",
     "phraseJa": "今日は天気がよいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "天気。the weather is nice。不可算。"
   },
   {
     "id": 30178,
@@ -1955,7 +2132,8 @@
     "phrase": "It may rain later.",
     "phraseJa": "あとで雨が降るかもしれません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "雨。it may rain。"
   },
   {
     "id": 30179,
@@ -1966,7 +2144,8 @@
     "phrase": "It is sunny now.",
     "phraseJa": "今は晴れです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "晴れ。it is sunny。"
   },
   {
     "id": 30180,
@@ -1977,7 +2156,8 @@
     "phrase": "It is cloudy this morning.",
     "phraseJa": "今朝は曇りです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "曇り。it is cloudy。"
   },
   {
     "id": 30181,
@@ -1988,7 +2168,8 @@
     "phrase": "It is warm outside.",
     "phraseJa": "外は暖かいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "暖かい。it is warm outside。"
   },
   {
     "id": 30182,
@@ -1999,7 +2180,8 @@
     "phrase": "It is chilly today.",
     "phraseJa": "今日は肌寒いです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "肌寒い。it is chilly。"
   },
   {
     "id": 30183,
@@ -2010,7 +2192,8 @@
     "phrase": "I need an umbrella.",
     "phraseJa": "傘が必要です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "傘。need an umbrella。"
   },
   {
     "id": 30184,
@@ -2021,7 +2204,8 @@
     "phrase": "What are you doing today?",
     "phraseJa": "今日は何をしますか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "今日。what are you doing today。"
   },
   {
     "id": 30185,
@@ -2032,7 +2216,8 @@
     "phrase": "See you tomorrow.",
     "phraseJa": "また明日。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "明日。see you tomorrow。"
   },
   {
     "id": 30186,
@@ -2043,7 +2228,8 @@
     "phrase": "I arrived yesterday.",
     "phraseJa": "昨日着きました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "昨日。I arrived yesterday。"
   },
   {
     "id": 30187,
@@ -2054,7 +2240,8 @@
     "phrase": "I leave in the morning.",
     "phraseJa": "朝に出発します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "朝。in the morning。"
   },
   {
     "id": 30188,
@@ -2065,7 +2252,8 @@
     "phrase": "Let’s eat in the evening.",
     "phraseJa": "夕方に食べましょう。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "夕方。in the evening。"
   },
   {
     "id": 30189,
@@ -2076,7 +2264,8 @@
     "phrase": "The city is quiet at night.",
     "phraseJa": "夜の街は静かです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "夜の時間帯。The city is quiet at night。"
   },
   {
     "id": 30190,
@@ -2087,7 +2276,8 @@
     "phrase": "Are you free this weekend?",
     "phraseJa": "今週末は暇ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "週末。this weekend。"
   },
   {
     "id": 30191,
@@ -2098,7 +2288,8 @@
     "phrase": "I am meeting a friend.",
     "phraseJa": "友人に会います。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "友人。meet a friend。"
   },
   {
     "id": 30192,
@@ -2109,7 +2300,8 @@
     "phrase": "I am traveling with my family.",
     "phraseJa": "家族と旅しています。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "家族。with my family。集合名詞。"
   },
   {
     "id": 30193,
@@ -2120,7 +2312,8 @@
     "phrase": "Can you take a photo?",
     "phraseJa": "写真を撮ってもらえますか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "写真。take a photo。"
   },
   {
     "id": 30194,
@@ -2131,7 +2324,8 @@
     "phrase": "My phone is out of battery.",
     "phraseJa": "電話の電池が切れました。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "電話。my phone is …。"
   },
   {
     "id": 30195,
@@ -2142,7 +2336,8 @@
     "phrase": "I need a charger.",
     "phraseJa": "充電器が必要です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "充電器。need a charger。"
   },
   {
     "id": 30196,
@@ -2153,7 +2348,8 @@
     "phrase": "This shop is cashless.",
     "phraseJa": "この店は現金を使いません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "現金不可。this shop is cashless。"
   },
   {
     "id": 30197,
@@ -2164,7 +2360,8 @@
     "phrase": "I want local food.",
     "phraseJa": "地元の食べ物がほしいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "地元の。local food。"
   },
   {
     "id": 30198,
@@ -2175,7 +2372,8 @@
     "phrase": "This temple is famous.",
     "phraseJa": "この寺は有名です。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "有名な。this temple is famous。"
   },
   {
     "id": 30199,
@@ -2186,7 +2384,8 @@
     "phrase": "The train is crowded.",
     "phraseJa": "列車が混んでいます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "混んだ。the train is crowded。"
   },
   {
     "id": 30200,
@@ -2197,7 +2396,8 @@
     "phrase": "Is this area safe at night?",
     "phraseJa": "この辺りは夜でも安全ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "安全な。safe at night。"
   },
   {
     "id": 30201,
@@ -2208,7 +2408,8 @@
     "phrase": "Is the station near here?",
     "phraseJa": "駅はこの近くですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "近い。near here。"
   },
   {
     "id": 30202,
@@ -2219,7 +2420,8 @@
     "phrase": "The hotel is not far.",
     "phraseJa": "ホテルは遠くありません。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "距離が遠い。The hotel is not far。"
   },
   {
     "id": 30203,
@@ -2230,7 +2432,8 @@
     "phrase": "Enjoy your stay.",
     "phraseJa": "滞在を楽しんでください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "楽しむ。enjoy your stay。"
   },
   {
     "id": 30204,
@@ -2241,7 +2444,8 @@
     "phrase": "I want to visit the castle.",
     "phraseJa": "城を訪れたいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "訪れる。visit the castle。"
   },
   {
     "id": 30205,
@@ -2252,7 +2456,8 @@
     "phrase": "We can walk from here.",
     "phraseJa": "ここから歩けます。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "歩く。walk from here。"
   },
   {
     "id": 30206,
@@ -2263,7 +2468,8 @@
     "phrase": "I need to rest.",
     "phraseJa": "休む必要があります。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "休む。need to rest。"
   },
   {
     "id": 30207,
@@ -2274,7 +2480,8 @@
     "phrase": "Please wait here.",
     "phraseJa": "ここで待ってください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "待つ。wait here。"
   },
   {
     "id": 30208,
@@ -2285,7 +2492,8 @@
     "phrase": "Look at that building.",
     "phraseJa": "あの建物を見てください。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "見る。look at …。"
   },
   {
     "id": 30209,
@@ -2296,7 +2504,8 @@
     "phrase": "Have a nice day.",
     "phraseJa": "よい一日を。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "別れ際の定型。Have a nice day。"
   },
   {
     "id": 30210,
@@ -2307,7 +2516,8 @@
     "phrase": "Take care.",
     "phraseJa": "気をつけて。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "労い・別れ。Take care。"
   },
   {
     "id": 30211,
@@ -2318,7 +2528,8 @@
     "phrase": "Have fun in Kyoto.",
     "phraseJa": "京都を楽しんで。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "楽しんで。Have fun in 地名。"
   },
   {
     "id": 30212,
@@ -2329,7 +2540,8 @@
     "phrase": "We will see the sights tomorrow.",
     "phraseJa": "明日見物します。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "見物する。see the sights。"
   },
   {
     "id": 30213,
@@ -2340,7 +2552,8 @@
     "phrase": "Let’s take a break.",
     "phraseJa": "一休みしましょう。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "一休みする。take a break。"
   },
   {
     "id": 30214,
@@ -2351,7 +2564,8 @@
     "phrase": "You should get some rest.",
     "phraseJa": "休んだほうがいいです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "体を休める。get some rest。"
   },
   {
     "id": 30215,
@@ -2362,7 +2576,8 @@
     "phrase": "My phone is out of battery.",
     "phraseJa": "電話が電池切れです。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "電池切れ。out of battery。"
   },
   {
     "id": 30216,
@@ -2373,7 +2588,8 @@
     "phrase": "Can I take a photo here?",
     "phraseJa": "ここで写真を撮っていいですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "撮影してよいか聞く。Can I take a photo。"
   },
   {
     "id": 30217,
@@ -2384,7 +2600,8 @@
     "phrase": "What time is it now?",
     "phraseJa": "今何時ですか。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "時刻を聞く。What time is it。"
   },
   {
     "id": 30218,
@@ -2395,6 +2612,7 @@
     "phrase": "See you later.",
     "phraseJa": "また後で。",
     "part": 3,
-    "unit": 3
+    "unit": 3,
+    "note": "また後で。See you later。"
   }
 ]
