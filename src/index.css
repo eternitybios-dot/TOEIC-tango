@@ -586,16 +586,16 @@ button:disabled {
 .flip-scene::before {
   top: 14px;
   bottom: -10px;
-  background: #cbb892;
-  opacity: 0.38;
+  background: #e8e8e8;
+  opacity: 0.7;
   transform: rotate(-1.6deg);
 }
 
 .flip-scene::after {
   top: 8px;
   bottom: -6px;
-  background: #e3d3b0;
-  opacity: 0.55;
+  background: #f3f3f3;
+  opacity: 0.85;
   transform: rotate(1.4deg);
 }
 
@@ -630,42 +630,15 @@ button:disabled {
 .flip-face {
   position: absolute;
   inset: 0;
-  background:
-    var(--paper-fiber),
-    radial-gradient(420px 180px at 100% 0%, rgba(228, 178, 74, 0.12), transparent 60%),
-    linear-gradient(180deg, #fffaf1, #f0e3cc 72%, #e8d7b6);
-  color: var(--ink);
+  background: #ffffff;
+  color: #111111;
   border-radius: 24px;
   padding: 26px 22px;
-  box-shadow:
-    var(--shadow),
-    0 0 0 1px rgba(120, 92, 40, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-}
-
-.flip-face::before {
-  content: "";
-  position: absolute;
-  inset: 11px;
-  border: 1px solid rgba(154, 122, 58, 0.22);
-  border-radius: 16px;
-  pointer-events: none;
-}
-
-.flip-face::after {
-  content: "";
-  position: absolute;
-  top: 18px;
-  right: 20px;
-  width: 18px;
-  height: 18px;
-  border-top: 1.5px solid rgba(154, 122, 58, 0.35);
-  border-right: 1.5px solid rgba(154, 122, 58, 0.35);
-  pointer-events: none;
 }
 
 .flip-back {
@@ -676,11 +649,11 @@ button:disabled {
   align-self: flex-start;
   font-size: 12px;
   letter-spacing: 0.06em;
-  border: 1px solid #cbb896;
-  color: #7a6d55;
+  border: 1px solid #d0d0d0;
+  color: #333333;
   padding: 4px 10px;
   border-radius: 99px;
-  background: rgba(255, 255, 255, 0.35);
+  background: #f5f5f5;
 }
 
 .word {
@@ -693,7 +666,7 @@ button:disabled {
 }
 
 .ipa {
-  color: #5c5346;
+  color: #444444;
   font-size: 15px;
 }
 
@@ -704,14 +677,14 @@ button:disabled {
   margin: 12px 0 6px;
   line-height: 1.7;
   letter-spacing: 0.02em;
-  color: #2a2218;
+  color: #111111;
 }
 
 .card-explain {
   font-size: 15px;
   line-height: 1.75;
   letter-spacing: 0.02em;
-  color: #3d3428;
+  color: #222222;
   margin: 0 0 10px;
 }
 
@@ -732,13 +705,13 @@ button:disabled {
   font-weight: 700;
   line-height: 1.75;
   letter-spacing: 0.02em;
-  color: #1b1611;
+  color: #111111;
 }
 
 .hint {
   margin-top: auto;
-  font-size: 12px;
-  color: #8a7d66;
+  font-size: 13px;
+  color: #555555;
 }
 
 .swipe-hint {
