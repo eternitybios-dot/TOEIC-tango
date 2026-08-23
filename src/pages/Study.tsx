@@ -222,12 +222,12 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
           </article>
           <article className="flip-face flip-back">
             <span className="pos">{word.pos}</span>
-            <div className="meaning">{word.meaning}</div>
-            {note ? <p className="card-explain">{note.lines.join(" ")}</p> : null}
             <p className="phrase">
               {word.phrase}
               <span className="phrase-ja">{word.phraseJa}</span>
             </p>
+            <div className="meaning">{word.meaning}</div>
+            {note ? <p className="card-explain">{note.lines.join(" ")}</p> : null}
             <p className="hint">左へ覚えた · 右へもう一度</p>
           </article>
         </div>
