@@ -50,7 +50,6 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
         flip();
       }
       if (event.key === "ArrowLeft") goPrev();
-      if (!revealed) return;
       if (event.key === "1") void answer("again");
       if (event.key === "2") void answer("good");
     };
@@ -89,7 +88,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   }
 
   async function answer(result: "again" | "good") {
-    if (!word || finished || busy.current || !revealed) return;
+    if (!word || finished || busy.current) return;
     busy.current = true;
     playSfx(result, state.settings.sound);
     haptic(result === "good" ? [10, 30, 16] : 24, state.settings.haptics);
@@ -130,12 +129,12 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     if (busy.current) return;
     const dx = drag;
     start.current = null;
-    if (revealed && Math.abs(dx) > 86) {
+    if (dragging.current && Math.abs(dx) > 86) {
       void answer(dx > 0 ? "good" : "again");
       return;
     }
     setDrag(0);
-    if (!dragging.current || !revealed) flip();
+    if (!dragging.current) flip();
   }
 
   if (queue.length === 0 && !finished) {
@@ -176,7 +175,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     );
   }
 
-  const tilt = revealed ? Math.max(-18, Math.min(18, drag / 14)) : 0;
+  const tilt = Math.max(-18, Math.min(18, drag / 14));
   const flightClass = flight === "good" ? " fly-right" : flight === "again" ? " fly-left" : "";
 
   return (
@@ -191,8 +190,8 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       <ProgressBar value={done + (revealed ? 0.35 : 0)} max={SESSION_SIZE} />
 
       <div className="swipe-hint">
-        <span className={revealed && drag < -24 ? "hot again-hot" : ""}>もう一度</span>
-        <span className={revealed && drag > 24 ? "hot good-hot" : ""}>覚えた</span>
+        <span className={drag < -24 ? "hot again-hot" : ""}>もう一度</span>
+        <span className={drag > 24 ? "hot good-hot" : ""}>覚えた</span>
       </div>
 
       <div
@@ -206,18 +205,18 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
         }}
       >
         <div
-          className={`flip-card${drag && revealed ? " is-dragging" : ""}${flightClass}`}
+          className={`flip-card${drag ? " is-dragging" : ""}${flightClass}`}
           style={
             flight
               ? undefined
-              : { transform: `translateX(${revealed ? drag : 0}px) rotate(${tilt}deg) rotateY(${revealed ? 180 : 0}deg)` }
+              : { transform: `translateX(${drag}px) rotate(${tilt}deg) rotateY(${revealed ? 180 : 0}deg)` }
           }
         >
           <article className="flip-face flip-front">
             <span className="pos">{word.pos}</span>
             <div className="word">{word.word}</div>
             {word.ipa ? <div className="ipa">/{word.ipa}/</div> : null}
-            <p className="hint">タップして意味を見る。見てから判定します。</p>
+            <p className="hint">タップで意味 · 右へ覚えた · 左へもう一度</p>
           </article>
           <article className="flip-face flip-back">
             <span className="pos">{word.pos}</span>
@@ -243,14 +242,14 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       </div>
 
       <div className="row actions">
-        <button type="button" className="btn again" disabled={!revealed} onClick={() => void answer("again")}>
+        <button type="button" className="btn again" onClick={() => void answer("again")}>
           もう一度
         </button>
-        <button type="button" className="btn good" disabled={!revealed} onClick={() => void answer("good")}>
+        <button type="button" className="btn good" onClick={() => void answer("good")}>
           覚えた
         </button>
       </div>
-      <p className="muted center-hint">{revealed ? "裏面を見て判定しています" : "先に意味を見てから判定できます"}</p>
+      <p className="muted center-hint">表のまま判定できます。タップで意味を見ます</p>
     </div>
   );
 }
