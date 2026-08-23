@@ -77,7 +77,6 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   const dragging = useRef(false);
   const busy = useRef(false);
   const dragRef = useRef(0);
-  const explainRef = useRef<HTMLElement | null>(null);
   const onResumeRef = useRef<(session: SavedSession | null) => void>((session) => onResume(session, "quiz"));
   const lastSaved = useRef("");
   onResumeRef.current = (session) => onResume(session, "quiz");
@@ -156,14 +155,6 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     lastSaved.current = "";
     onResumeRef.current(null);
   }, [finished]);
-
-  useEffect(() => {
-    if (picked === null) return;
-    const timer = window.setTimeout(() => {
-      explainRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }, 80);
-    return () => window.clearTimeout(timer);
-  }, [picked, index]);
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -456,16 +447,13 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
       <div className="quiz-body">
         {choices.map((choice, i) => {
           const selected = picked === choice.id;
-          const pickedWrong = picked !== null && selected && !isCorrect;
-          const pickedCorrect = picked !== null && selected && isCorrect;
+          const mark = picked === null ? "" : selected ? (isCorrect ? " correct" : " wrong") : "";
           return (
             <button
               key={choice.id}
-              className={`choice rise${pickedCorrect ? " correct" : ""}${pickedWrong ? " wrong" : ""}`}
+              className={`choice rise${mark}`}
               style={{ animationDelay: `${i * 50}ms` }}
               onClick={() => choose(choice)}
-              disabled={picked !== null}
-              aria-disabled={picked !== null}
             >
               <mark>{choiceLead(choice)}</mark>
               {picked !== null ? (
@@ -479,22 +467,21 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
             </button>
           );
         })}
-
-        {picked !== null && meaning && (
-          <section ref={explainRef} className="explain slide-up ok" aria-live="polite">
-            <p className="explain-result">正解</p>
-            {meaning.lines.map((line) => (
-              <p key={line} className="explain-body">
-                {line}
-              </p>
-            ))}
-          </section>
-        )}
       </div>
       </div>
 
       {picked !== null && (
         <div className="quiz-dock">
+          {meaning ? (
+            <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`} aria-live="polite">
+              <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
+              {meaning.lines.map((line) => (
+                <p key={line} className="explain-body">
+                  {line}
+                </p>
+              ))}
+            </section>
+          ) : null}
           <p className="quiz-swipe-hint">{index + 1 >= queue.length ? "スワイプでも結果へ" : "スワイプでも次へ"}</p>
           <button type="button" className="cta" onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
