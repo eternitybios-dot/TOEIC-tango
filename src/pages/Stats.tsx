@@ -69,7 +69,7 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
             <p className="muted">
               {all.mastered} / {cat.words.length} 語
             </p>
-            <p className="muted">期限 {all.due} 語 · 今日 {state.todayCount}/{state.goal}</p>
+            <p className="muted">復習待ち {all.due} 語 · 今日 {state.todayCount}/{state.goal}</p>
           </div>
         </div>
       </section>

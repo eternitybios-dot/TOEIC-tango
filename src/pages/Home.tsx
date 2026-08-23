@@ -43,7 +43,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
     : sessionRemaining(state.resume, "quiz", state.deck);
 
   const cta = dueNow > 0
-    ? `期限の復習（${Math.min(100, dueNow)}語）`
+    ? `復習する（${Math.min(100, dueNow)}語）`
     : remaining === 0
       ? "復習を続ける"
       : "新しい語を学ぶ";
@@ -89,7 +89,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
             <p className="streak">
               <IconFlame size={16} /> 連続 {state.streak} 日
             </p>
-            <p className="muted">期限 {dueNow} 語 · 今日 {state.todayCount} / {state.goal}</p>
+            <p className="muted">復習待ち {dueNow} 語 · 今日 {state.todayCount} / {state.goal}</p>
           </div>
         </div>
         <ProgressBar value={state.todayCount} max={state.goal} />
@@ -200,7 +200,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
                 </span>
                 <strong>{info.title}</strong>
                 <span className="muted">
-                  習得 {stats.mastered}/{words.length} · 期限 {stats.due}
+                  習得 {stats.mastered}/{words.length} · 復習待ち {stats.due}
                 </span>
               </div>
               <div className="unit-pct">{pct}%</div>
@@ -234,7 +234,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
             </div>
             <h3 id="unit-sheet-title">{sheet.title}</h3>
             <p className="muted">
-              習得 {sheetStats.mastered}/{sheetWords.length} · 期限 {sheetStats.due} · 未学習 {sheetStats.new}
+              習得 {sheetStats.mastered}/{sheetWords.length} · 復習待ち {sheetStats.due} · 未学習 {sheetStats.new}
             </p>
             <ProgressBar value={sheetStats.mastered} max={sheetWords.length} />
             <div className="row" style={{ marginTop: 16 }}>
