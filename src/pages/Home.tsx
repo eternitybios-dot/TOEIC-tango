@@ -65,7 +65,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             <p className="streak">
               <IconFlame size={16} /> 連続 {state.streak} 日
             </p>
-            <p className="muted">期限 {dueNow} 語 · 今日 {state.todayCount}/{state.goal}</p>
+            <p className="muted">期限 {dueNow} 語 · 今日 {state.todayCount} / {state.goal}</p>
           </div>
         </div>
         <ProgressBar value={state.todayCount} max={state.goal} />
@@ -126,7 +126,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
           return (
             <button
               key={part.id}
-              className="part-card rise"
+              className={`part-card part-${part.id} rise`}
               style={{ animationDelay: `${i * 60}ms` }}
               onClick={() => go({ name: "quiz", part: part.id })}
             >

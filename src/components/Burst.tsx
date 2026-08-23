@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-const COLORS = ["#e8b84a", "#f6efe2", "#c44932", "#7dcea0", "#f3d17a"];
+const COLORS = ["#f6d98a", "#fff6d8", "#e4b24a", "#c44932", "#7dcea0", "#f3d17a"];
 
 export function Burst() {
   const bits = useMemo(

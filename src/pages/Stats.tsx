@@ -53,7 +53,7 @@ export function Stats({ state, go, onReset, onSettings, onGoal }: Props) {
           記録
           <span>学習の記録</span>
         </div>
-        <div className="muted">連続 {state.streak} 日</div>
+        <p className="streak">連続 {state.streak} 日</p>
       </header>
 
       <section className="hero hero-glow">
