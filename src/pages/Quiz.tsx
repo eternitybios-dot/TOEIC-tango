@@ -140,6 +140,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
 
   function choiceRest(choice: Word) {
     if (mode === "en-ja") return choice.phraseJa;
+    if (mode === "ja-en") return choice.phrase;
     return "";
   }
 
