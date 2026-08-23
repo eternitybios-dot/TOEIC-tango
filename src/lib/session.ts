@@ -22,7 +22,7 @@ export function mixNote(mix: QuizMix, missedCount: number): string {
       ? "もう一度・不正解の語はまだありません"
       : `もう一度・不正解の ${missedCount} 語`;
   }
-  return "未学習と期限から";
+  return "未学習と復習待ちから";
 }
 
 export function listMissed(state: AppState, source: Word[]): Word[] {
