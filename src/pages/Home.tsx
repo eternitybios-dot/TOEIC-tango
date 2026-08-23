@@ -33,7 +33,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
   const sheetStats = sheetUnit ? dash.units[sheetUnit] : null;
 
   const cta = dueNow > 0
-    ? `期限の復習（${Math.min(10, dueNow)}語）`
+    ? `期限の復習（${Math.min(100, dueNow)}語）`
     : remaining === 0
       ? "復習を続ける"
       : "新しい語を学ぶ";
@@ -76,7 +76,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
             style={{ marginTop: 8 }}
             onClick={() => go({ name: "study", unit: state.lastUnit!, mode: "unit" })}
           >
-            UNIT {state.lastUnit} の期限
+            UNIT {state.lastUnit} の100問
           </button>
         ) : null}
       </section>
