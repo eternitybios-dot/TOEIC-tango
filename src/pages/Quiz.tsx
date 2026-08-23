@@ -242,12 +242,19 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
         </div>
         {mode === "ja-en" ? (
           <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-        ) : mode === "cloze" && picked === null ? (
-          <p className="quiz-prompt quiz-prompt-en">
-            {clozeParts(word).map((part, i) =>
-              part.blank ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
-            )}
-          </p>
+        ) : mode === "cloze" ? (
+          <div className="quiz-prompt-stack">
+            <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
+            <p className="quiz-prompt quiz-prompt-en">
+              {picked === null
+                ? clozeParts(word).map((part, i) =>
+                    part.blank ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+                  )
+                : phraseParts(word).map((part, i) =>
+                    part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+                  )}
+            </p>
+          </div>
         ) : (
           <p className="quiz-prompt quiz-prompt-en">
             {phraseParts(word).map((part, i) =>
