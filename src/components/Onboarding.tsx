@@ -39,7 +39,7 @@ export function Onboarding({ sound, onDone }: Props) {
 
   return (
     <div className="onboard">
-      <div className="onboard-mark">T</div>
+      <div className="onboard-mark" aria-hidden>T</div>
       <p className="tiny gold">{slide.kicker}</p>
       <h1 className="onboard-title" key={slide.title}>
         {slide.title}

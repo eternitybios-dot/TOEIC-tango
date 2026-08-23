@@ -15,6 +15,13 @@ export function Ring({ value, max, size = 92, stroke = 8, children }: Props) {
   return (
     <div className="ring" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <defs>
+          <linearGradient id="ring-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#fff1b8" />
+            <stop offset="45%" stopColor="#e4b24a" />
+            <stop offset="100%" stopColor="#9d6f1c" />
+          </linearGradient>
+        </defs>
         <circle
           className="ring-track"
           cx={size / 2}
