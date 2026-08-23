@@ -434,7 +434,6 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, onResu
           もう一度
         </button>
       </div>
-      <p className="muted center-hint">表のまま判定できます。タップで意味を見ます</p>
     </div>
   );
 }
