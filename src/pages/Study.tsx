@@ -132,7 +132,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     const dx = drag;
     start.current = null;
     if (dragging.current && Math.abs(dx) > 86) {
-      void answer(dx > 0 ? "good" : "again");
+      void answer(dx > 0 ? "again" : "good");
       return;
     }
     setDrag(0);
@@ -178,7 +178,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   }
 
   const tilt = Math.max(-18, Math.min(18, drag / 14));
-  const flightClass = flight === "good" ? " fly-right" : flight === "again" ? " fly-left" : "";
+  const flightClass = flight === "good" ? " fly-left" : flight === "again" ? " fly-right" : "";
 
   return (
     <div className="page">
@@ -192,8 +192,8 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       <ProgressBar value={done + (revealed ? 0.35 : 0)} max={SESSION_SIZE} />
 
       <div className="swipe-hint">
-        <span className={drag < -24 ? "hot again-hot" : ""}>もう一度</span>
-        <span className={drag > 24 ? "hot good-hot" : ""}>覚えた</span>
+        <span className={drag < -24 ? "hot good-hot" : ""}>覚えた</span>
+        <span className={drag > 24 ? "hot again-hot" : ""}>もう一度</span>
       </div>
 
       <div
@@ -218,7 +218,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
             <span className="pos">{word.pos}</span>
             <div className="word">{word.word}</div>
             {word.ipa ? <div className="ipa">/{word.ipa}/</div> : null}
-            <p className="hint">タップで意味 · 右へ覚えた · 左へもう一度</p>
+            <p className="hint">タップで意味 · 左へ覚えた · 右へもう一度</p>
           </article>
           <article className="flip-face flip-back">
             <span className="pos">{word.pos}</span>
@@ -228,7 +228,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
               {word.phrase}
               <span className="phrase-ja">{word.phraseJa}</span>
             </p>
-            <p className="hint">右へ覚えた · 左へもう一度</p>
+            <p className="hint">左へ覚えた · 右へもう一度</p>
           </article>
         </div>
       </div>
