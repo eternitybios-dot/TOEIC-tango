@@ -155,24 +155,15 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
           </p>
         </div>
         {mode === "ja-en" ? (
-          <>
-            <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-            <p className="quiz-sub">{word.word} の英語フレーズを選ぶ</p>
-          </>
+          <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
         ) : mode === "cloze" ? (
-          <>
-            <p className="quiz-prompt quiz-prompt-en">{clozePhrase(word)}</p>
-            <p className="quiz-sub">空所に入る語と意味を選ぶ</p>
-          </>
+          <p className="quiz-prompt quiz-prompt-en">{clozePhrase(word)}</p>
         ) : (
-          <>
-            <p className="quiz-prompt quiz-prompt-en">
-              {phraseParts(word).map((part, i) =>
-                part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
-              )}
-            </p>
-            <p className="quiz-sub">{word.word} の意味を選ぶ</p>
-          </>
+          <p className="quiz-prompt quiz-prompt-en">
+            {phraseParts(word).map((part, i) =>
+              part.hit ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+            )}
+          </p>
         )}
       </div>
 
