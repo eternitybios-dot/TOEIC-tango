@@ -2,7 +2,7 @@ import { useMemo, useRef, useState, type PointerEvent } from "react";
 import type { AppState, Route, Word } from "../types";
 import { WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
-import { clozePhrase, phraseParts, pickChoices, pickSession } from "../lib/quiz";
+import { clozeParts, phraseParts, pickChoices, pickSession } from "../lib/quiz";
 import { dealSession, SESSION_SIZE } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
@@ -139,9 +139,15 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   }
 
   function choiceRest(choice: Word) {
-    if (mode === "cloze") return choice.meaning;
-    if (mode === "ja-en") return choice.phrase;
-    return choice.phraseJa;
+    if (mode === "en-ja") return choice.phraseJa;
+    return "";
+  }
+
+  function promptHead() {
+    if (!word) return "";
+    if (picked === null && mode === "ja-en") return word.meaning;
+    if (picked === null && mode === "cloze") return "______";
+    return word.word;
   }
 
   if (finished) {
@@ -212,7 +218,11 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
           <button className={`chip${mode === "cloze" ? " on" : ""}`} disabled={picked !== null} onClick={() => setMode("cloze")}>
             空所
           </button>
-          <button className="chip" onClick={() => speak(mode === "cloze" && picked === null ? word.phrase : word.word)}>
+          <button
+            className="chip"
+            disabled={picked === null && mode !== "en-ja"}
+            onClick={() => speak(word.word)}
+          >
             発音
           </button>
         </div>
@@ -225,14 +235,18 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
         <div className="quiz-word">
           <p>
-            {mode === "cloze" && picked === null ? "______" : word.word}
+            {promptHead()}
             <small>{word.pos}</small>
           </p>
         </div>
         {mode === "ja-en" ? (
           <p className="quiz-prompt quiz-prompt-ja">{word.phraseJa}</p>
-        ) : mode === "cloze" ? (
-          <p className="quiz-prompt quiz-prompt-en">{clozePhrase(word)}</p>
+        ) : mode === "cloze" && picked === null ? (
+          <p className="quiz-prompt quiz-prompt-en">
+            {clozeParts(word).map((part, i) =>
+              part.blank ? <mark key={`${part.text}-${i}`}>{part.text}</mark> : <span key={`${part.text}-${i}`}>{part.text}</span>,
+            )}
+          </p>
         ) : (
           <p className="quiz-prompt quiz-prompt-en">
             {phraseParts(word).map((part, i) =>
@@ -255,7 +269,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
               onClick={() => choose(choice)}
             >
               <mark>{choiceLead(choice)}</mark>
-              <span className="choice-rest">{choiceRest(choice)}</span>
+              {choiceRest(choice) ? <span className="choice-rest">{choiceRest(choice)}</span> : null}
             </button>
           );
         })}
