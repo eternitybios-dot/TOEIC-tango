@@ -93,5 +93,5 @@ export type PartInfo = { id: 1 | 2 | 3; label: string; subtitle: string; score: 
 export const PARTS: PartInfo[] = [
   { id: 1, label: "基礎", subtitle: "1–800", score: "常に出る" },
   { id: 2, label: "必修", subtitle: "801–1500", score: "重要語" },
-  { id: 3, label: "発展", subtitle: "1501–1900", score: "差がつく" },
+  { id: 3, label: "発展", subtitle: "1501–2000", score: "差がつく" },
 ];

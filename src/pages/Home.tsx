@@ -210,7 +210,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
       </div>
 
       <p className="fineprint">
-        書籍の転載ではありません。受験でよく出る語に、オリジナルの短いフレーズを付けています。
+        書籍の転載ではありません。TOEICでよく出る語に、オリジナルの短いフレーズを付けています。
         全体 {dash.all.mastered} 語習得 / 未学習 {dash.all.new}
       </p>
 

@@ -13,7 +13,7 @@ export type DeckMeta = {
 };
 
 export const DECK_LIST: DeckMeta[] = [
-  { id: "toeic", label: "TOEIC", kicker: "試験対策", title: "受験頻出 1900", blurb: "試験でよく出る語" },
+  { id: "toeic", label: "TOEIC", kicker: "試験対策", title: "TOEIC 頻出 2000", blurb: "本番でよく出る語" },
   { id: "business", label: "ビジネス", kicker: "仕事の英語", title: "ビジネス英単語", blurb: "会議・メール・取引" },
   { id: "travel", label: "日常・旅行", kicker: "会話で使う", title: "日常・旅行英単語", blurb: "街・生活・会話" },
 ];
