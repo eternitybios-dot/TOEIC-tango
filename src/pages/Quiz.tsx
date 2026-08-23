@@ -65,9 +65,9 @@ export function Quiz({ state, unit, part, onQuiz, go }: Props) {
   const choices = useMemo(() => (word ? pickChoices(word, source, 4) : []), [word, source]);
 
   useEffect(() => {
-    if (!word || finished || mode !== "en-ja" || !state.settings.sound) return;
+    if (!word || finished || mode !== "en-ja" || !state.settings.autoSpeak) return;
     speak(word.word, word.phrase);
-  }, [word, mode, finished, state.settings.sound]);
+  }, [word, mode, finished, state.settings.autoSpeak]);
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
   const meaning = word && picked !== null ? explainMeaning(word) : null;

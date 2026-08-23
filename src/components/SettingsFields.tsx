@@ -25,16 +25,12 @@ export function SettingsFields({ state, onSettings, onGoal }: Props) {
       <label className="setting">
         <span>
           効果音
-          <small>オフでチャイムと自動発音をミュート</small>
+          <small>正解・不正解のチャイム</small>
         </span>
         <button
           type="button"
           className={`switch${state.settings.sound ? " on" : ""}`}
-          onClick={() => {
-            const next = !state.settings.sound;
-            if (!next) stopSpeak();
-            onSettings({ sound: next });
-          }}
+          onClick={() => onSettings({ sound: !state.settings.sound })}
           aria-pressed={state.settings.sound}
           aria-label={state.settings.sound ? "効果音をミュート" : "効果音をオン"}
         />
@@ -49,12 +45,20 @@ export function SettingsFields({ state, onSettings, onGoal }: Props) {
         />
       </label>
       <label className="setting">
-        <span>カードを開いたら発音</span>
+        <span>
+          自動発音
+          <small>カードと英和クイズの読み上げ</small>
+        </span>
         <button
           type="button"
           className={`switch${state.settings.autoSpeak ? " on" : ""}`}
-          onClick={() => onSettings({ autoSpeak: !state.settings.autoSpeak })}
+          onClick={() => {
+            const next = !state.settings.autoSpeak;
+            if (!next) stopSpeak();
+            onSettings({ autoSpeak: next });
+          }}
           aria-pressed={state.settings.autoSpeak}
+          aria-label={state.settings.autoSpeak ? "自動発音をミュート" : "自動発音をオン"}
         />
       </label>
     </>
