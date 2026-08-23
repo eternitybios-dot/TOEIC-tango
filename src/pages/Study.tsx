@@ -6,7 +6,7 @@ import { explainMeaning } from "../lib/explain";
 import { afterAgain, afterGood } from "../lib/quiz";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
-import { dealQuiz, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
+import { dealQuiz, listMissed, mixLabel, mixNote, SESSION_SIZE, SHORT_SESSION, type QuizMix } from "../lib/session";
 import { Burst } from "../components/Burst";
 import { CountUp } from "../components/CountUp";
 import { IconBack, IconSpeak } from "../components/Icons";
@@ -16,16 +16,22 @@ type Props = {
   state: AppState;
   unit?: number;
   part?: 1 | 2 | 3;
-  mode?: "due" | "unit";
+  mode?: "due" | "unit" | "missed";
   onReview: (word: Word, result: "again" | "good") => void;
   go: (route: Route) => void;
 };
 
 type Scope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
 
-function initialScope(unit?: number, part?: 1 | 2 | 3, lastUnit?: number | null): Scope {
+function initialScope(
+  unit?: number,
+  part?: 1 | 2 | 3,
+  lastUnit?: number | null,
+  mode?: "due" | "unit" | "missed",
+): Scope {
   if (unit) return { type: "unit", unit };
   if (part) return { type: "part", part };
+  if (mode === "missed") return { type: "all" };
   return { type: "unit", unit: lastUnit ?? 1 };
 }
 
@@ -38,16 +44,18 @@ function poolOf(scope: Scope): Word[] {
 function scopeLabel(scope: Scope, mix: QuizMix): string {
   const place =
     scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
-  return `${place} · ${mix === "random" ? "ランダム" : "覚える"}`;
+  return `${place} · ${mixLabel(mix)}`;
 }
 
 export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: Props) {
-  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part, state.lastUnit));
-  const [mix, setMix] = useState<QuizMix>("due");
+  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part, state.lastUnit, _mode));
+  const [mix, setMix] = useState<QuizMix>(_mode === "missed" ? "missed" : "due");
   const [size, setSize] = useState(SESSION_SIZE);
   const [started, setStarted] = useState(false);
   const [sessionLen, setSessionLen] = useState(0);
   const source = poolOf(scope);
+  const missedPool = listMissed(state, source);
+  const poolCount = mix === "missed" ? missedPool.length : source.length;
   const [queue, setQueue] = useState<Word[]>([]);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -183,7 +191,18 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
         <p className="muted" style={{ margin: "8px 0 22px" }}>
           もう一度 {score.again} 回
         </p>
-        <button className="cta" onClick={() => begin()}>
+        {missedPool.length > 0 ? (
+          <button
+            className="cta"
+            onClick={() => {
+              setMix("missed");
+              begin("missed");
+            }}
+          >
+            まちがいを集中
+          </button>
+        ) : null}
+        <button className={`cta${missedPool.length > 0 ? " ghost" : ""}`} style={{ marginTop: missedPool.length > 0 ? 10 : 0 }} onClick={() => begin()}>
           同じ条件でもう一度
         </button>
         <div className="row" style={{ marginTop: 10 }}>
@@ -250,11 +269,14 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, go }: 
           <button className={`chip${mix === "random" ? " on" : ""}`} onClick={() => setMix("random")}>
             ランダム
           </button>
+          <button className={`chip${mix === "missed" ? " on" : ""}`} onClick={() => setMix("missed")}>
+            集中
+          </button>
         </div>
         <p className="muted" style={{ margin: "8px 0 18px" }}>
-          {source.length}語から {Math.min(size, source.length)}枚 · {mix === "random" ? "毎回ちがう語" : "未学習と期限から"}
+          {poolCount}語から {Math.min(size, poolCount)}枚 · {mixNote(mix, missedPool.length)}
         </p>
-        <button className="cta" onClick={() => begin()}>
+        <button className="cta" onClick={() => begin()} disabled={mix === "missed" && missedPool.length === 0}>
           スタート
         </button>
       </div>

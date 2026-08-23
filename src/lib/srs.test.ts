@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { WORDS } from "../data";
 import { afterAgain, afterGood, clozePhrase, phraseParts, pickChoices, takeSession } from "./quiz";
-import { dealQuiz } from "./session";
+import { dealQuiz, listMissed } from "./session";
 import { emptyProgress, masteryOf, recordQuiz, review } from "./srs";
 import { defaultState } from "./storage";
 import { hashToRoute, routeToHash } from "./route";
@@ -85,6 +85,24 @@ describe("quiz", () => {
     expect(dealt).toHaveLength(10);
     expect(new Set(dealt.map((word) => word.id)).size).toBe(10);
     expect(dealt.every((word) => pool.some((item) => item.id === word.id))).toBe(true);
+  });
+
+  it("deals only again or wrong words in missed mix", () => {
+    const pool = WORDS.slice(0, 8);
+    const [againWord, wrongWord, goodWord] = pool;
+    const state = defaultState();
+    state.progress[againWord.id] = { ...emptyProgress(), lastResult: "again", seen: 1, wrong: 1 };
+    state.progress[wrongWord.id] = { ...emptyProgress(), lastResult: "good", seen: 2, correct: 1, wrong: 1 };
+    state.progress[goodWord.id] = { ...emptyProgress(), lastResult: "good", seen: 2, correct: 2, wrong: 0 };
+
+    expect(listMissed(state, pool).map((word) => word.id)).toEqual([againWord.id, wrongWord.id]);
+    expect(dealQuiz(state, pool, "missed", Date.now(), 10).map((word) => word.id).sort()).toEqual(
+      [againWord.id, wrongWord.id].sort(),
+    );
+  });
+
+  it("returns no missed-mix cards when nothing was marked again or wrong", () => {
+    expect(dealQuiz(defaultState(), WORDS.slice(0, 20), "missed", Date.now(), 10)).toEqual([]);
   });
 
   it("fills a due quiz with unseen words when nothing is due", () => {

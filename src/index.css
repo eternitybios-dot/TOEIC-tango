@@ -305,6 +305,11 @@ button:disabled {
   box-shadow: none;
 }
 
+.cta:disabled {
+  opacity: 0.4;
+  box-shadow: none;
+}
+
 .pulse-cta {
   animation: cta-pulse 2.8s var(--ease) infinite;
 }

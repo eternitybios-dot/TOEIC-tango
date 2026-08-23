@@ -3,6 +3,7 @@ import type { AppState, Route, Settings } from "../types";
 import { PARTS } from "../types";
 import { UNITS, UNIT_META, WORDS, wordsByPart, wordsByUnit } from "../data";
 import { dashboard } from "../lib/stats";
+import { listMissed } from "../lib/session";
 import { playSfx } from "../lib/feedback";
 import { IconClose, IconFlame, IconGear, IconSpeak } from "../components/Icons";
 import { ProgressBar } from "../components/ProgressBar";
@@ -22,6 +23,7 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
   const dash = useMemo(() => dashboard(state, WORDS), [state]);
   const remaining = Math.max(0, state.goal - state.todayCount);
   const dueNow = dash.all.due;
+  const missedNow = listMissed(state, WORDS).length;
   const [sheetUnit, setSheetUnit] = useState<number | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const daily = useMemo(() => {
@@ -70,6 +72,15 @@ export function Home({ state, go, onSettings, onGoal }: Props) {
         <button className="cta" onClick={() => go({ name: "study", mode: "due" })}>
           {cta}
         </button>
+        {missedNow > 0 ? (
+          <button
+            className="cta ghost"
+            style={{ marginTop: 8 }}
+            onClick={() => go({ name: "study", mode: "missed" })}
+          >
+            まちがい集中（{missedNow}語）
+          </button>
+        ) : null}
         {state.lastUnit ? (
           <button
             className="cta ghost"
