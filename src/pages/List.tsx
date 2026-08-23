@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { AppState, Route } from "../types";
 import { catalog } from "../lib/catalog";
+import { explainMeaning } from "../lib/explain";
 import { getProgress } from "../lib/storage";
 import { masteryOf } from "../lib/srs";
 import { speak } from "../lib/speech";
@@ -110,7 +111,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
             <div>
               <b>{word.word}</b>
               <div className="muted">
-                {word.pos} · {word.phraseJa}
+                {word.pos} · {word.meaning}
               </div>
             </div>
             <span className={`badge badge-${mastery}`}>{LABELS[mastery]}</span>
@@ -140,8 +141,16 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
               {open.word}
             </div>
             {open.ipa ? <p className="ipa">/{open.ipa}/</p> : null}
-            <p style={{ margin: "12px 0 4px", fontSize: 18 }}>{open.meaning}</p>
-            <p className="phrase" style={{ marginTop: 8 }}>
+            <p className="sheet-kicker">意味</p>
+            <p className="sheet-meaning">{open.meaning}</p>
+            <p className="sheet-kicker">解説</p>
+            {explainMeaning(open, cat.words).lines.map((line) => (
+              <p key={line} className="sheet-explain">
+                {line}
+              </p>
+            ))}
+            <p className="sheet-kicker">例題</p>
+            <p className="phrase">
               {open.phrase}
               <span className="phrase-ja">{open.phraseJa}</span>
             </p>
