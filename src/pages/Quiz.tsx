@@ -456,7 +456,14 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
               onClick={() => choose(choice)}
             >
               <mark>{choiceLead(choice)}</mark>
-              {choiceRest(choice) ? <span className="choice-rest">{choiceRest(choice)}</span> : null}
+              {picked !== null ? (
+                <span className="choice-example">
+                  <span className="choice-example-en">{choice.phrase}</span>
+                  <span className="choice-example-ja">{choice.phraseJa}</span>
+                </span>
+              ) : choiceRest(choice) ? (
+                <span className="choice-rest">{choiceRest(choice)}</span>
+              ) : null}
             </button>
           );
         })}
