@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import type { AppState, Route, Word } from "../types";
 import { WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
@@ -40,6 +40,11 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
 
   const word = queue[index];
   const choices = useMemo(() => (word ? pickChoices(word, source, 4) : []), [word, source]);
+
+  useEffect(() => {
+    if (!word || finished || mode !== "en-ja") return;
+    speak(word.phrase);
+  }, [word, mode, finished]);
   const pickedWord = picked === null ? undefined : choices.find((choice) => choice.id === picked);
   const isCorrect = picked !== null && picked === word?.id;
   const meaning = word && picked !== null ? explainMeaning(word) : null;
@@ -222,7 +227,7 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
           <button
             className="chip"
             disabled={picked === null && mode !== "en-ja"}
-            onClick={() => speak(word.word)}
+            onClick={() => speak(mode === "en-ja" ? word.phrase : word.word)}
           >
             発音
           </button>
