@@ -1071,6 +1071,10 @@ button:disabled {
   touch-action: pan-y;
 }
 
+.page-quiz.is-answered.is-dragging {
+  touch-action: none;
+}
+
 .page-quiz.is-answered .quiz-modes {
   display: none;
 }
@@ -1137,14 +1141,20 @@ button:disabled {
   gap: 12px;
   flex: 1 1 auto;
   min-height: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 4px 0;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .page-quiz.is-answered .quiz-body {
   justify-content: flex-start;
-  gap: 10px;
+  gap: 8px;
+}
+
+.page-quiz.is-answered .quiz-body > * {
+  flex: 0 0 auto;
 }
 
 .quiz-body::-webkit-scrollbar {
@@ -1203,40 +1213,55 @@ button:disabled {
 .page-quiz .choice {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
+  height: auto;
   min-height: 56px;
   padding: 14px 16px;
   margin-bottom: 0;
+  overflow: visible;
   font-size: 16px;
   line-height: 1.4;
 }
 
 .page-quiz.is-answered .choice {
+  display: grid;
+  justify-items: start;
+  align-content: start;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 0;
-  padding: 12px 14px 14px;
+  height: auto;
+  min-height: max-content;
+  padding: 10px 14px 12px;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .page-quiz.is-answered .choice mark {
   display: inline;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .choice-example {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 2px;
   width: 100%;
   min-width: 0;
   margin-top: 2px;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.45;
   letter-spacing: 0.02em;
   font-weight: 500;
   white-space: normal;
+  overflow: visible;
 }
 
 .choice-example-en,
 .choice-example-ja {
-  display: block;
+  display: inline;
+  min-height: 0;
   overflow-wrap: break-word;
 }
 
@@ -1245,8 +1270,17 @@ button:disabled {
 }
 
 .choice-example-ja {
-  margin-top: 2px;
+  margin-top: 0;
   color: #f0e6d4;
+}
+
+.page-quiz.is-answered .quiz-stage {
+  padding: 10px 12px 6px;
+  margin-bottom: 4px;
+}
+
+.page-quiz.is-answered .explain {
+  flex: 0 0 auto;
 }
 
 .quiz-prompt {
@@ -1287,8 +1321,17 @@ button:disabled {
     padding: 12px 14px;
   }
 
+  .page-quiz.is-answered .choice {
+    min-height: max-content;
+    padding: 10px 14px 12px;
+  }
+
   .quiz-body {
     gap: 10px;
+  }
+
+  .page-quiz.is-answered .quiz-body {
+    gap: 8px;
   }
 
   .quiz-prompt {
