@@ -3,6 +3,7 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main, cursor/toeic-vocab-app-1945]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,11 +12,25 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
   deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
