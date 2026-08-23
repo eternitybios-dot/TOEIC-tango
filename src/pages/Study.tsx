@@ -40,9 +40,9 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   const done = Math.max(0, (queue.length > 0 ? SESSION_SIZE : score.good + score.again) - remaining);
 
   useEffect(() => {
-    if (!word || finished || !state.settings.sound) return;
+    if (!word || finished || !state.settings.autoSpeak) return;
     speak(revealed ? word.phrase : word.word);
-  }, [word, revealed, finished, state.settings.sound]);
+  }, [word, revealed, finished, state.settings.autoSpeak]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

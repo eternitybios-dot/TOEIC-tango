@@ -18,7 +18,7 @@ export function defaultState(): AppState {
     todayCount: 0,
     todayDate: null,
     goal: 20,
-    settings: { sound: true, haptics: true, autoSpeak: false },
+    settings: { sound: true, haptics: true, autoSpeak: true },
     onboarded: false,
     lastUnit: null,
     studyDays: [],

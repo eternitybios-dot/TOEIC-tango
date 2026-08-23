@@ -10,7 +10,7 @@ describe("storage", () => {
     });
     expect(next.settings.sound).toBe(true);
     expect(next.settings.haptics).toBe(true);
-    expect(next.settings.autoSpeak).toBe(false);
+    expect(next.settings.autoSpeak).toBe(true);
     expect(next.onboarded).toBe(true);
     expect(next.studyDays).toEqual([]);
     expect(next.streak).toBe(3);
@@ -21,6 +21,7 @@ describe("storage", () => {
       settings: { sound: false, haptics: true, autoSpeak: false },
     });
     expect(next.settings.sound).toBe(false);
+    expect(next.settings.autoSpeak).toBe(false);
   });
 
   it("keeps a new user on onboarding", () => {
