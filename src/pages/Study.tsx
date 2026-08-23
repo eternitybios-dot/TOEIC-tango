@@ -28,6 +28,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   const [finished, setFinished] = useState(false);
   const [drag, setDrag] = useState(0);
   const [flight, setFlight] = useState<"good" | "again" | null>(null);
+  const [seen, setSeen] = useState<Word[]>([]);
   const start = useRef<{ x: number; y: number } | null>(null);
   const dragging = useRef(false);
   const busy = useRef(false);
@@ -65,6 +66,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     setFinished(false);
     setFlight(null);
     setDrag(0);
+    setSeen([]);
   }
 
   function flip() {
@@ -74,10 +76,15 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   }
 
   function goPrev() {
-    if (index === 0 || finished || busy.current) return;
+    if (seen.length === 0 || finished || busy.current) return;
     playSfx("tap", state.settings.sound);
-    setIndex((current) => current - 1);
+    const prev = seen[seen.length - 1];
+    setSeen((list) => list.slice(0, -1));
+    setQueue((current) => [prev, ...current.filter((item) => item.id !== prev.id)]);
+    setIndex(0);
     setRevealed(false);
+    setDrag(0);
+    setFlight(null);
   }
 
   async function answer(result: "again" | "good") {
@@ -88,6 +95,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     setFlight(result);
     await wait(320);
     onReview(word, result);
+    setSeen((list) => [...list, word]);
     setScore((prev) => ({ ...prev, [result]: prev[result] + 1 }));
     const next = result === "good" ? afterGood(queue, index) : afterAgain(queue, index);
     setQueue(next.queue);
@@ -223,19 +231,13 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
       </div>
 
       <div className="row actions" style={{ marginBottom: 10 }}>
-        <button type="button" className="btn again" disabled={index === 0} onClick={goPrev}>
-          前のカード
-        </button>
-        <button type="button" className="btn ghost-wide" onClick={flip}>
-          {revealed ? "単語に戻す" : "意味を見る"}
-        </button>
-        <button
-          type="button"
-          className="btn speak"
-          onClick={() => speak(word.word, word.phrase)}
-          aria-label="発音"
-        >
+        <button type="button" className="btn ghost-wide with-icon" onClick={() => speak(word.word, word.phrase)}>
           <IconSpeak size={20} />
+          発音
+        </button>
+        <button type="button" className="btn ghost-wide with-icon" disabled={seen.length === 0} onClick={goPrev}>
+          <IconBack size={18} />
+          前のカード
         </button>
       </div>
 
