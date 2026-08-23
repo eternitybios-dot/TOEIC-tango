@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
-import type { AppState, Route, Word } from "../types";
-import { UNIT_META, WORDS, wordsByUnit } from "../data";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { PARTS, type AppState, type Route, type Word } from "../types";
+import { WORDS, wordsByPart, wordsByUnit } from "../data";
 import { speak } from "../lib/speech";
 import { explainMeaning } from "../lib/explain";
-import { afterAgain, afterGood, pickSession } from "../lib/quiz";
+import { afterAgain, afterGood } from "../lib/quiz";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
-import { dealSession, SESSION_SIZE } from "../lib/session";
+import { dealQuiz, SESSION_SIZE, type QuizMix } from "../lib/session";
 import { Burst } from "../components/Burst";
 import { CountUp } from "../components/CountUp";
 import { IconBack, IconSpeak } from "../components/Icons";
@@ -15,14 +15,38 @@ import { ProgressBar } from "../components/ProgressBar";
 type Props = {
   state: AppState;
   unit?: number;
+  part?: 1 | 2 | 3;
   mode?: "due" | "unit";
   onReview: (word: Word, result: "again" | "good") => void;
   go: (route: Route) => void;
 };
 
-export function Study({ state, unit, mode = "due", onReview, go }: Props) {
-  const source = useMemo(() => (unit ? wordsByUnit(unit) : WORDS), [unit]);
-  const [queue, setQueue] = useState<Word[]>(() => dealSession(state, source));
+type Scope = { type: "all" } | { type: "part"; part: 1 | 2 | 3 } | { type: "unit"; unit: number };
+
+function initialScope(unit?: number, part?: 1 | 2 | 3): Scope {
+  if (unit) return { type: "unit", unit };
+  if (part) return { type: "part", part };
+  return { type: "all" };
+}
+
+function poolOf(scope: Scope): Word[] {
+  if (scope.type === "unit") return wordsByUnit(scope.unit);
+  if (scope.type === "part") return wordsByPart(scope.part);
+  return WORDS;
+}
+
+function scopeLabel(scope: Scope, mix: QuizMix): string {
+  const place =
+    scope.type === "unit" ? `UNIT ${scope.unit}` : scope.type === "part" ? PARTS[scope.part - 1].label : "全体";
+  return `${place} · ${mix === "random" ? "ランダム" : "期限"}`;
+}
+
+export function Study({ state, unit, part, mode = "due", onReview, go }: Props) {
+  const [scope, setScope] = useState<Scope>(() => initialScope(unit, part));
+  const [mix, setMix] = useState<QuizMix>(() => (mode === "unit" ? "random" : "due"));
+  const [started, setStarted] = useState(false);
+  const source = poolOf(scope);
+  const [queue, setQueue] = useState<Word[]>([]);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState({ good: 0, again: 0 });
@@ -59,9 +83,8 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   });
 
-  function restart(random = false) {
-    playSfx("tap", state.settings.sound);
-    setQueue(random ? pickSession(source, SESSION_SIZE) : dealSession(state, source));
+  function restart(nextQueue: Word[]) {
+    setQueue(nextQueue);
     setIndex(0);
     setRevealed(false);
     setScore({ good: 0, again: 0 });
@@ -69,6 +92,12 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     setFlight(null);
     setDrag(0);
     setSeen([]);
+    setStarted(true);
+  }
+
+  function begin(nextMix = mix, nextScope = scope) {
+    playSfx("tap", state.settings.sound);
+    restart(dealQuiz(state, poolOf(nextScope), nextMix));
   }
 
   function flip() {
@@ -139,21 +168,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
     if (!dragging.current) flip();
   }
 
-  if (queue.length === 0 && !finished) {
-    return (
-      <div className="page empty">
-        <p>今、期限の語はありません。</p>
-        <button className="cta" style={{ marginTop: 16 }} onClick={() => restart(true)}>
-          10語ランダム
-        </button>
-        <button className="cta ghost" style={{ marginTop: 10 }} onClick={() => go({ name: "home" })}>
-          ホームへ
-        </button>
-      </div>
-    );
-  }
-
-  if (finished || !word) {
+  if (finished) {
     return (
       <div className="page result">
         <Burst />
@@ -165,14 +180,67 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
         <p className="muted" style={{ margin: "8px 0 22px" }}>
           もう一度 {score.again} 回
         </p>
-        <div className="row">
-          <button className="cta ghost" onClick={() => go({ name: "quiz", unit })}>
+        <button className="cta" onClick={() => begin()}>
+          同じ条件でもう一度
+        </button>
+        <div className="row" style={{ marginTop: 10 }}>
+          <button className="cta ghost" onClick={() => setStarted(false)}>
+            出題を変える
+          </button>
+          <button className="cta ghost" onClick={() => go({ name: "quiz", unit, part: scope.type === "part" ? scope.part : part })}>
             クイズへ
           </button>
-          <button className="cta" onClick={() => restart(false)}>
-            期限の続き
+        </div>
+      </div>
+    );
+  }
+
+  if (!started || !word) {
+    return (
+      <div className="page quiz-setup">
+        <button className="back-link" onClick={() => go({ name: "home" })}>
+          <IconBack /> ホーム
+        </button>
+        <p className="tiny gold">カード</p>
+        <h2 className="quiz-setup-title">出題を選ぶ</h2>
+        <p className="section-title">レベル</p>
+        <div className="filters">
+          <button className={`chip${scope.type === "all" ? " on" : ""}`} onClick={() => setScope({ type: "all" })}>
+            すべて
+          </button>
+          {PARTS.map((item) => (
+            <button
+              key={item.id}
+              className={`chip${scope.type === "part" && scope.part === item.id ? " on" : ""}`}
+              onClick={() => setScope({ type: "part", part: item.id })}
+            >
+              {item.label}
+            </button>
+          ))}
+          {unit ? (
+            <button
+              className={`chip${scope.type === "unit" && scope.unit === unit ? " on" : ""}`}
+              onClick={() => setScope({ type: "unit", unit })}
+            >
+              UNIT {unit}
+            </button>
+          ) : null}
+        </div>
+        <p className="section-title">出題</p>
+        <div className="filters">
+          <button className={`chip${mix === "random" ? " on" : ""}`} onClick={() => setMix("random")}>
+            ランダム
+          </button>
+          <button className={`chip${mix === "due" ? " on" : ""}`} onClick={() => setMix("due")}>
+            期限の復習
           </button>
         </div>
+        <p className="muted" style={{ margin: "8px 0 18px" }}>
+          {source.length}語から {Math.min(SESSION_SIZE, source.length)}枚 · {mix === "random" ? "毎回ちがう語" : "期限と未学習から"}
+        </p>
+        <button className="cta" onClick={() => begin()}>
+          スタート
+        </button>
       </div>
     );
   }
@@ -182,11 +250,11 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
 
   return (
     <div className="page">
-      <button className="back-link" onClick={() => go({ name: "home" })}>
-        <IconBack /> ホーム
+      <button className="back-link" onClick={() => setStarted(false)}>
+        <IconBack /> 出題
       </button>
       <div className="progress-label">
-        <span>{unit ? `UNIT ${unit} ${UNIT_META[unit].title}` : mode === "due" ? "期限＋新規" : "カード"}</span>
+        <span>{scopeLabel(scope, mix)}</span>
         <span>残り {remaining}</span>
       </div>
       <ProgressBar value={done + (revealed ? 0.35 : 0)} max={SESSION_SIZE} />
