@@ -77,6 +77,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   const dragging = useRef(false);
   const busy = useRef(false);
   const dragRef = useRef(0);
+  const explainRef = useRef<HTMLElement | null>(null);
   const onResumeRef = useRef<(session: SavedSession | null) => void>((session) => onResume(session, "quiz"));
   const lastSaved = useRef("");
   onResumeRef.current = (session) => onResume(session, "quiz");
@@ -156,6 +157,14 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     lastSaved.current = "";
     onResumeRef.current(null);
   }, [finished]);
+
+  useEffect(() => {
+    if (picked === null) return;
+    const timer = window.setTimeout(() => {
+      explainRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [picked, index]);
 
   function choose(choice: Word) {
     if (!word || picked !== null) return;
@@ -253,6 +262,13 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     if (picked === null && mode === "ja-en") return word.meaning;
     if (picked === null && mode === "cloze") return POS_LABEL[word.pos];
     return word.word;
+  }
+
+  function compareAnswer(correct: Word, pickedChoice: Word): string {
+    if (mode === "en-ja") {
+      return `あなたの答え「${pickedChoice.meaning}」 / 正解「${correct.meaning}」`;
+    }
+    return `あなたの答え ${pickedChoice.word} / 正解 ${correct.word}`;
   }
 
   if (finished) {
@@ -470,14 +486,16 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
           );
         })}
 
-        {picked !== null && meaning && pickedWord && (
-          <section className={`explain slide-up${isCorrect ? " ok" : " ng"}`} aria-live="polite">
+        {picked !== null && meaning && (
+          <section
+            ref={explainRef}
+            className={`explain slide-up${isCorrect ? " ok" : " ng"}`}
+            aria-live="polite"
+          >
             <p className="explain-result">{isCorrect ? "正解" : "不正解"}</p>
-            {!isCorrect && (
-              <p className="explain-compare">
-                あなたの答え {pickedWord.word}「{pickedWord.meaning}」 / 正解 {word.word}「{word.meaning}」
-              </p>
-            )}
+            {!isCorrect && pickedWord ? (
+              <p className="explain-compare">{compareAnswer(word, pickedWord)}</p>
+            ) : null}
             {meaning.lines.map((line) => (
               <p key={line} className="explain-body">
                 {line}
