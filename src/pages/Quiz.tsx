@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
 import type { AppState, Route, Word } from "../types";
 import { WORDS, wordsByUnit } from "../data";
 import { explainMeaning } from "../lib/explain";
@@ -6,6 +6,7 @@ import { clozePhrase, phraseParts, pickChoices, pickSession } from "../lib/quiz"
 import { dealSession, SESSION_SIZE } from "../lib/session";
 import { speak } from "../lib/speech";
 import { haptic, playSfx } from "../lib/feedback";
+import { wait } from "../lib/motion";
 import { Burst } from "../components/Burst";
 import { CountUp } from "../components/CountUp";
 import { IconBack } from "../components/Icons";
@@ -30,6 +31,12 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   const [missed, setMissed] = useState<Word[]>([]);
   const [finished, setFinished] = useState(false);
   const [shake, setShake] = useState(false);
+  const [drag, setDrag] = useState(0);
+  const [flight, setFlight] = useState<"left" | "right" | null>(null);
+  const start = useRef<{ x: number; y: number } | null>(null);
+  const dragging = useRef(false);
+  const busy = useRef(false);
+  const dragRef = useRef(0);
 
   const word = queue[index];
   const choices = useMemo(() => (word ? pickChoices(word, source, 4) : []), [word, source]);
@@ -44,6 +51,8 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     setScore(0);
     setMissed([]);
     setFinished(false);
+    setDrag(0);
+    setFlight(null);
   }
 
   function choose(choice: Word) {
@@ -62,7 +71,17 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   }
 
   function next() {
+    if (busy.current || picked === null) return;
+    busy.current = true;
     playSfx("tap", state.settings.sound);
+    advance();
+    busy.current = false;
+  }
+
+  function advance() {
+    dragRef.current = 0;
+    setDrag(0);
+    setFlight(null);
     if (index + 1 >= queue.length) {
       setFinished(true);
       playSfx("done", state.settings.sound);
@@ -70,6 +89,48 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
     }
     setIndex((n) => n + 1);
     setPicked(null);
+  }
+
+  async function swipeNext(direction: "left" | "right") {
+    if (picked === null || busy.current) return;
+    busy.current = true;
+    playSfx("tap", state.settings.sound);
+    haptic(10, state.settings.haptics);
+    setFlight(direction);
+    await wait(280);
+    advance();
+    busy.current = false;
+  }
+
+  function onPointerDown(event: PointerEvent<HTMLDivElement>) {
+    if (picked === null || busy.current) return;
+    start.current = { x: event.clientX, y: event.clientY };
+    dragging.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (!start.current || picked === null || busy.current) return;
+    const dx = event.clientX - start.current.x;
+    const dy = event.clientY - start.current.y;
+    if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+      dragging.current = true;
+      dragRef.current = dx;
+      setDrag(dx);
+    }
+  }
+
+  function onPointerUp() {
+    if (busy.current) return;
+    const dx = dragRef.current;
+    start.current = null;
+    if (picked !== null && dragging.current && Math.abs(dx) > 72) {
+      void swipeNext(dx > 0 ? "right" : "left");
+      return;
+    }
+    dragging.current = false;
+    dragRef.current = 0;
+    setDrag(0);
   }
 
   function choiceLead(choice: Word) {
@@ -124,7 +185,13 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
   }
 
   return (
-    <div className={`page page-quiz${shake ? " shake" : ""}${picked !== null ? " is-answered" : ""}`}>
+    <div
+      className={`page page-quiz${shake ? " shake" : ""}${picked !== null ? " is-answered" : ""}${drag ? " is-dragging" : ""}`}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
       <header className="quiz-head">
         <div className="quiz-head-row">
           <button className="back-link" onClick={() => go({ name: "home" })}>
@@ -151,6 +218,10 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
         </div>
       </header>
 
+      <div
+        className={`quiz-slide${drag && !flight ? " is-dragging" : ""}${flight ? ` fly-${flight}` : ""}`}
+        style={flight ? undefined : drag ? { transform: `translateX(${drag}px)` } : undefined}
+      >
       <div className="quiz-stage" key={`${word.id}-${mode}`}>
         <div className="quiz-word">
           <p>
@@ -205,9 +276,11 @@ export function Quiz({ state, unit, onQuiz, go }: Props) {
           </section>
         )}
       </div>
+      </div>
 
       {picked !== null && (
         <div className="quiz-dock">
+          <p className="quiz-swipe-hint">{index + 1 >= queue.length ? "スワイプでも結果へ" : "スワイプでも次へ"}</p>
           <button className="cta" onClick={next}>
             {index + 1 >= queue.length ? "結果を見る" : "次へ"}
           </button>
