@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import type { AppState, Route, Word } from "../types";
 import { UNIT_META, WORDS, wordsByUnit } from "../data";
 import { speak } from "../lib/speech";
+import { explainMeaning } from "../lib/explain";
 import { afterAgain, afterGood, pickSession } from "../lib/quiz";
 import { haptic, playSfx } from "../lib/feedback";
 import { wait } from "../lib/motion";
@@ -34,6 +35,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
   const busy = useRef(false);
 
   const word = queue[index];
+  const note = word ? explainMeaning(word) : null;
   const remaining = queue.length;
   const done = Math.max(0, (queue.length > 0 ? SESSION_SIZE : score.good + score.again) - remaining);
 
@@ -221,6 +223,7 @@ export function Study({ state, unit, mode = "due", onReview, go }: Props) {
           <article className="flip-face flip-back">
             <span className="pos">{word.pos}</span>
             <div className="meaning">{word.meaning}</div>
+            {note ? <p className="card-explain">{note.lines.join(" ")}</p> : null}
             <p className="phrase">
               {word.phrase}
               <span className="phrase-ja">{word.phraseJa}</span>
