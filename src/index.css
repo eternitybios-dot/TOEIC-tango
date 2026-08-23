@@ -762,12 +762,17 @@ button:disabled {
   color: var(--muted);
 }
 
-.quiz-prompt mark {
+.quiz-prompt mark,
+.choice mark {
   background: rgba(232, 184, 74, 0.22);
   color: var(--gold-2);
   border-radius: 6px;
   padding: 0 4px;
   font-weight: 700;
+}
+
+.choice-rest {
+  margin-left: 8px;
 }
 
 .quiz-prompt {
