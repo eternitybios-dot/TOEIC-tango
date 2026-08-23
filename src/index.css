@@ -864,8 +864,11 @@ button:disabled {
 }
 
 .choice.wrong {
-  border-color: var(--red);
-  background: linear-gradient(180deg, #3a241f, #261714);
+  border-color: #ff6b52;
+  background: linear-gradient(180deg, #6a241c, #3a1612);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 130, 110, 0.45),
+    0 0 0 2px rgba(255, 107, 82, 0.28);
 }
 
 @keyframes pop {
@@ -1169,6 +1172,10 @@ button:disabled {
   background: linear-gradient(180deg, transparent, var(--bg) 16px);
 }
 
+.quiz-dock .explain {
+  margin: 0 0 10px;
+}
+
 .quiz-word {
   text-align: center;
   margin: 4px 0 0;
@@ -1243,17 +1250,22 @@ button:disabled {
 }
 
 .page-quiz.is-answered .choice.wrong {
-  border-color: #e06a52;
-  background: linear-gradient(180deg, #4a241f, #261714);
+  border-color: #ff6b52;
+  background: linear-gradient(180deg, #6a241c, #3a1612);
   box-shadow:
-    inset 0 0 0 1px rgba(224, 106, 82, 0.45),
-    0 0 0 1px rgba(224, 106, 82, 0.18);
+    inset 0 0 0 1px rgba(255, 130, 110, 0.5),
+    0 0 0 2px rgba(255, 107, 82, 0.32);
 }
 
 .page-quiz.is-answered .choice.wrong mark {
-  background: linear-gradient(180deg, rgba(240, 170, 150, 0.34), rgba(212, 90, 66, 0.22));
-  color: #ffd4c8;
-  box-shadow: inset 0 0 0 1px rgba(240, 170, 150, 0.2);
+  background: linear-gradient(180deg, #ff8a73, #d45a42);
+  color: #2a100c;
+  box-shadow: none;
+}
+
+.page-quiz.is-answered .choice.wrong .choice-example-en,
+.page-quiz.is-answered .choice.wrong .choice-example-ja {
+  color: #ffd8cf;
 }
 
 .page-quiz.is-answered .choice mark {
