@@ -25,14 +25,27 @@ export function SettingsFields({ state, onSettings, onGoal }: Props) {
       <label className="setting">
         <span>
           効果音
-          <small>正解・不正解のチャイム</small>
+          <small>タップ・フリップなどの操作音</small>
         </span>
         <button
           type="button"
-          className={`switch${state.settings.sound ? " on" : ""}`}
-          onClick={() => onSettings({ sound: !state.settings.sound })}
-          aria-pressed={state.settings.sound}
-          aria-label={state.settings.sound ? "効果音をミュート" : "効果音をオン"}
+          className={`switch${state.settings.sfx ? " on" : ""}`}
+          onClick={() => onSettings({ sfx: !state.settings.sfx })}
+          aria-pressed={state.settings.sfx}
+          aria-label={state.settings.sfx ? "効果音をミュート" : "効果音をオン"}
+        />
+      </label>
+      <label className="setting">
+        <span>
+          正解・不正解の音
+          <small>クイズとカードの判定チャイム</small>
+        </span>
+        <button
+          type="button"
+          className={`switch${state.settings.quizSound ? " on" : ""}`}
+          onClick={() => onSettings({ quizSound: !state.settings.quizSound })}
+          aria-pressed={state.settings.quizSound}
+          aria-label={state.settings.quizSound ? "正解・不正解の音をミュート" : "正解・不正解の音をオン"}
         />
       </label>
       <label className="setting">

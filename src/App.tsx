@@ -11,6 +11,7 @@ import { WordList } from "./pages/List";
 import { Stats } from "./pages/Stats";
 import { NavBar } from "./components/NavBar";
 import { Onboarding } from "./components/Onboarding";
+import { listenBackButton } from "./lib/native";
 
 function navRoute(name: Route["name"]): Route {
   if (name === "study") return { name: "study", mode: "due" };
@@ -29,6 +30,14 @@ export default function App() {
   }, [state]);
 
   useEffect(() => {
+    return listenBackButton(() => {
+      if (!state.onboarded || route.name === "home") return false;
+      go({ name: "home" });
+      return true;
+    });
+  }, [route.name, state.onboarded, state.settings]);
+
+  useEffect(() => {
     const onHash = () => {
       const next = hashToRoute(window.location.hash);
       setRoute((current) => (routesEqual(current, next) ? current : next));
@@ -38,7 +47,7 @@ export default function App() {
   }, []);
 
   function go(next: Route) {
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     if (next.name === "study" && next.unit) {
       setState((prev) => ({
         ...prev,
@@ -107,7 +116,7 @@ export default function App() {
     return (
       <div className="app">
         <Onboarding
-          sound={state.settings.sound}
+          settings={state.settings}
           onDone={() => setState((prev) => ({ ...prev, onboarded: true }))}
         />
       </div>

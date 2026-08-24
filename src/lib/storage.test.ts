@@ -8,7 +8,8 @@ describe("storage", () => {
       streak: 3,
       goal: 20,
     });
-    expect(next.settings.sound).toBe(true);
+    expect(next.settings.sfx).toBe(false);
+    expect(next.settings.quizSound).toBe(true);
     expect(next.settings.haptics).toBe(true);
     expect(next.settings.autoSpeak).toBe(true);
     expect(next.onboarded).toBe(true);
@@ -50,11 +51,12 @@ describe("storage", () => {
     expect(next.resume.study?.queue).toEqual([20001]);
   });
 
-  it("keeps a muted sound setting", () => {
+  it("migrates a muted master sound to both sound toggles off", () => {
     const next = normalizeState({
       settings: { sound: false, haptics: true, autoSpeak: false },
     });
-    expect(next.settings.sound).toBe(false);
+    expect(next.settings.sfx).toBe(false);
+    expect(next.settings.quizSound).toBe(false);
     expect(next.settings.autoSpeak).toBe(false);
   });
 

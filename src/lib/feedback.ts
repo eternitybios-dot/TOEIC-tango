@@ -1,3 +1,4 @@
+import { isNative, nativeHaptic } from "./native";
 import { prefersReducedMotion } from "./motion";
 
 let audioCtx: AudioContext | null = null;
@@ -112,7 +113,14 @@ function thud(ac: AudioContext, freqs: number[], step: number, volume: number) {
 
 export type Sfx = "tap" | "flip" | "good" | "again" | "correct" | "wrong" | "done" | "goal";
 
-export function playSfx(kind: Sfx, enabled: boolean): void {
+export type SoundPrefs = { sfx: boolean; quizSound: boolean };
+
+/** 正解・不正解の判定音として扱う種類（クイズの正解/不正解、カードの覚えた/もう一度）。 */
+const ANSWER_FX = new Set<Sfx>(["correct", "wrong", "good", "again"]);
+
+/** 効果音か正解・不正解の音かで、どちらの設定を使うかを振り分けます。 */
+export function playSfx(kind: Sfx, prefs: SoundPrefs): void {
+  const enabled = ANSWER_FX.has(kind) ? prefs.quizSound : prefs.sfx;
   if (!enabled) return;
   const ac = context();
   if (!ac) return;
@@ -153,6 +161,10 @@ export function playSfx(kind: Sfx, enabled: boolean): void {
 
 export function haptic(pattern: number | number[], enabled: boolean): void {
   if (!enabled || prefersReducedMotion()) return;
+  if (isNative()) {
+    nativeHaptic(pattern);
+    return;
+  }
   if (typeof navigator === "undefined" || !navigator.vibrate) return;
   navigator.vibrate(pattern);
 }

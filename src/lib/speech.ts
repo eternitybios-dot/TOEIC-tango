@@ -1,3 +1,5 @@
+import { isNative, nativeSpeak, nativeStopSpeak } from "./native";
+
 function pickVoice(): SpeechSynthesisVoice | undefined {
   const voices = window.speechSynthesis.getVoices();
   return (
@@ -16,20 +18,32 @@ function makeUtterance(text: string): SpeechSynthesisUtterance {
   return utter;
 }
 
+function uniqueTexts(texts: string[]): string[] {
+  const unique: string[] = [];
+  for (const text of texts.map((item) => item.trim()).filter(Boolean)) {
+    if (!unique.some((item) => item.toLowerCase() === text.toLowerCase())) unique.push(text);
+  }
+  return unique;
+}
+
 export function stopSpeak(): void {
+  if (isNative()) {
+    nativeStopSpeak();
+    return;
+  }
   if (typeof window === "undefined" || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
 }
 
 export function speak(...texts: string[]): void {
+  const unique = uniqueTexts(texts);
+  if (unique.length === 0) return;
+  if (isNative()) {
+    nativeSpeak(unique);
+    return;
+  }
   if (typeof window === "undefined" || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const parts = texts.map((text) => text.trim()).filter(Boolean);
-  const unique: string[] = [];
-  for (const part of parts) {
-    if (!unique.some((item) => item.toLowerCase() === part.toLowerCase())) unique.push(part);
-  }
-  if (unique.length === 0) return;
 
   let index = 0;
   const play = () => {

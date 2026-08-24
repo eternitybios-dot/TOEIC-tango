@@ -126,14 +126,14 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, onResu
   }
 
   function begin(nextMix = mix, nextScope = scope) {
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     restart(dealQuiz(state, poolOf(nextScope, cat), nextMix, Date.now(), size));
   }
 
   function restoreSaved() {
     const session = sessionOf(state.resume, "study");
     if (!canResume(state.resume, "study", state.deck) || !session) return;
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     setScope(session.scope);
     setMix(session.mix);
     setSize(session.size);
@@ -178,14 +178,14 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, onResu
   }, [finished]);
 
   function flip() {
-    playSfx("flip", state.settings.sound);
+    playSfx("flip", state.settings);
     haptic(8, state.settings.haptics);
     setRevealed((open) => !open);
   }
 
   function goPrev() {
     if (seen.length === 0 || finished || busy.current) return;
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     const prev = seen[seen.length - 1];
     setSeen((list) => list.slice(0, -1));
     setQueue((current) => [prev, ...current.filter((item) => item.id !== prev.id)]);
@@ -198,7 +198,7 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, onResu
   async function answer(result: "again" | "good") {
     if (!word || finished || busy.current) return;
     busy.current = true;
-    playSfx(result, state.settings.sound);
+    playSfx(result, state.settings);
     haptic(result === "good" ? [10, 30, 16] : 24, state.settings.haptics);
     setFlight(result);
     await wait(320);
@@ -212,7 +212,7 @@ export function Study({ state, unit, part, mode: _mode = "due", onReview, onResu
     setFinished(next.finished);
     setFlight(null);
     setDrag(0);
-    if (next.finished) playSfx("done", state.settings.sound);
+    if (next.finished) playSfx("done", state.settings);
     busy.current = false;
   }
 

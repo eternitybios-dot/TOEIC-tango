@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { Settings } from "../types";
 import { playSfx } from "../lib/feedback";
 
 const SLIDES = [
@@ -20,16 +21,16 @@ const SLIDES = [
 ];
 
 type Props = {
-  sound: boolean;
+  settings: Settings;
   onDone: () => void;
 };
 
-export function Onboarding({ sound, onDone }: Props) {
+export function Onboarding({ settings, onDone }: Props) {
   const [index, setIndex] = useState(0);
   const slide = SLIDES[index];
 
   function next() {
-    playSfx("tap", sound);
+    playSfx("tap", settings);
     if (index + 1 >= SLIDES.length) {
       onDone();
       return;

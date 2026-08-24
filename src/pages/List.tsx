@@ -104,7 +104,7 @@ export function WordList({ state, unit: initialUnit, go }: Props) {
             className="word-row rise"
             style={{ animationDelay: `${Math.min(i, 12) * 28}ms` }}
             onClick={() => {
-              playSfx("tap", state.settings.sound);
+              playSfx("tap", state.settings);
               setOpenId(word.id);
             }}
           >

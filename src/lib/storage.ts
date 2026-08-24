@@ -1,4 +1,4 @@
-import type { AppState, DeckId, SavedSession, WordProgress } from "../types";
+import type { AppState, DeckId, SavedSession, Settings, WordProgress } from "../types";
 import { emptyProgress } from "./srs";
 
 const KEY = "toeic-tango-v2";
@@ -29,7 +29,7 @@ export function defaultState(): AppState {
     todayCount: 0,
     todayDate: null,
     goal: 20,
-    settings: { sound: true, haptics: true, autoSpeak: true },
+    settings: { sfx: false, quizSound: true, haptics: true, autoSpeak: true },
     onboarded: false,
     lastUnit: null,
     lastUnitByDeck: emptyLastUnits(),
@@ -38,7 +38,11 @@ export function defaultState(): AppState {
   };
 }
 
-export function normalizeState(parsed: Partial<AppState> | null | undefined): AppState {
+type RawSettings = Partial<Settings> & { sound?: boolean };
+
+export function normalizeState(
+  parsed: (Omit<Partial<AppState>, "settings"> & { settings?: RawSettings }) | null | undefined,
+): AppState {
   const base = defaultState();
   if (!parsed || typeof parsed !== "object") return base;
   const legacy = parsed.progress ?? {};
@@ -56,6 +60,15 @@ export function normalizeState(parsed: Partial<AppState> | null | undefined): Ap
   }
   if (lastUnitByDeck.toeic == null && parsed.lastUnit != null) lastUnitByDeck.toeic = parsed.lastUnit;
 
+  const parsedSettings = parsed.settings ?? {};
+  const mutedAll = parsedSettings.sound === false;
+  const settings: Settings = {
+    sfx: parsedSettings.sfx ?? false,
+    quizSound: parsedSettings.quizSound ?? !mutedAll,
+    haptics: parsedSettings.haptics ?? base.settings.haptics,
+    autoSpeak: parsedSettings.autoSpeak ?? base.settings.autoSpeak,
+  };
+
   return {
     ...base,
     ...parsed,
@@ -63,7 +76,7 @@ export function normalizeState(parsed: Partial<AppState> | null | undefined): Ap
     progressByDeck,
     progress: progressByDeck[deck],
     goal: typeof parsed.goal === "number" && parsed.goal > 0 ? parsed.goal : base.goal,
-    settings: { ...base.settings, ...(parsed.settings ?? {}) },
+    settings,
     onboarded: parsed.onboarded ?? Object.keys(progressByDeck.toeic).length > 0,
     lastUnit: lastUnitByDeck[deck],
     lastUnitByDeck,

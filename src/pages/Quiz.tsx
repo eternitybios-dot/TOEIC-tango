@@ -105,14 +105,14 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   }
 
   function begin(nextMix = mix, nextScope = scope) {
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     start(dealQuiz(state, poolOf(nextScope, cat), nextMix, Date.now(), size));
   }
 
   function restoreSaved() {
     const session = sessionOf(state.resume, "quiz");
     if (!canResume(state.resume, "quiz", state.deck) || !session) return;
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     setScope(session.scope);
     setMix(session.mix);
     setSize(session.size);
@@ -160,7 +160,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     if (!word || picked !== null) return;
     setPicked(choice.id);
     const ok = choice.id === word.id;
-    playSfx(ok ? "correct" : "wrong", state.settings.sound);
+    playSfx(ok ? "correct" : "wrong", state.settings);
     haptic(ok ? [8, 20, 12] : [30, 20, 30], state.settings.haptics);
     if (ok) setScore((n) => n + 1);
     else {
@@ -174,7 +174,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   function next() {
     if (busy.current || picked === null) return;
     busy.current = true;
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     advance();
     busy.current = false;
   }
@@ -185,7 +185,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
     setFlight(null);
     if (index + 1 >= queue.length) {
       setFinished(true);
-      playSfx("done", state.settings.sound);
+      playSfx("done", state.settings);
       return;
     }
     setIndex((n) => n + 1);
@@ -195,7 +195,7 @@ export function Quiz({ state, unit, part, onQuiz, onResume, go }: Props) {
   async function swipeNext(direction: "left" | "right") {
     if (picked === null || busy.current) return;
     busy.current = true;
-    playSfx("tap", state.settings.sound);
+    playSfx("tap", state.settings);
     haptic(10, state.settings.haptics);
     setFlight(direction);
     await wait(280);

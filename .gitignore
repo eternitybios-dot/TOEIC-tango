@@ -3,4 +3,17 @@ node_modules
 .DS_Store
 *.local
 .netlify
+*.apk
+*.aab
+*.iml
+*.jks
+*.keystore
+.idea
+android/.gradle
+android/.idea
+android/local.properties
+android/app/build
+android/build
+android/captures
+android/.cxx
 

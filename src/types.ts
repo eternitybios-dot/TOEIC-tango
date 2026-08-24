@@ -38,7 +38,10 @@ export type WordProgress = {
 };
 
 export type Settings = {
-  sound: boolean;
+  /** 効果音（タップ・フリップ・完了などの操作音）。デフォルト OFF。 */
+  sfx: boolean;
+  /** 正解・不正解の音（クイズの正解/不正解、カードの覚えた/もう一度）。 */
+  quizSound: boolean;
   haptics: boolean;
   autoSpeak: boolean;
 };

@@ -190,7 +190,7 @@ export function Home({ state, go, onSettings, onGoal, onDeck }: Props) {
               className="unit-card rise"
               style={{ animationDelay: `${Math.min(i, 8) * 35}ms` }}
               onClick={() => {
-                playSfx("tap", state.settings.sound);
+                playSfx("tap", state.settings);
                 setSheetUnit(unit);
               }}
             >
